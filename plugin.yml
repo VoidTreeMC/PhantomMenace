@@ -1,0 +1,16 @@
+#The �main:� line needs to list the package and class name of the class which is loaded by Spigot when it loads the plugin�s jar file.
+main: condor.main.PhantomMain
+name: PhantomMenace
+version: 0.0.1
+api-version: 1.17
+authors: [Iron-Condor]
+description: PhantomMenace event plugin
+load: POSTWORLD
+prefix: PHNTM
+depend: []
+commands:
+   togglephantoms:
+       description: Toggles phantom spawning
+       usage: /togglephantoms <on/off>
+       permission: condor.commands.executors.togglephantoms
+       permission-message: You do not have permission to change this setting.
