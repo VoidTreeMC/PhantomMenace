@@ -41,6 +41,9 @@ public class PhantomDropTable {
     vanillaDrops.add(constructDrop(new ItemStack(Material.AMETHYST_SHARD), 0.05, 1, 1));
     vanillaDrops.add(constructDrop(new ItemStack(Material.CRYING_OBSIDIAN), 0.01, 1, 1));
 
+    levelTwoDrops.add(constructDrop(new ItemStack(Material.GLOWSTONE_DUST), 0.75, 1, 3));
+    levelTwoDrops.add(constructDrop(new ItemStack(Material.BLAZE_POWDER), 0.75, 1, 3));
+
     // Append to drop map
     dropMap.put(PhantomType.VANILLA, vanillaDrops);
     dropMap.put(PhantomType.EVENT_LEVEL_ONE, levelOneDrops);

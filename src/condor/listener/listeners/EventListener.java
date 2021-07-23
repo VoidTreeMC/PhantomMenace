@@ -27,11 +27,13 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.entity.Projectile;
 import org.bukkit.entity.Phantom;
+import org.bukkit.Statistic;
 
 import condor.listener.PHListener;
 import condor.main.PhantomMain;
 import condor.phantom.PhantomStatus;
 import condor.phantom.PhantomDropHandler;
+import condor.phantom.PhantomType;
 
 /**
  *
@@ -68,7 +70,15 @@ public class EventListener  extends PHListener {
 	 */
 	@EventHandler
 	public void onInteractEntity(PlayerInteractEntityEvent event) {
+
 	}
+
+  @EventHandler
+  public void onBlockBreak(BlockBreakEvent event) {
+    Player player = event.getPlayer();
+    player.sendMessage("" + player.getStatistic(Statistic.TIME_SINCE_REST));
+    player.setStatistic(Statistic.TIME_SINCE_REST, 1000000);
+  }
 
 	/**
 	 * Called when an {@link Entity} takes damage <p?
@@ -79,6 +89,30 @@ public class EventListener  extends PHListener {
 	 */
 	@EventHandler
 	public void onEntityDamageEvent(EntityDamageEvent event) {
+    managePossiblePhantomDeath(event);
+    managePossiblePlayerDamagedByPhantom(event);
+	}
+
+  public void managePossiblePlayerDamagedByPhantom(EntityDamageEvent event) {
+    if (event instanceof EntityDamageByEntityEvent) {
+      EntityDamageByEntityEvent edbee = (EntityDamageByEntityEvent) event;
+      Entity entity = edbee.getEntity();
+      if (entity.getType() == EntityType.PLAYER) {
+        Entity damager = edbee.getDamager();
+        if (damager.getType() == EntityType.PHANTOM) {
+          Phantom phantom = (Phantom) damager;
+          // If it's a flaming phantom
+          PhantomType phantomType = PhantomType.getTypeFromPhantom(phantom);
+          if (phantomType == PhantomType.EVENT_LEVEL_TWO) {
+            final int THREE_SECONDS = 20 * 3;
+            entity.setFireTicks(THREE_SECONDS);
+          }
+        }
+      }
+    }
+  }
+
+  public void managePossiblePhantomDeath(EntityDamageEvent event) {
     if (event instanceof EntityDamageByEntityEvent) {
       EntityDamageByEntityEvent edbee = (EntityDamageByEntityEvent) event;
       Entity entity = edbee.getEntity();
@@ -99,13 +133,10 @@ public class EventListener  extends PHListener {
         }
         boolean isDead = (phantom.getHealth() - edbee.getFinalDamage()) <= 0;
         // If the phantom is dead and the killer is a player
-        System.out.println("Is dead: " + isDead);
-        System.out.println("Is player: " + isPlayer);
         if (isDead && isPlayer) {
           PhantomDropHandler.classifyAndAwardXP(edbee, player);
-          System.out.println("Called classify and award XP method.");
         }
       }
     }
-	}
+  }
 }

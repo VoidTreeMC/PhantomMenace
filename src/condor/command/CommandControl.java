@@ -9,6 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import condor.command.executors.PhantomToggleCommand;
+import condor.command.executors.SummonPhantomCommand;
 
 /**
  * Extends CommandExecutor to create new commands for RaceWars <br>
@@ -46,6 +47,7 @@ public abstract class CommandControl implements CommandExecutor {
 
 	public static void initExecutors() {
 		new PhantomToggleCommand("togglephantoms");
+    new SummonPhantomCommand("summonphantom");
 	}
 
 	/**

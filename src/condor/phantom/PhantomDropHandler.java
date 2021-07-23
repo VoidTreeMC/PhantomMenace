@@ -7,6 +7,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Phantom;
 
 /**
  * Class used to control Phantom drops.
@@ -37,27 +38,47 @@ public class PhantomDropHandler {
   }
 
   /**
+   * Handles the drops for a level two phantom death.
+   * A level two phantom is a flaming phantom that has
+   * strength, does not take fire damage, and drops glowstone
+   * and additional XP
+   * @param event The EntityDeathEvent that pertains to the phantom's death
+   */
+  public static void handleEventLevelTwo(EntityDeathEvent event) {
+    // Random number for determining what to drop
+    double randomNum = rng.nextDouble();
+    // The items to drop
+    ArrayList<ItemStack> newDrops = PhantomDropTable.getDrops(PhantomType.EVENT_LEVEL_TWO, randomNum);
+
+    // Set the drop list to our desired drops
+    event.getDrops().clear();
+    event.getDrops().addAll(newDrops);
+
+    // Set XP to 0
+    event.setDroppedExp(0);
+  }
+
+  /**
    * Classifies the phantom death event based on the
    * type of phantom that was killed, and calls the
    * appropriate method.
    * @param event The EntityDeathEvent that pertains to the phantom's death
    */
   public static void classifyAndDividePDE(EntityDeathEvent event) {
-    // If the phantom was a vanila phantom
-    // TODO: Add phantom type detection via metadata here.
-    // Won't become relevant until events are coded.
-    PhantomType type = PhantomType.VANILLA;
+    Phantom phantom = (Phantom) event.getEntity();
+    PhantomType type = PhantomType.getTypeFromPhantom(phantom);
+    int xpAmt = PhantomDropTable.getXP(type);
 
     switch (type) {
       case VANILLA:
         handleVanillaPhantom(event);
         break;
+      case EVENT_LEVEL_TWO:
+        handleEventLevelTwo(event);
+        break;
       // Subsequent levels are presently disabled until such time that they exist
       // case EVENT_LEVEL_ONE:
       //   handleEventLevelOne(event);
-      //   break;
-      // case EVENT_LEVEL_TWO:
-      //   handleEventLevelTwo(event);
       //   break;
       // case EVENT_LEVEL_THREE:
       //   handleEventLevelThree(event);
@@ -72,32 +93,10 @@ public class PhantomDropHandler {
   }
 
   public static void classifyAndAwardXP(EntityDamageByEntityEvent event, Player player) {
-    // If the phantom was a vanila phantom
-    // TODO: Add phantom type detection via metadata here.
-    // Won't become relevant until events are coded.
-    PhantomType type = PhantomType.VANILLA;
+    Phantom phantom = (Phantom) event.getEntity();
+    PhantomType type = PhantomType.getTypeFromPhantom(phantom);
     int xpAmt = PhantomDropTable.getXP(type);
 
-    switch (type) {
-      case VANILLA:
-        player.giveExp(xpAmt);
-        break;
-      // Subsequent levels are presently disabled until such time that they exist
-      // case EVENT_LEVEL_ONE:
-      //   handleEventLevelOne(event);
-      //   break;
-      // case EVENT_LEVEL_TWO:
-      //   handleEventLevelTwo(event);
-      //   break;
-      // case EVENT_LEVEL_THREE:
-      //   handleEventLevelThree(event);
-      //   break;
-      // case EVENT_LEVEL_FOUR:
-      //   handleEventLevelFour(event);
-      //   break;
-      // case EVENT_LEVEL_FIVE:
-      //   handleEventLevelFive(event);
-      //   break;
-    }
+    player.giveExp(xpAmt);
   }
 }
