@@ -28,6 +28,7 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.entity.Projectile;
 import org.bukkit.entity.Phantom;
 import org.bukkit.Statistic;
+import org.bukkit.entity.SpectralArrow;
 
 import condor.listener.PHListener;
 import condor.main.PhantomMain;
@@ -73,12 +74,12 @@ public class EventListener  extends PHListener {
 
 	}
 
-  @EventHandler
-  public void onBlockBreak(BlockBreakEvent event) {
-    Player player = event.getPlayer();
-    player.sendMessage("" + player.getStatistic(Statistic.TIME_SINCE_REST));
-    player.setStatistic(Statistic.TIME_SINCE_REST, 1000000);
-  }
+  // @EventHandler
+  // public void onBlockBreak(BlockBreakEvent event) {
+  //   Player player = event.getPlayer();
+  //   player.sendMessage("" + player.getStatistic(Statistic.TIME_SINCE_REST));
+  //   player.setStatistic(Statistic.TIME_SINCE_REST, 1000000);
+  // }
 
 	/**
 	 * Called when an {@link Entity} takes damage <p?
@@ -121,16 +122,26 @@ public class EventListener  extends PHListener {
         Entity damager = edbee.getDamager();
         boolean isPlayer = false;
         Player player = null;
+
+        boolean isSpectralArrow = false;
+
         if (damager instanceof Player) {
           isPlayer = true;
           player = (Player) damager;
         } else if (damager instanceof Projectile) {
+          isSpectralArrow = (damager instanceof SpectralArrow);
           Projectile proj = (Projectile) damager;
           if (proj.getShooter() instanceof Player) {
             player = (Player) proj.getShooter();
             isPlayer = true;
           }
         }
+
+        // If it's an invisible phantom being shot by a spectral arrow, increase the damage.
+        if (PhantomType.getTypeFromPhantom(phantom) == PhantomType.INVISIBLE_PHANTOM && isSpectralArrow) {
+          edbee.setDamage(edbee.getDamage() * 1.5);
+        }
+
         boolean isDead = (phantom.getHealth() - edbee.getFinalDamage()) <= 0;
         // If the phantom is dead and the killer is a player
         if (isDead && isPlayer) {

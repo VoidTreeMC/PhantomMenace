@@ -58,6 +58,24 @@ public class PhantomDropHandler {
     event.setDroppedExp(0);
   }
 
+  public static void handleExtraXPPhantom(EntityDeathEvent event) {
+    handleVanillaPhantom(event);
+  }
+
+  public static void handleInvisiblePhantom(EntityDeathEvent event) {
+    // Random number for determining what to drop
+    double randomNum = rng.nextDouble();
+    // The items to drop
+    ArrayList<ItemStack> newDrops = PhantomDropTable.getDrops(PhantomType.INVISIBLE_PHANTOM, randomNum);
+
+    // Set the drop list to our desired drops
+    event.getDrops().clear();
+    event.getDrops().addAll(newDrops);
+
+    // Set XP to 0
+    event.setDroppedExp(0);
+  }
+
   /**
    * Handles the drops for a mounted phantom death.
    * A mounted phantom is a phantom that is being ridden by
@@ -93,19 +111,19 @@ public class PhantomDropHandler {
       case VANILLA:
         handleVanillaPhantom(event);
         break;
+      case EXTRA_XP_PHANTOM:
+        handleExtraXPPhantom(event);
+        break;
       case FLAMING_PHANTOM:
         handleFlamingPhantom(event);
         break;
       case MOUNTED_PHANTOM:
         handleMountedPhantom(event);
         break;
+      case INVISIBLE_PHANTOM:
+        handleInvisiblePhantom(event);
+        break;
       // Subsequent levels are presently disabled until such time that they exist
-      // case EXTRA_XP_PHANTOM:
-      //   handleEventextraXPPhantom(event);
-      //   break;
-      // case INVISIBLE_PHANTOM:
-      //   handleEventinvisiblePhantom(event);
-      //   break;
       // case ENDER_PHANTOM:
       //   handleEventenderPhantom(event);
       //   break;

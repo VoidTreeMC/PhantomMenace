@@ -1,10 +1,8 @@
 Phantoms don't attack players unless they haven't slept for awhile. You can change how long it's been since a player slept by modifying their Statistic, TIME_SINCE_REST.
 
 When players enter the arena, they should have their statistic set to something like 100k. When they leave the arena, it should be set back to whatever it was before.
+Or, make it so they drink a potion to be part of it.
 
 Phantoms don't light players on fire when they hit them.
-
-
-Or, make it so they drink a potion to be part of it.
 
 Turn off weather in the arena

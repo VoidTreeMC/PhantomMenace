@@ -41,6 +41,11 @@ public class PhantomDropTable {
     vanillaDrops.add(constructDrop(new ItemStack(Material.AMETHYST_SHARD), 0.05, 1, 1));
     vanillaDrops.add(constructDrop(new ItemStack(Material.CRYING_OBSIDIAN), 0.01, 1, 1));
 
+    extraXPPhantomDrops.add(constructDrop(new ItemStack(Material.PHANTOM_MEMBRANE), 0.75, 1, 3));
+    extraXPPhantomDrops.add(constructDrop(new ItemStack(Material.QUARTZ), 0.25, 1, 2));
+    extraXPPhantomDrops.add(constructDrop(new ItemStack(Material.AMETHYST_SHARD), 0.05, 1, 1));
+    extraXPPhantomDrops.add(constructDrop(new ItemStack(Material.CRYING_OBSIDIAN), 0.01, 1, 1));
+
     flamingPhantomDrops.add(constructDrop(new ItemStack(Material.GLOWSTONE_DUST), 0.75, 1, 3));
     flamingPhantomDrops.add(constructDrop(new ItemStack(Material.BLAZE_POWDER), 0.75, 1, 3));
 
@@ -49,6 +54,8 @@ public class PhantomDropTable {
     mountedPhantomDrops.add(constructDrop(new ItemStack(Material.AMETHYST_SHARD), 0.05, 1, 1));
     mountedPhantomDrops.add(constructDrop(new ItemStack(Material.CRYING_OBSIDIAN), 0.01, 1, 1));
     mountedPhantomDrops.add(constructDrop(new ItemStack(Material.SKELETON_SPAWN_EGG), 0.01, 1, 1));
+
+    invisiblePhantomDrops.add(constructDrop(new ItemStack(Material.GOLDEN_CARROT), 0.75, 1, 1));
 
     // Append to drop map
     dropMap.put(PhantomType.VANILLA, vanillaDrops);

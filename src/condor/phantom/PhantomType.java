@@ -54,7 +54,6 @@ public enum PhantomType {
     List<MetadataValue> metadata = phantom.getMetadata(PHANTOM_TYPE_METADATA_KEY);
     String typeStr = metadata.get(0).asString();
     PhantomType type = fromString(typeStr);
-    System.out.println("Type: " + type);
     return type;
   }
 }
