@@ -8,11 +8,11 @@ import org.bukkit.metadata.MetadataValue;
 
 public enum PhantomType {
   VANILLA,
-  EVENT_LEVEL_ONE,
-  EVENT_LEVEL_TWO,
-  EVENT_LEVEL_THREE,
-  EVENT_LEVEL_FOUR,
-  EVENT_LEVEL_FIVE;
+  EXTRA_XP_PHANTOM,
+  FLAMING_PHANTOM,
+  INVISIBLE_PHANTOM,
+  MOUNTED_PHANTOM,
+  ENDER_PHANTOM;
 
   private static TreeMap<String, PhantomType> PHANTOM_TYPES;
 

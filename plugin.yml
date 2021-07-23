@@ -14,3 +14,8 @@ commands:
        usage: /togglephantoms <on/off>
        permission: condor.commands.executors.togglephantoms
        permission-message: You do not have permission to change this setting.
+   summonphantom:
+      description: Summons a phantom at the player's location
+      usage: /summonphantom <type>
+      permission: condor.commands.executors.summonphantom
+      permission-message: You do not have permission to use this command.

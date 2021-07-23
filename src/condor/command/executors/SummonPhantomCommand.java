@@ -34,12 +34,17 @@ public class SummonPhantomCommand extends CommandControl {
       String typeStr = args[0].toLowerCase();
       switch (typeStr) {
         case "flaming":
-        case "level_two":
-          type = PhantomType.EVENT_LEVEL_TWO;
+          type = PhantomType.FLAMING_PHANTOM;
           sender.sendMessage(SUMMON_MSG);
           break;
         case "vanilla":
           type = PhantomType.VANILLA;
+          sender.sendMessage(SUMMON_MSG);
+          break;
+        case "skeletonphantom":
+        case "mounted":
+        case "mountedphantom":
+          type = PhantomType.MOUNTED_PHANTOM;
           sender.sendMessage(SUMMON_MSG);
           break;
         default:

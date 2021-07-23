@@ -83,7 +83,7 @@ public class EventListener  extends PHListener {
 	/**
 	 * Called when an {@link Entity} takes damage <p?
 	 *
-	 * WARNING: UNDER NO CIRCUMSTANCES DO YOU ADD ANY LISTENERS FOR CHILD EVENTS OF
+	 * WARNING: DO NOT ADD ANY LISTENERS FOR CHILD EVENTS OF
 	 * EntityDamageEvent
 	 * @param event {@link EntityDamageEvent}
 	 */
@@ -103,7 +103,7 @@ public class EventListener  extends PHListener {
           Phantom phantom = (Phantom) damager;
           // If it's a flaming phantom
           PhantomType phantomType = PhantomType.getTypeFromPhantom(phantom);
-          if (phantomType == PhantomType.EVENT_LEVEL_TWO) {
+          if (phantomType == PhantomType.FLAMING_PHANTOM) {
             final int THREE_SECONDS = 20 * 3;
             entity.setFireTicks(THREE_SECONDS);
           }

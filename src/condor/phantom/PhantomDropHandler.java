@@ -38,17 +38,37 @@ public class PhantomDropHandler {
   }
 
   /**
-   * Handles the drops for a level two phantom death.
-   * A level two phantom is a flaming phantom that has
+   * Handles the drops for a flaming phantom death.
+   * A flaming phantom is a flaming phantom that has
    * strength, does not take fire damage, and drops glowstone
    * and additional XP
    * @param event The EntityDeathEvent that pertains to the phantom's death
    */
-  public static void handleEventLevelTwo(EntityDeathEvent event) {
+  public static void handleFlamingPhantom(EntityDeathEvent event) {
     // Random number for determining what to drop
     double randomNum = rng.nextDouble();
     // The items to drop
-    ArrayList<ItemStack> newDrops = PhantomDropTable.getDrops(PhantomType.EVENT_LEVEL_TWO, randomNum);
+    ArrayList<ItemStack> newDrops = PhantomDropTable.getDrops(PhantomType.FLAMING_PHANTOM, randomNum);
+
+    // Set the drop list to our desired drops
+    event.getDrops().clear();
+    event.getDrops().addAll(newDrops);
+
+    // Set XP to 0
+    event.setDroppedExp(0);
+  }
+
+  /**
+   * Handles the drops for a mounted phantom death.
+   * A mounted phantom is a phantom that is being ridden by
+   * a skeleton, and has speed.
+   * @param event The EntityDeathEvent that pertains to the phantom's death
+   */
+  public static void handleMountedPhantom(EntityDeathEvent event) {
+    // Random number for determining what to drop
+    double randomNum = rng.nextDouble();
+    // The items to drop
+    ArrayList<ItemStack> newDrops = PhantomDropTable.getDrops(PhantomType.MOUNTED_PHANTOM, randomNum);
 
     // Set the drop list to our desired drops
     event.getDrops().clear();
@@ -73,21 +93,21 @@ public class PhantomDropHandler {
       case VANILLA:
         handleVanillaPhantom(event);
         break;
-      case EVENT_LEVEL_TWO:
-        handleEventLevelTwo(event);
+      case FLAMING_PHANTOM:
+        handleFlamingPhantom(event);
+        break;
+      case MOUNTED_PHANTOM:
+        handleMountedPhantom(event);
         break;
       // Subsequent levels are presently disabled until such time that they exist
-      // case EVENT_LEVEL_ONE:
-      //   handleEventLevelOne(event);
+      // case EXTRA_XP_PHANTOM:
+      //   handleEventextraXPPhantom(event);
       //   break;
-      // case EVENT_LEVEL_THREE:
-      //   handleEventLevelThree(event);
+      // case INVISIBLE_PHANTOM:
+      //   handleEventinvisiblePhantom(event);
       //   break;
-      // case EVENT_LEVEL_FOUR:
-      //   handleEventLevelFour(event);
-      //   break;
-      // case EVENT_LEVEL_FIVE:
-      //   handleEventLevelFive(event);
+      // case ENDER_PHANTOM:
+      //   handleEventenderPhantom(event);
       //   break;
     }
   }
