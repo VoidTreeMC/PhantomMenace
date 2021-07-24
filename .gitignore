@@ -23,3 +23,5 @@ externalToolBuilders
 build.xml
 .project
 uploadToTestServer.sh
+mysql-connector-java-8.0.20
+mysql-connector-java-8.0.20/*

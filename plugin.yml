@@ -19,3 +19,8 @@ commands:
       usage: /summonphantom <type>
       permission: condor.commands.executors.summonphantom
       permission-message: You do not have permission to use this command.
+   getinsomniapotion:
+     description: Gives the player an insomnia potion
+     usage: /getinsomniapotion
+     permision: condor.commands.executors.getinsomniapotion
+     permission-message: You do not have permission to use ths command.

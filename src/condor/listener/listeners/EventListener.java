@@ -29,6 +29,7 @@ import org.bukkit.entity.Projectile;
 import org.bukkit.entity.Phantom;
 import org.bukkit.Statistic;
 import org.bukkit.entity.SpectralArrow;
+import org.bukkit.inventory.ItemStack;
 
 import condor.listener.PHListener;
 import condor.main.PhantomMain;
@@ -36,6 +37,7 @@ import condor.phantom.PhantomStatus;
 import condor.phantom.PhantomDropHandler;
 import condor.phantom.PhantomType;
 import condor.runnable.DoPhantomBlinkRunnable;
+import condor.item.CustomItemType;
 
 /**
  *
@@ -53,6 +55,18 @@ public class EventListener  extends PHListener {
     }
   }
 
+  @EventHandler
+  public void onItemConsume(PlayerItemConsumeEvent event) {
+    ItemStack item = event.getItem();
+    CustomItemType type = CustomItemType.getTypeFromCustomItem(item);
+    // If the player has drank an insomnia potion
+    if (type == CustomItemType.INSOMNIA_POTION) {
+      // Give them insomnia
+      Player player = event.getPlayer();
+      player.sendMessage("Your eyelids feel heavy. It feels as though you haven't slept in a very long time.");
+      player.setStatistic(Statistic.TIME_SINCE_REST, 1000000);
+    }
+  }
 
   @EventHandler
   public void onPhantomSpawn(EntitySpawnEvent event) {
