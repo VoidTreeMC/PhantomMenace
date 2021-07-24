@@ -18,75 +18,18 @@ public class PhantomDropHandler {
   private static Random rng = new Random();
 
   /**
-   * Handles the drops for a vanilla phantom death.
-   * A vanilla phantom is a normal phantom that does not have
-   * any modifications, and was spawned outside of an event.
-   * @param event The EntityDeathEvent that pertains to the phantom's death
+   * Handles drops for a generic phantom.
+   * A generic phantom is defined as a phantom that doesn't have any
+   * special death or drop behavior that is defined outside of its
+   * drop table.
+   * @param event  The phantom's death event
+   * @param type   The type of phantom that has died
    */
-  public static void handleVanillaPhantom(EntityDeathEvent event) {
+  public static void handleGenericPhantomDrops(EntityDeathEvent event, PhantomType type) {
     // Random number for determining what to drop
     double randomNum = rng.nextDouble();
     // The items to drop
-    ArrayList<ItemStack> newDrops = PhantomDropTable.getDrops(PhantomType.VANILLA, randomNum);
-
-    // Set the drop list to our desired drops
-    event.getDrops().clear();
-    event.getDrops().addAll(newDrops);
-
-    // Set XP to 0
-    event.setDroppedExp(0);
-  }
-
-  /**
-   * Handles the drops for a flaming phantom death.
-   * A flaming phantom is a flaming phantom that has
-   * strength, does not take fire damage, and drops glowstone
-   * and additional XP
-   * @param event The EntityDeathEvent that pertains to the phantom's death
-   */
-  public static void handleFlamingPhantom(EntityDeathEvent event) {
-    // Random number for determining what to drop
-    double randomNum = rng.nextDouble();
-    // The items to drop
-    ArrayList<ItemStack> newDrops = PhantomDropTable.getDrops(PhantomType.FLAMING_PHANTOM, randomNum);
-
-    // Set the drop list to our desired drops
-    event.getDrops().clear();
-    event.getDrops().addAll(newDrops);
-
-    // Set XP to 0
-    event.setDroppedExp(0);
-  }
-
-  public static void handleExtraXPPhantom(EntityDeathEvent event) {
-    handleVanillaPhantom(event);
-  }
-
-  public static void handleInvisiblePhantom(EntityDeathEvent event) {
-    // Random number for determining what to drop
-    double randomNum = rng.nextDouble();
-    // The items to drop
-    ArrayList<ItemStack> newDrops = PhantomDropTable.getDrops(PhantomType.INVISIBLE_PHANTOM, randomNum);
-
-    // Set the drop list to our desired drops
-    event.getDrops().clear();
-    event.getDrops().addAll(newDrops);
-
-    // Set XP to 0
-    event.setDroppedExp(0);
-  }
-
-  /**
-   * Handles the drops for a mounted phantom death.
-   * A mounted phantom is a phantom that is being ridden by
-   * a skeleton, and has speed.
-   * @param event The EntityDeathEvent that pertains to the phantom's death
-   */
-  public static void handleMountedPhantom(EntityDeathEvent event) {
-    // Random number for determining what to drop
-    double randomNum = rng.nextDouble();
-    // The items to drop
-    ArrayList<ItemStack> newDrops = PhantomDropTable.getDrops(PhantomType.MOUNTED_PHANTOM, randomNum);
+    ArrayList<ItemStack> newDrops = PhantomDropTable.getDrops(type, randomNum);
 
     // Set the drop list to our desired drops
     event.getDrops().clear();
@@ -109,27 +52,32 @@ public class PhantomDropHandler {
 
     switch (type) {
       case VANILLA:
-        handleVanillaPhantom(event);
+        handleGenericPhantomDrops(event, PhantomType.VANILLA);
         break;
       case EXTRA_XP_PHANTOM:
-        handleExtraXPPhantom(event);
+        handleGenericPhantomDrops(event, PhantomType.EXTRA_XP_PHANTOM);
         break;
       case FLAMING_PHANTOM:
-        handleFlamingPhantom(event);
+        handleGenericPhantomDrops(event, PhantomType.FLAMING_PHANTOM);
         break;
       case MOUNTED_PHANTOM:
-        handleMountedPhantom(event);
+        handleGenericPhantomDrops(event, PhantomType.MOUNTED_PHANTOM);
         break;
       case INVISIBLE_PHANTOM:
-        handleInvisiblePhantom(event);
+        handleGenericPhantomDrops(event, PhantomType.INVISIBLE_PHANTOM);
+        break;
+      case ENDER_PHANTOM:
+        handleGenericPhantomDrops(event, PhantomType.ENDER_PHANTOM);
         break;
       // Subsequent levels are presently disabled until such time that they exist
-      // case ENDER_PHANTOM:
-      //   handleEventenderPhantom(event);
-      //   break;
     }
   }
 
+  /**
+   * Determines the type of phantom and assigns XP based on the phantom type
+   * @param event   The entity damaged by entity event
+   * @param player  The player that slayed the phantom, to whom XP is awarded
+   */
   public static void classifyAndAwardXP(EntityDamageByEntityEvent event, Player player) {
     Phantom phantom = (Phantom) event.getEntity();
     PhantomType type = PhantomType.getTypeFromPhantom(phantom);

@@ -26,8 +26,7 @@ public class TogglePhantomInvisibilityRunnable extends BukkitRunnable {
 
 	/**
 	* Builds the BukkitRunnable
-	* @param range The range to check for entities within
-	* @param player The player to check for entities around
+	* @param phantom The phantom
 	*/
 	public TogglePhantomInvisibilityRunnable(Phantom phantom) {
 		this.plugin = PhantomMain.getPlugin();

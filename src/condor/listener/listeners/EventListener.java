@@ -35,6 +35,7 @@ import condor.main.PhantomMain;
 import condor.phantom.PhantomStatus;
 import condor.phantom.PhantomDropHandler;
 import condor.phantom.PhantomType;
+import condor.runnable.DoPhantomBlinkRunnable;
 
 /**
  *
@@ -90,7 +91,7 @@ public class EventListener  extends PHListener {
 	 */
 	@EventHandler
 	public void onEntityDamageEvent(EntityDamageEvent event) {
-    managePossiblePhantomDeath(event);
+    managePhantomDamaged(event);
     managePossiblePlayerDamagedByPhantom(event);
 	}
 
@@ -113,7 +114,7 @@ public class EventListener  extends PHListener {
     }
   }
 
-  public void managePossiblePhantomDeath(EntityDamageEvent event) {
+  public void managePhantomDamaged(EntityDamageEvent event) {
     if (event instanceof EntityDamageByEntityEvent) {
       EntityDamageByEntityEvent edbee = (EntityDamageByEntityEvent) event;
       Entity entity = edbee.getEntity();
@@ -140,6 +141,12 @@ public class EventListener  extends PHListener {
         // If it's an invisible phantom being shot by a spectral arrow, increase the damage.
         if (PhantomType.getTypeFromPhantom(phantom) == PhantomType.INVISIBLE_PHANTOM && isSpectralArrow) {
           edbee.setDamage(edbee.getDamage() * 1.5);
+        }
+
+        // If it's an ender phantom that is being damaged, make it blink
+        if (PhantomType.getTypeFromPhantom(phantom) == PhantomType.ENDER_PHANTOM) {
+          // Make the phantom blink
+          (new DoPhantomBlinkRunnable(phantom)).runTask(PhantomMain.getPlugin());
         }
 
         boolean isDead = (phantom.getHealth() - edbee.getFinalDamage()) <= 0;

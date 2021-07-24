@@ -57,6 +57,11 @@ public class PhantomDropTable {
 
     invisiblePhantomDrops.add(constructDrop(new ItemStack(Material.GOLDEN_CARROT), 0.75, 1, 1));
 
+    enderPhantomDrops.add(constructDrop(new ItemStack(Material.ENDER_PEARL), 0.75, 1, 2));
+    enderPhantomDrops.add(constructDrop(new ItemStack(Material.ENDER_EYE), 0.75, 1, 2));
+    enderPhantomDrops.add(constructDrop(new ItemStack(Material.END_ROD), 0.10, 1, 1));
+    enderPhantomDrops.add(constructDrop(new ItemStack(Material.END_CRYSTAL), 0.05, 1, 1));
+
     // Append to drop map
     dropMap.put(PhantomType.VANILLA, vanillaDrops);
     dropMap.put(PhantomType.EXTRA_XP_PHANTOM, extraXPPhantomDrops);

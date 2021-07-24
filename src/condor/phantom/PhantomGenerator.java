@@ -34,6 +34,9 @@ public class PhantomGenerator {
       case INVISIBLE_PHANTOM:
         summonInvisiblePhantom(loc);
         break;
+      case ENDER_PHANTOM:
+        summonEnderPhantom(loc);
+        break;
     }
   }
 
@@ -87,5 +90,10 @@ public class PhantomGenerator {
     phantom.setMetadata(PhantomType.PHANTOM_TYPE_METADATA_KEY, new FixedMetadataValue(PhantomMain.getPlugin(), PhantomType.INVISIBLE_PHANTOM.toString()));
     TogglePhantomInvisibilityRunnable invisRunnable = new TogglePhantomInvisibilityRunnable(phantom);
 		invisRunnable.runTask(PhantomMain.getPlugin());
+  }
+
+  public static void summonEnderPhantom(Location loc) {
+    Phantom phantom = (Phantom) loc.getWorld().spawnEntity(loc, EntityType.PHANTOM);
+    phantom.setMetadata(PhantomType.PHANTOM_TYPE_METADATA_KEY, new FixedMetadataValue(PhantomMain.getPlugin(), PhantomType.ENDER_PHANTOM.toString()));
   }
 }

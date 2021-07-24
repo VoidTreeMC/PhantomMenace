@@ -57,6 +57,13 @@ public class SummonPhantomCommand extends CommandControl {
           type = PhantomType.INVISIBLE_PHANTOM;
           sender.sendMessage(SUMMON_MSG);
           break;
+        case "ender":
+        case "enderphantom":
+        case "ender_phantom":
+        case "ender-phantom":
+          type = PhantomType.ENDER_PHANTOM;
+          sender.sendMessage(SUMMON_MSG);
+          break;
         default:
           sender.sendMessage(UNKNOWN_TYPE_MSG);
           break;
