@@ -11,6 +11,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import condor.command.executors.PhantomToggleCommand;
 import condor.command.executors.SummonPhantomCommand;
 import condor.command.executors.GetInsomniaPotionCommand;
+import condor.command.executors.MakeShopNPCCommand;
 
 /**
  * Extends CommandExecutor to create new commands for RaceWars <br>
@@ -50,6 +51,7 @@ public abstract class CommandControl implements CommandExecutor {
 		new PhantomToggleCommand("togglephantoms");
     new SummonPhantomCommand("summonphantom");
     new GetInsomniaPotionCommand("getinsomniapotion");
+    new MakeShopNPCCommand("makeshopnpc");
 	}
 
 	/**

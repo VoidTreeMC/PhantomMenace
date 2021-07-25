@@ -24,3 +24,8 @@ commands:
      usage: /getinsomniapotion
      permision: condor.commands.executors.getinsomniapotion
      permission-message: You do not have permission to use ths command.
+   makeshopnpc:
+     description: Makes a PhantomMenace shop NPC
+     usage: /makeshopnpc
+     permission: condor.commands.executors.makeshopnpc
+     permission-message: You do not have permission to use this command.
