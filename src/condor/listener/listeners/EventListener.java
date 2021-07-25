@@ -14,7 +14,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerKickEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
@@ -38,6 +37,11 @@ import condor.phantom.PhantomDropHandler;
 import condor.phantom.PhantomType;
 import condor.runnable.DoPhantomBlinkRunnable;
 import condor.item.CustomItemType;
+import condor.gui.PhantomShopGUI;
+import condor.runnable.MakeShopNPCRunnable;
+
+import dev.sergiferry.playernpc.api.NPC;
+import dev.sergiferry.playernpc.api.events.NPCInteractEvent;
 
 /**
  *
@@ -46,6 +50,11 @@ import condor.item.CustomItemType;
  * @author iron-condor
  */
 public class EventListener  extends PHListener {
+
+  @EventHandler
+  public void onPlayerJoin(PlayerJoinEvent event) {
+    (new MakeShopNPCRunnable(event.getPlayer())).runTask(PhantomMain.getPlugin());
+  }
 
   @EventHandler
   public void onPhantomDeath(EntityDeathEvent event) {
@@ -74,6 +83,21 @@ public class EventListener  extends PHListener {
     // If phantoms are disabled
     if (spawnedEntity.getType() == EntityType.PHANTOM && !PhantomStatus.isEnabled()) {
       event.setCancelled(true);
+    }
+  }
+
+  @EventHandler
+  public void onNPCInteract(NPCInteractEvent event) {
+    Player player = event.getPlayer();
+    NPC npc = event.getNpc();
+    NPCInteractEvent.ClickType clickType = event.getClickType();
+    switch (clickType) {
+      case LEFT_CLICK:
+        player.sendMessage("Hey! Ow! That hurts!");
+        break;
+      case RIGHT_CLICK:
+        PhantomShopGUI.displayShopGUI(player);
+        break;
     }
   }
 
