@@ -33,6 +33,7 @@ import org.bukkit.entity.SpectralArrow;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.SoundCategory;
 import org.bukkit.Sound;
+import org.bukkit.event.player.PlayerShearEntityEvent;
 
 import condor.listener.PHListener;
 import condor.main.PhantomMain;
@@ -63,6 +64,11 @@ import com.comphenix.protocol.wrappers.EnumWrappers;
 public class EventListener  extends PHListener {
 
   private static final Random rng = new Random();
+
+  @EventHandler
+  public void onPlayerShearEntityEvent(PlayerShearEntityEvent event) {
+    CustomItemEventManager.parseEvent(event);
+  }
 
   @EventHandler
   public void onPlayerInteractEvent(PlayerInteractEvent event) {

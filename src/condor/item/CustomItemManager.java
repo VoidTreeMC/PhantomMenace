@@ -16,6 +16,7 @@ public class CustomItemManager {
     itemMap.put(CustomItemType.FANCY_PANTS, new FancyPants());
     itemMap.put(CustomItemType.DEFENDER_TOKEN, new DefenderToken());
     itemMap.put(CustomItemType.ENDER_BLADE, new EnderBlade());
+    itemMap.put(CustomItemType.PRIDE_SHEARS, new PrideShears());
   }
 
   public static TreeMap<CustomItemType, CustomItem> getMap() {

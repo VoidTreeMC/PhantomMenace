@@ -11,7 +11,8 @@ public enum CustomItemType {
   INSOMNIA_POTION,
   FANCY_PANTS,
   DEFENDER_TOKEN,
-  ENDER_BLADE;
+  ENDER_BLADE,
+  PRIDE_SHEARS;
 
   private static TreeMap<String, CustomItemType> CUSTOM_ITEM_TYPES;
 
@@ -61,6 +62,8 @@ public enum CustomItemType {
         return DEFENDER_TOKEN;
       case "Ender Blade":
         return ENDER_BLADE;
+      case "Pride Shears":
+        return PRIDE_SHEARS;
       default:
         return null;
     }
