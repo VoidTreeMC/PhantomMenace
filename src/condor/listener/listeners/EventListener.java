@@ -1,5 +1,7 @@
 package condor.listener.listeners;
 
+import java.util.Random;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -29,6 +31,8 @@ import org.bukkit.entity.Phantom;
 import org.bukkit.Statistic;
 import org.bukkit.entity.SpectralArrow;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.SoundCategory;
+import org.bukkit.Sound;
 
 import condor.listener.PHListener;
 import condor.main.PhantomMain;
@@ -39,6 +43,7 @@ import condor.runnable.DoPhantomBlinkRunnable;
 import condor.item.CustomItemType;
 import condor.gui.PhantomShopGUI;
 import condor.item.CustomItemGenerator;
+import condor.item.CustomItemEventManager;
 
 import com.github.juliarn.npc.NPC;
 import com.github.juliarn.npc.event.PlayerNPCEvent;
@@ -56,6 +61,8 @@ import com.comphenix.protocol.wrappers.EnumWrappers;
  * @author iron-condor
  */
 public class EventListener  extends PHListener {
+
+  private static final Random rng = new Random();
 
   @EventHandler
   public void onPhantomDeath(EntityDeathEvent event) {
@@ -164,6 +171,7 @@ public class EventListener  extends PHListener {
 	public void onEntityDamageEvent(EntityDamageEvent event) {
     managePhantomDamaged(event);
     managePossiblePlayerDamagedByPhantom(event);
+    CustomItemEventManager.parseEvent(event);
 	}
 
   public void managePossiblePlayerDamagedByPhantom(EntityDamageEvent event) {

@@ -8,7 +8,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 public enum CustomItemType {
-  INSOMNIA_POTION;
+  INSOMNIA_POTION,
+  FANCY_PANTS;
 
   private static TreeMap<String, CustomItemType> CUSTOM_ITEM_TYPES;
 
@@ -52,6 +53,8 @@ public enum CustomItemType {
     switch (firstLineOfLore) {
       case "Insomnia Potion":
         return INSOMNIA_POTION;
+      case "Fancy Pants":
+        return FANCY_PANTS;
       default:
         return null;
     }
