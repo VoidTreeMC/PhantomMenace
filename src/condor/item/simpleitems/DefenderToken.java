@@ -47,4 +47,9 @@ public class DefenderToken extends CustomItem {
   public void execute(Event event) {
 
   }
+
+  public static boolean isDefenderToken(ItemStack item) {
+    return (item != null) && (item.getType() == Material.SUNFLOWER) &&
+     (CustomItemType.getTypeFromCustomItem(item) == CustomItemType.DEFENDER_TOKEN);
+  }
 }

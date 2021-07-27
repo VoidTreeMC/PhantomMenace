@@ -31,6 +31,8 @@ public class FancyPants extends CustomItem {
   static {
     loreList.add("Fancy Pants");
     loreList.add("Dance like a star.");
+    loreList.add("");
+    loreList.add("25 defender tokens");
 
     triggerList.add(EntityDamageEvent.class);
   }
