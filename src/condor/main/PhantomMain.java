@@ -9,10 +9,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.plugin.RegisteredServiceProvider;
 
-import dev.sergiferry.playernpc.api.NPCLib;
-
 import condor.command.CommandControl;
 import condor.listener.PHListener;
+import condor.npc.NPCManager;
 
 public class PhantomMain extends JavaPlugin {
 
@@ -21,8 +20,6 @@ public class PhantomMain extends JavaPlugin {
 	public static final String VERSION = "v0.0.1";
 
 	public static final String TIMEID = HEIRO + " " + VERSION;
-
-  private static NPCLib npcLib;
 
 	static {
 		System.out.println("PhantomMain: [" + TIMEID + "]");
@@ -68,8 +65,8 @@ public class PhantomMain extends JavaPlugin {
 		System.out.println("<><><><><><><><><>");
 
     System.out.println("<><><><><><><><><>");
-    System.out.println("Loading NPC library...");
-    npcLib = new NPCLib(this);
+    System.out.println("Loading NPCs...");
+    NPCManager.init();
     System.out.println("<><><><><><><><><>");
 
 		//This registers the listener
@@ -87,10 +84,6 @@ public class PhantomMain extends JavaPlugin {
     System.out.println("Loading has been completed!");
 
 	}
-
-  public static NPCLib getNPCLib() {
-    return npcLib;
-  }
 
 	/**
 	 * Called on server shutdown <p>

@@ -38,10 +38,16 @@ import condor.phantom.PhantomType;
 import condor.runnable.DoPhantomBlinkRunnable;
 import condor.item.CustomItemType;
 import condor.gui.PhantomShopGUI;
-import condor.runnable.MakeShopNPCRunnable;
+import condor.item.CustomItemGenerator;
 
-import dev.sergiferry.playernpc.api.NPC;
-import dev.sergiferry.playernpc.api.events.NPCInteractEvent;
+import com.github.juliarn.npc.NPC;
+import com.github.juliarn.npc.event.PlayerNPCEvent;
+import com.github.juliarn.npc.event.PlayerNPCInteractEvent;
+import com.github.juliarn.npc.event.PlayerNPCShowEvent;
+import com.github.juliarn.npc.modifier.EquipmentModifier;
+import com.github.juliarn.npc.modifier.MetadataModifier;
+
+import com.comphenix.protocol.wrappers.EnumWrappers;
 
 /**
  *
@@ -50,11 +56,6 @@ import dev.sergiferry.playernpc.api.events.NPCInteractEvent;
  * @author iron-condor
  */
 public class EventListener  extends PHListener {
-
-  @EventHandler
-  public void onPlayerJoin(PlayerJoinEvent event) {
-    (new MakeShopNPCRunnable(event.getPlayer())).runTask(PhantomMain.getPlugin());
-  }
 
   @EventHandler
   public void onPhantomDeath(EntityDeathEvent event) {
@@ -86,16 +87,48 @@ public class EventListener  extends PHListener {
     }
   }
 
+  /**
+   * Doing something when a NPC is shown for a certain player.
+   * Alternatively, {@link NPC.Builder#spawnCustomizer(SpawnCustomizer)} can be used.
+   *
+   * @param event The event instance
+   */
   @EventHandler
-  public void onNPCInteract(NPCInteractEvent event) {
+  public void handleNPCShow(PlayerNPCShowEvent event) {
+    NPC npc = event.getNPC();
+
+    // sending the data only to the player from the event
+    event.send(
+      // equipping the NPC with an insomnia potion
+      npc.equipment()
+        .queue(EquipmentModifier.MAINHAND, CustomItemGenerator.getInsomniaPotion()),
+      // enabling the skin layers
+      npc.metadata()
+        .queue(MetadataModifier.EntityMetadata.SKIN_LAYERS, true)
+    );
+  }
+
+  /**
+   * Doing something when a player interacts with a NPC.
+   *
+   * @param event The event instance
+   */
+  @EventHandler
+  public void handleNPCInteract(PlayerNPCInteractEvent event) {
     Player player = event.getPlayer();
-    NPC npc = event.getNpc();
-    NPCInteractEvent.ClickType clickType = event.getClickType();
+    NPC npc = event.getNPC();
+
+    PlayerNPCInteractEvent.EntityUseAction clickType = event.getUseAction();
     switch (clickType) {
-      case LEFT_CLICK:
+      case ATTACK:
         player.sendMessage("Hey! Ow! That hurts!");
+        // making the NPC look at the player
+        npc.rotation()
+          .queueLookAt(player.getEyeLocation())
+          // sending the change only to the player who interacted with the NPC
+          .send(player);
         break;
-      case RIGHT_CLICK:
+      default:
         PhantomShopGUI.displayShopGUI(player);
         break;
     }

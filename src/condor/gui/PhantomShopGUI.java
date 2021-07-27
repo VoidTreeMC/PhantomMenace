@@ -21,6 +21,7 @@ public class PhantomShopGUI {
     GuiItem insomniaPotionItem = new GuiItem(INSOMNIA_POTION, event -> {
         player.getInventory().addItem(INSOMNIA_POTION);
         player.sendMessage("Enjoy! It goes great with cookies.");
+        gui.close(player);
   	});
 
     gui.setItem(2, 5, insomniaPotionItem);
