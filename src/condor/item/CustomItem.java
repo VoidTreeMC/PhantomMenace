@@ -23,6 +23,10 @@ public abstract class CustomItem {
     return this.name;
   }
 
+  /**
+   * Returns the lore for the item
+   * @return An ArrayList<String> containing the item's lore
+   */
   public ArrayList<String> getLore() {
     return this.lore;
   }

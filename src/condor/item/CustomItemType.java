@@ -9,7 +9,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public enum CustomItemType {
   INSOMNIA_POTION,
-  FANCY_PANTS;
+  FANCY_PANTS,
+  DEFENDER_TOKEN;
 
   private static TreeMap<String, CustomItemType> CUSTOM_ITEM_TYPES;
 
@@ -55,6 +56,8 @@ public enum CustomItemType {
         return INSOMNIA_POTION;
       case "Fancy Pants":
         return FANCY_PANTS;
+      case "Defender Token":
+        return DEFENDER_TOKEN;
       default:
         return null;
     }

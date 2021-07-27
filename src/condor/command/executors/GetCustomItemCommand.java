@@ -44,6 +44,9 @@ public class GetCustomItemCommand extends CommandControl {
       case "insomniapotion":
         is = CustomItemGenerator.getInsomniaPotion();
         break;
+      case "defendertoken":
+        is = CustomItemManager.getItemByType(CustomItemType.DEFENDER_TOKEN).getInstance();
+        break;
     }
 
     if (is != null) {

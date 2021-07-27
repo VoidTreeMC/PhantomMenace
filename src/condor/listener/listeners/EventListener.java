@@ -169,9 +169,9 @@ public class EventListener  extends PHListener {
 	 */
 	@EventHandler
 	public void onEntityDamageEvent(EntityDamageEvent event) {
+    CustomItemEventManager.parseEvent(event);
     managePhantomDamaged(event);
     managePossiblePlayerDamagedByPhantom(event);
-    CustomItemEventManager.parseEvent(event);
 	}
 
   public void managePossiblePlayerDamagedByPhantom(EntityDamageEvent event) {
