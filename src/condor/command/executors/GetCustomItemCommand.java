@@ -47,6 +47,9 @@ public class GetCustomItemCommand extends CommandControl {
       case "defendertoken":
         is = CustomItemManager.getItemByType(CustomItemType.DEFENDER_TOKEN).getInstance();
         break;
+      case "enderblade":
+        is = CustomItemManager.getItemByType(CustomItemType.ENDER_BLADE).getInstance();
+        break;
     }
 
     if (is != null) {

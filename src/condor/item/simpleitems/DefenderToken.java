@@ -33,7 +33,7 @@ public class DefenderToken extends CustomItem {
     ItemStack is = new ItemStack(Material.SUNFLOWER, 1);
     ItemMeta meta = is.getItemMeta();
     meta.setDisplayName(NAME);
-    meta.addEnchant(Enchantment.DURABILITY, 0, false);
+    meta.addEnchant(Enchantment.DURABILITY, 1, false);
     meta.setLore(loreList);
     meta.setUnbreakable(true);
     is.setItemMeta(meta);

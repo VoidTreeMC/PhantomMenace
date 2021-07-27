@@ -65,6 +65,11 @@ public class EventListener  extends PHListener {
   private static final Random rng = new Random();
 
   @EventHandler
+  public void onPlayerInteractEvent(PlayerInteractEvent event) {
+    CustomItemEventManager.parseEvent(event);
+  }
+
+  @EventHandler
   public void onPhantomDeath(EntityDeathEvent event) {
     // If it's a phantom that was killed
     if (event.getEntityType() == EntityType.PHANTOM) {

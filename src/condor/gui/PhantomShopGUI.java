@@ -15,8 +15,10 @@ public class PhantomShopGUI {
 
   private static ItemStack INSOMNIA_POTION = CustomItemGenerator.getInsomniaPotion();
   private static ItemStack FANCY_PANTS = CustomItemManager.getItemByType(CustomItemType.FANCY_PANTS).getInstance();
+  private static ItemStack ENDER_BLADE = CustomItemManager.getItemByType(CustomItemType.ENDER_BLADE).getInstance();
 
   private static int FANCY_PANTS_PRICE = 25;
+  private static int ENDER_BLADE_PRICE = 50;
 
   private static boolean canAfford(Player player, int price) {
     int amt = 0;
@@ -71,7 +73,24 @@ public class PhantomShopGUI {
         }
   	});
 
-    gui.setItem(2, 5, insomniaPotionItem);
+    GuiItem enderBladeItem = new GuiItem(ENDER_BLADE, event -> {
+        boolean purchased = false;
+
+        if (canAfford(player, ENDER_BLADE_PRICE)) {
+          chargeAmount(player, ENDER_BLADE_PRICE);
+          player.getInventory().addItem(ENDER_BLADE);
+          purchased = true;
+        }
+
+        if (!purchased) {
+          player.sendMessage("You can't afford that.");
+        } else {
+          gui.close(player);
+        }
+  	});
+
+    gui.setItem(2, 4, enderBladeItem);
+    gui.setItem(1, 5, insomniaPotionItem);
     gui.setItem(2, 6, fancyPantsItem);
 
   	gui.open(player);

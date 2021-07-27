@@ -15,6 +15,7 @@ public class CustomItemManager {
     // itemMap.put(CustomItemType.INSOMNIA_POTION, InsomniaPotion);
     itemMap.put(CustomItemType.FANCY_PANTS, new FancyPants());
     itemMap.put(CustomItemType.DEFENDER_TOKEN, new DefenderToken());
+    itemMap.put(CustomItemType.ENDER_BLADE, new EnderBlade());
   }
 
   public static TreeMap<CustomItemType, CustomItem> getMap() {
