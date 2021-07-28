@@ -2,8 +2,9 @@ package condor.gui;
 
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.entity.Player;
+import org.bukkit.Material;
 
-import dev.triumphteam.gui.guis.PaginatedGui;
+import dev.triumphteam.gui.guis.Gui;
 import dev.triumphteam.gui.guis.GuiItem;
 
 import condor.item.CustomItemGenerator;
@@ -48,10 +49,12 @@ public class PhantomShopGUI {
   }
 
   public static void displayShopGUI(Player player) {
-    PaginatedGui gui = new PaginatedGui(3, 4, "Phantom Shop Menu");
+    Gui gui = new Gui(3, "Phantom Shop Menu");
   	gui.setDefaultClickAction(event -> {
   		event.setCancelled(true);
   	});
+
+    gui.getFiller().fill(new GuiItem(new ItemStack(Material.GRAY_STAINED_GLASS_PANE)));
 
     GuiItem insomniaPotionItem = new GuiItem(INSOMNIA_POTION, event -> {
         player.getInventory().addItem(INSOMNIA_POTION);

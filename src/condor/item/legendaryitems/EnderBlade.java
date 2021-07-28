@@ -37,8 +37,8 @@ public class EnderBlade extends CustomItem {
   private static ArrayList<String> loreList = new ArrayList<>();
   private static ArrayList<Class> triggerList = new ArrayList<>();
 
-  // 60 second cooldown
-  private static final long COOLDOWN_DURATION = 60 * 1000;
+  // 15 second cooldown
+  private static final long COOLDOWN_DURATION = 15 * 1000;
 
   private long lastTimeUsed = 0;
 

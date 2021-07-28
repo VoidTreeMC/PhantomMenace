@@ -34,6 +34,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.SoundCategory;
 import org.bukkit.Sound;
 import org.bukkit.event.player.PlayerShearEntityEvent;
+import java.util.UUID;
 
 import condor.listener.PHListener;
 import condor.main.PhantomMain;
@@ -45,6 +46,8 @@ import condor.item.CustomItemType;
 import condor.gui.PhantomShopGUI;
 import condor.item.CustomItemGenerator;
 import condor.item.CustomItemEventManager;
+import condor.npc.PHNPC;
+import condor.npc.NPCManager;
 
 import com.github.juliarn.npc.NPC;
 import com.github.juliarn.npc.event.PlayerNPCEvent;
@@ -52,6 +55,7 @@ import com.github.juliarn.npc.event.PlayerNPCInteractEvent;
 import com.github.juliarn.npc.event.PlayerNPCShowEvent;
 import com.github.juliarn.npc.modifier.EquipmentModifier;
 import com.github.juliarn.npc.modifier.MetadataModifier;
+import com.github.juliarn.npc.modifier.NPCModifier;
 
 import com.comphenix.protocol.wrappers.EnumWrappers;
 
@@ -114,12 +118,14 @@ public class EventListener  extends PHListener {
   @EventHandler
   public void handleNPCShow(PlayerNPCShowEvent event) {
     NPC npc = event.getNPC();
+    UUID npcUUID = npc.getProfile().getUniqueId();
+    PHNPC phnpc = NPCManager.getPHNPCFromUUID(npcUUID);
+    NPCModifier equipmentModifier = phnpc.getEquipmentModifier();
 
     // sending the data only to the player from the event
     event.send(
-      // equipping the NPC with an insomnia potion
-      npc.equipment()
-        .queue(EquipmentModifier.MAINHAND, CustomItemGenerator.getInsomniaPotion()),
+      // equipping the NPC with its equipment
+      equipmentModifier,
       // enabling the skin layers
       npc.metadata()
         .queue(MetadataModifier.EntityMetadata.SKIN_LAYERS, true)
@@ -135,21 +141,9 @@ public class EventListener  extends PHListener {
   public void handleNPCInteract(PlayerNPCInteractEvent event) {
     Player player = event.getPlayer();
     NPC npc = event.getNPC();
-
-    PlayerNPCInteractEvent.EntityUseAction clickType = event.getUseAction();
-    switch (clickType) {
-      case ATTACK:
-        player.sendMessage("Hey! Ow! That hurts!");
-        // making the NPC look at the player
-        npc.rotation()
-          .queueLookAt(player.getEyeLocation())
-          // sending the change only to the player who interacted with the NPC
-          .send(player);
-        break;
-      default:
-        PhantomShopGUI.displayShopGUI(player);
-        break;
-    }
+    UUID npcUUID = npc.getProfile().getUniqueId();
+    PHNPC phnpc = NPCManager.getPHNPCFromUUID(npcUUID);
+    phnpc.handleInteraction(event);
   }
 
 	/**

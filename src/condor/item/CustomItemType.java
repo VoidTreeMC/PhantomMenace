@@ -46,7 +46,19 @@ public enum CustomItemType {
 
   public static final String CUSTOM_ITEM_TYPE_METADATA_KEY = "customItemType";
 
+  public static boolean isLegendaryItem(ItemStack customItem) {
+    CustomItemType type = getTypeFromCustomItem(customItem);
+    return type != null && type != DEFENDER_TOKEN && type != INSOMNIA_POTION;
+  }
+
+  public static boolean isLegendaryItem(CustomItemType type) {
+    return type != null && type != DEFENDER_TOKEN && type != INSOMNIA_POTION;
+  }
+
   public static CustomItemType getTypeFromCustomItem(ItemStack customItem) {
+    if (customItem == null || !customItem.hasItemMeta()) {
+      return null;
+    }
     ItemMeta meta = customItem.getItemMeta();
     if (!meta.hasLore()) {
       return null;
