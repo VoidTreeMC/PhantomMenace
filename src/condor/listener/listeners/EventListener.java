@@ -80,7 +80,8 @@ public class EventListener  extends PHListener {
   }
 
   @EventHandler
-  public void onPhantomDeath(EntityDeathEvent event) {
+  public void onEntityDeath(EntityDeathEvent event) {
+    CustomItemEventManager.parseEvent(event);
     // If it's a phantom that was killed
     if (event.getEntityType() == EntityType.PHANTOM) {
       PhantomDropHandler.classifyAndDividePDE(event);

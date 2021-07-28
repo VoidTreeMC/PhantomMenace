@@ -53,6 +53,9 @@ public class GetCustomItemCommand extends CommandControl {
       case "prideshears":
         is = CustomItemManager.getItemByType(CustomItemType.PRIDE_SHEARS).getInstance();
         break;
+      case "creeperbow":
+        is = CustomItemManager.getItemByType(CustomItemType.CREEPER_BOW).getInstance();
+        break;
     }
 
     if (is != null) {
