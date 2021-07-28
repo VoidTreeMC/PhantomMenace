@@ -237,6 +237,7 @@ public class EventListener  extends PHListener {
         // If the phantom is dead and the killer is a player
         if (isDead && isPlayer) {
           PhantomDropHandler.classifyAndAwardXP(edbee, player);
+          PhantomDropHandler.classifyAndAwardTokens(edbee, player);
         }
       }
     }

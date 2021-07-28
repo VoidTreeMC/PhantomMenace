@@ -9,6 +9,9 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Phantom;
 
+import condor.item.CustomItemManager;
+import condor.item.CustomItemType;
+
 /**
  * Class used to control Phantom drops.
  * This can be used to handle event drops, XP drops, etc.
@@ -84,5 +87,20 @@ public class PhantomDropHandler {
     int xpAmt = PhantomDropTable.getXP(type);
 
     player.giveExp(xpAmt);
+  }
+
+  /**
+   * Determines the type of phantom and drops tokens based on the phantom type
+   * @param event   The entity damaged by entity event
+   * @param player  The player that slayed the phantom, to whom the tokens are awarded
+   */
+  public static void classifyAndAwardTokens(EntityDamageByEntityEvent event, Player player) {
+    Phantom phantom = (Phantom) event.getEntity();
+    PhantomType type = PhantomType.getTypeFromPhantom(phantom);
+    int tokenAmt = PhantomDropTable.getNumTokens(type);
+
+    if (tokenAmt > 0) {
+      player.getInventory().addItem(CustomItemManager.getItemByType(CustomItemType.DEFENDER_TOKEN).getInstance());
+    }
   }
 }

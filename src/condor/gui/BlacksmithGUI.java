@@ -68,7 +68,7 @@ public class BlacksmithGUI {
     redPaneMeta.setDisplayName("Destroy these items");
     ArrayList<String> redPaneLore = new ArrayList<>();
     redPaneLore.add("Your items will be consumed");
-    redPaneLore.add("and made into a new item.");
+    redPaneLore.add("and you will receive a new item.");
     redPaneMeta.setLore(redPaneLore);
     CONFIRM_PANE_RED.setItemMeta(redPaneMeta);
 
@@ -87,8 +87,8 @@ public class BlacksmithGUI {
     ItemMeta bookMeta = INSTRUCTION_BOOK.getItemMeta();
     bookMeta.setDisplayName("Instructions");
     ArrayList<String> bookLore = new ArrayList<>();
-    bookLore.add("Place two legendary items into the slots");
-    bookLore.add("above, then click the red button below.");
+    bookLore.add("Place one legendary item into each of the");
+    bookLore.add("two slots above, then click the red button below.");
     bookLore.add("The two items will be destroyed and");
     bookLore.add("used to create a new legendary item.");
     bookMeta.setLore(bookLore);

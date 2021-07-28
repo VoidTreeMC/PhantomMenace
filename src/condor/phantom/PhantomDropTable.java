@@ -61,6 +61,7 @@ public class PhantomDropTable {
     enderPhantomDrops.add(constructDrop(new ItemStack(Material.ENDER_EYE), 0.75, 1, 2));
     enderPhantomDrops.add(constructDrop(new ItemStack(Material.END_ROD), 0.10, 1, 1));
     enderPhantomDrops.add(constructDrop(new ItemStack(Material.END_CRYSTAL), 0.05, 1, 1));
+    enderPhantomDrops.add(constructDrop(new ItemStack(Material.BUDDING_AMETHYST), 0.05, 1, 1));
 
     // Append to drop map
     dropMap.put(PhantomType.VANILLA, vanillaDrops);
@@ -105,5 +106,14 @@ public class PhantomDropTable {
 
   public static int getXP(PhantomType type) {
     return xpMap.get(type);
+  }
+
+  public static int getNumTokens(PhantomType type) {
+    // 10% chance to drop token
+    if (rng.nextInt(10) < 1) {
+      return 1;
+    } else {
+      return 0;
+    }
   }
 }
