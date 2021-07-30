@@ -11,16 +11,30 @@ public abstract class CustomItem {
   private ArrayList<String> lore;
   private ArrayList<Class> triggers;
   private CustomItemType type;
+  private boolean isEnchantable;
 
   protected CustomItem(String name, ArrayList<String> lore, ArrayList<Class> triggers, CustomItemType type) {
     this.name = name;
     this.lore = lore;
     this.triggers = triggers;
     this.type = type;
+    this.isEnchantable = true;
+  }
+
+  protected CustomItem(String name, ArrayList<String> lore, ArrayList<Class> triggers, CustomItemType type, boolean enchantable) {
+    this.name = name;
+    this.lore = lore;
+    this.triggers = triggers;
+    this.type = type;
+    this.isEnchantable = enchantable;
   }
 
   public String getName() {
     return this.name;
+  }
+
+  public boolean isEnchantable() {
+    return this.isEnchantable;
   }
 
   /**

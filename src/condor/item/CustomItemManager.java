@@ -18,6 +18,7 @@ public class CustomItemManager {
     itemMap.put(CustomItemType.ENDER_BLADE, new EnderBlade());
     itemMap.put(CustomItemType.PRIDE_SHEARS, new PrideShears());
     itemMap.put(CustomItemType.CREEPER_BOW, new CreeperBow());
+    itemMap.put(CustomItemType.LAVA_WALKERS, new LavaWalkers());
   }
 
   public static TreeMap<CustomItemType, CustomItem> getMap() {

@@ -56,6 +56,9 @@ public class GetCustomItemCommand extends CommandControl {
       case "creeperbow":
         is = CustomItemManager.getItemByType(CustomItemType.CREEPER_BOW).getInstance();
         break;
+      case "lavawalkers":
+        is = CustomItemManager.getItemByType(CustomItemType.LAVA_WALKERS).getInstance();
+        break;
     }
 
     if (is != null) {

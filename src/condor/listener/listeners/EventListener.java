@@ -1,6 +1,7 @@
 package condor.listener.listeners;
 
 import java.util.Random;
+import java.util.UUID;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -11,6 +12,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
@@ -34,7 +36,14 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.SoundCategory;
 import org.bukkit.Sound;
 import org.bukkit.event.player.PlayerShearEntityEvent;
-import java.util.UUID;
+import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.enchantment.PrepareItemEnchantEvent;
+import org.bukkit.event.inventory.PrepareAnvilEvent;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.event.inventory.InventoryEvent;
+import org.bukkit.event.inventory.InventoryType.SlotType;
+import org.bukkit.event.inventory.InventoryType;
+
 
 import condor.listener.PHListener;
 import condor.main.PhantomMain;
@@ -46,6 +55,7 @@ import condor.item.CustomItemType;
 import condor.gui.PhantomShopGUI;
 import condor.item.CustomItemGenerator;
 import condor.item.CustomItemEventManager;
+import condor.item.CustomItemManager;
 import condor.npc.PHNPC;
 import condor.npc.NPCManager;
 
@@ -68,6 +78,117 @@ import com.comphenix.protocol.wrappers.EnumWrappers;
 public class EventListener  extends PHListener {
 
   private static final Random rng = new Random();
+
+  @EventHandler
+  public void onInventoryClickEvent(InventoryClickEvent event) {
+    boolean doCancel = false;
+    Player player = null;
+    if (event.getWhoClicked() instanceof Player) {
+      player = (Player) event.getWhoClicked();
+    }
+    Inventory relevantInventory = event.getInventory();
+    if (event.isShiftClick()) {
+      relevantInventory = event.getView().getTopInventory();
+    }
+    if (relevantInventory.getType() == InventoryType.ANVIL ||
+        relevantInventory.getType() == InventoryType.ENCHANTING ||
+        relevantInventory.getType() == InventoryType.GRINDSTONE) {
+      ItemStack item = null;
+      if (event.isShiftClick()) {
+        item = event.getCurrentItem();
+      } else {
+        item = event.getCursor();
+      }
+      if (item != null) {
+        CustomItemType type = CustomItemType.getTypeFromCustomItem(item);
+        if (type != null) {
+          // If it's not enchantable, cancel the event
+          if (!CustomItemManager.getItemByType(type).isEnchantable()) {
+            event.setCancelled(true);
+          }
+        }
+      }
+    }
+
+    if (!(event.isShiftClick()) && event.getSlotType() != SlotType.CRAFTING) {
+      event.setCancelled(false);
+    }
+    if (event.isCancelled()) {
+      if (player != null) {
+        player.sendMessage("This item cannot be used in an anvil, grindstone, or enchanting table.");
+      }
+    }
+  }
+
+  @EventHandler
+  public void onInventoryDragEvent(InventoryDragEvent event) {
+    Player player = null;
+    if (event.getWhoClicked() instanceof Player) {
+      player = (Player) event.getWhoClicked();
+    }
+    Inventory relevantInventory = event.getInventory();
+    if (relevantInventory.getType() == InventoryType.ANVIL ||
+        relevantInventory.getType() == InventoryType.ENCHANTING ||
+        relevantInventory.getType() == InventoryType.GRINDSTONE) {
+      ItemStack item = event.getOldCursor();
+      if (item != null) {
+        CustomItemType type = CustomItemType.getTypeFromCustomItem(item);
+        if (type != null) {
+          // If it's not enchantable, cancel the event
+          if (!CustomItemManager.getItemByType(type).isEnchantable()) {
+            event.setCancelled(true);
+            if (player != null) {
+              player.sendMessage("This item cannot be used in an anvil, grindstone, or enchanting table.");
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // @EventHandler
+  // public void onPrepareAnvilEvent(PrepareAnvilEvent event) {
+  //   PrepareAnvilEvent pae = (PrepareAnvilEvent) event;
+  //   ItemStack[] contents = pae.getInventory().getContents();
+  //   if (pae.getViewers().size() > 0) {
+  //     Player player = (Player) pae.getViewers().get(0);
+  //     for (ItemStack item : contents) {
+  //       if (item != null) {
+  //         CustomItemType type = CustomItemType.getTypeFromCustomItem(item);
+  //         if (type != null) {
+  //           // If it's not enchantable, cancel the event
+  //           if (!CustomItemManager.getItemByType(type).isEnchantable()) {
+  //             player.getInventory().addItem(item);
+  //             pae.getInventory().removeItem(item);
+  //             player.closeInventory();
+  //             player.sendMessage("You cannot add enchantments or rename this item.");
+  //           }
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
+  //
+  // @EventHandler
+  // public void onPrepareItemEnchantEvent(PrepareItemEnchantEvent event) {
+  //   System.out.println("PIEE.");
+  //   PrepareItemEnchantEvent piee = (PrepareItemEnchantEvent) event;
+  //   ItemStack item = piee.getItem();
+  //   if (item != null) {
+  //     CustomItemType type = CustomItemType.getTypeFromCustomItem(item);
+  //     if (type != null) {
+  //       // If it's not enchantable, cancel the event
+  //       if (!CustomItemManager.getItemByType(type).isEnchantable()) {
+  //         piee.setCancelled(true);
+  //       }
+  //     }
+  //   }
+  // }
+
+  @EventHandler
+  public void onPlayerMoveEvent(PlayerMoveEvent event) {
+    CustomItemEventManager.parseEvent(event);
+  }
 
   @EventHandler
   public void onPlayerShearEntityEvent(PlayerShearEntityEvent event) {

@@ -30,39 +30,12 @@ public class BlacksmithGUI {
 
   public static ArrayList<CustomItemType> obtainableItems = new ArrayList<>();
 
-  /**
-   * Forges two items together and creates a new one,
-   * if both of the items are legendary items
-   * Returns null if one of the items is not a legendary item
-   * @param  firstItem  The first legendary item to be destroyed
-   * @param  secondItem The second legendary item to be destroyed
-   * @return            A new legendary item, or null.
-   */
-  public static ItemStack forgeItems(ItemStack firstItem, ItemStack secondItem) {
-    CustomItemType firstType = CustomItemType.getTypeFromCustomItem(firstItem);
-    CustomItemType secondType = CustomItemType.getTypeFromCustomItem(secondItem);
-
-    if (firstType == null || secondType == null) {
-      return null;
-    }
-
-    if (!CustomItemType.isLegendaryItem(firstType) || !CustomItemType.isLegendaryItem(secondType)) {
-      return null;
-    }
-
-    CustomItemType thirdType;
-    ArrayList<CustomItemType> potentials = (ArrayList<CustomItemType>) obtainableItems.clone();
-    potentials.remove(firstType);
-    potentials.remove(secondType);
-    thirdType = potentials.get(rng.nextInt(potentials.size()));
-
-    return CustomItemManager.getItemByType(thirdType).getInstance();
-  }
-
   static {
     obtainableItems.add(CustomItemType.FANCY_PANTS);
     obtainableItems.add(CustomItemType.ENDER_BLADE);
     obtainableItems.add(CustomItemType.PRIDE_SHEARS);
+    obtainableItems.add(CustomItemType.CREEPER_BOW);
+    obtainableItems.add(CustomItemType.LAVA_WALKERS);
 
     ItemMeta redPaneMeta = CONFIRM_PANE_RED.getItemMeta();
     redPaneMeta.setDisplayName("Destroy these items");
@@ -93,6 +66,35 @@ public class BlacksmithGUI {
     bookLore.add("used to create a new legendary item.");
     bookMeta.setLore(bookLore);
     INSTRUCTION_BOOK.setItemMeta(bookMeta);
+  }
+
+  /**
+   * Forges two items together and creates a new one,
+   * if both of the items are legendary items
+   * Returns null if one of the items is not a legendary item
+   * @param  firstItem  The first legendary item to be destroyed
+   * @param  secondItem The second legendary item to be destroyed
+   * @return            A new legendary item, or null.
+   */
+  public static ItemStack forgeItems(ItemStack firstItem, ItemStack secondItem) {
+    CustomItemType firstType = CustomItemType.getTypeFromCustomItem(firstItem);
+    CustomItemType secondType = CustomItemType.getTypeFromCustomItem(secondItem);
+
+    if (firstType == null || secondType == null) {
+      return null;
+    }
+
+    if (!CustomItemType.isLegendaryItem(firstType) || !CustomItemType.isLegendaryItem(secondType)) {
+      return null;
+    }
+
+    CustomItemType thirdType;
+    ArrayList<CustomItemType> potentials = (ArrayList<CustomItemType>) obtainableItems.clone();
+    potentials.remove(firstType);
+    potentials.remove(secondType);
+    thirdType = potentials.get(rng.nextInt(potentials.size()));
+
+    return CustomItemManager.getItemByType(thirdType).getInstance();
   }
 
   public static void displayShopGUI(Player player) {
