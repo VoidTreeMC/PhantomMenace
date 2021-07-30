@@ -14,7 +14,8 @@ public enum CustomItemType {
   ENDER_BLADE,
   PRIDE_SHEARS,
   CREEPER_BOW,
-  LAVA_WALKERS;
+  LAVA_WALKERS,
+  CREEPER_FIREWORK;
 
   private static TreeMap<String, CustomItemType> CUSTOM_ITEM_TYPES;
 
@@ -82,6 +83,8 @@ public enum CustomItemType {
         return CREEPER_BOW;
       case "Lava Walkers":
         return LAVA_WALKERS;
+      case "Creeper Firework":
+        return CREEPER_FIREWORK;
       default:
         return null;
     }

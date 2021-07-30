@@ -43,6 +43,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.event.inventory.InventoryEvent;
 import org.bukkit.event.inventory.InventoryType.SlotType;
 import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.event.entity.FireworkExplodeEvent;
 
 
 import condor.listener.PHListener;
@@ -78,6 +79,11 @@ import com.comphenix.protocol.wrappers.EnumWrappers;
 public class EventListener  extends PHListener {
 
   private static final Random rng = new Random();
+
+  @EventHandler
+  public void onFireworkExplodeEvent(FireworkExplodeEvent event) {
+    CustomItemEventManager.parseEvent(event);
+  }
 
   @EventHandler
   public void onInventoryClickEvent(InventoryClickEvent event) {

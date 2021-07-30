@@ -19,6 +19,7 @@ public class CustomItemManager {
     itemMap.put(CustomItemType.PRIDE_SHEARS, new PrideShears());
     itemMap.put(CustomItemType.CREEPER_BOW, new CreeperBow());
     itemMap.put(CustomItemType.LAVA_WALKERS, new LavaWalkers());
+    itemMap.put(CustomItemType.CREEPER_FIREWORK, new CreeperFirework());
   }
 
   public static TreeMap<CustomItemType, CustomItem> getMap() {

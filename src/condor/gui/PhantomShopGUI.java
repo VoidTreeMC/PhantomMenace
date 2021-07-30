@@ -20,12 +20,14 @@ public class PhantomShopGUI {
   private static ItemStack PRIDE_SHEARS = CustomItemManager.getItemByType(CustomItemType.PRIDE_SHEARS).getInstance();
   private static ItemStack CREEPER_BOW = CustomItemManager.getItemByType(CustomItemType.CREEPER_BOW).getInstance();
   private static ItemStack LAVA_WALKERS = CustomItemManager.getItemByType(CustomItemType.LAVA_WALKERS).getInstance();
+  private static ItemStack CREEPER_FIREWORK = CustomItemManager.getItemByType(CustomItemType.CREEPER_FIREWORK).getInstance();
 
   private static int FANCY_PANTS_PRICE = 25;
   private static int ENDER_BLADE_PRICE = 50;
   private static int PRIDE_SHEARS_PRICE = 10;
   private static int CREEPER_BOW_PRICE = 50;
   private static int LAVA_WALKERS_PRICE = 50;
+  private static int CREEPER_FIREWORK_PRICE = 1;
 
   private static boolean canAfford(Player player, int price) {
     int amt = 0;
@@ -146,7 +148,24 @@ public class PhantomShopGUI {
         }
   	});
 
+    GuiItem creeperFireworkItem = new GuiItem(CREEPER_FIREWORK, event -> {
+        boolean purchased = false;
+
+        if (canAfford(player, CREEPER_FIREWORK_PRICE)) {
+          chargeAmount(player, CREEPER_FIREWORK_PRICE);
+          player.getInventory().addItem(CREEPER_FIREWORK);
+          purchased = true;
+        }
+
+        if (!purchased) {
+          player.sendMessage("You can't afford that.");
+        } else {
+          gui.close(player);
+        }
+  	});
+
     gui.setItem(1, 5, insomniaPotionItem);
+    gui.setItem(2, 2, creeperFireworkItem);
     gui.setItem(2, 3, lavaWalkersItem);
     gui.setItem(2, 4, enderBladeItem);
     gui.setItem(2, 5, prideShearsItem);
