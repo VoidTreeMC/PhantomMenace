@@ -47,7 +47,7 @@ public class EnderBlade extends CustomItem {
   static {
     loreList.add("Ender Blade");
     loreList.add("");
-    loreList.add("50 defender tokens");
+    loreList.add("50 void coins");
 
     triggerList.add(PlayerInteractEvent.class);
   }

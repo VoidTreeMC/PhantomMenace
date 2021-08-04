@@ -36,7 +36,9 @@ public class LavaWalkers extends CustomItem {
     loreList.add("Lava Walkers");
     loreList.add("Favored footwear of Solly,");
     loreList.add("who conquered the nether.");
-    loreList.add("50 defender tokens");
+    loreList.add("If you stop walking, you die.");
+    loreList.add("");
+    loreList.add("50 void coins");
 
     triggerList.add(PlayerMoveEvent.class);
   }

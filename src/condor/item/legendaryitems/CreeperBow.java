@@ -42,7 +42,7 @@ public class CreeperBow extends CustomItem {
   static {
     loreList.add("Creeper Bow");
     loreList.add("");
-    loreList.add("50 defender tokens");
+    loreList.add("50 void coins");
 
     triggerList.add(EntityDamageEvent.class);
     triggerList.add(EntityDeathEvent.class);

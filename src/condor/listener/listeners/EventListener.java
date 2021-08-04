@@ -44,6 +44,7 @@ import org.bukkit.event.inventory.InventoryEvent;
 import org.bukkit.event.inventory.InventoryType.SlotType;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.entity.FireworkExplodeEvent;
+import org.bukkit.entity.LivingEntity;
 
 
 import condor.listener.PHListener;
@@ -59,6 +60,7 @@ import condor.item.CustomItemEventManager;
 import condor.item.CustomItemManager;
 import condor.npc.PHNPC;
 import condor.npc.NPCManager;
+import condor.event.PhantomEvent;
 
 import com.github.juliarn.npc.NPC;
 import com.github.juliarn.npc.event.PlayerNPCEvent;
@@ -208,11 +210,13 @@ public class EventListener  extends PHListener {
 
   @EventHandler
   public void onEntityDeath(EntityDeathEvent event) {
-    CustomItemEventManager.parseEvent(event);
-    // If it's a phantom that was killed
-    if (event.getEntityType() == EntityType.PHANTOM) {
-      PhantomDropHandler.classifyAndDividePDE(event);
+    if (event.getEntity().getType() == EntityType.PHANTOM) {
+      LivingEntity entity = event.getEntity();
+      if (entity.hasMetadata(PhantomEvent.EVENT_METADATA_KEY)) {
+        PhantomEvent.manageKill(((Phantom) entity), null);
+      }
     }
+    CustomItemEventManager.parseEvent(event);
   }
 
   @EventHandler
@@ -366,6 +370,11 @@ public class EventListener  extends PHListener {
         if (isDead && isPlayer) {
           PhantomDropHandler.classifyAndAwardXP(edbee, player);
           PhantomDropHandler.classifyAndAwardTokens(edbee, player);
+
+          // If there's an event going on
+          if (PhantomEvent.isActive()) {
+            PhantomEvent.manageKill(phantom, player);
+          }
         }
       }
     }

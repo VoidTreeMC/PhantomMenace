@@ -22,7 +22,7 @@ import condor.item.CustomItemType;
 
 public class FancyPants extends CustomItem {
 
-  private static final String NAME = "David Bowie's Fancy Pants";
+  private static final String NAME = "Fancy Pants";
   private static ArrayList<String> loreList = new ArrayList<>();
   private static ArrayList<Class> triggerList = new ArrayList<>();
 
@@ -30,9 +30,10 @@ public class FancyPants extends CustomItem {
 
   static {
     loreList.add("Fancy Pants");
-    loreList.add("Dance like a star.");
+    loreList.add("Gift of the Glam God.");
+    loreList.add("Wear these and walk between the raindrops.");
     loreList.add("");
-    loreList.add("25 defender tokens");
+    loreList.add("25 void coins");
 
     triggerList.add(EntityDamageEvent.class);
   }

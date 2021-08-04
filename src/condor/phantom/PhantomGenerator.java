@@ -17,26 +17,22 @@ public class PhantomGenerator {
    * @param type  The type of phantom to summon
    * @param loc   The location to summon the phantom at
    */
-  public static void summonPhantom(PhantomType type, Location loc) {
+  public static Phantom summonPhantom(PhantomType type, Location loc) {
     switch (type) {
       case VANILLA:
-        loc.getWorld().spawnEntity(loc, EntityType.PHANTOM);
-        break;
+        return (Phantom) loc.getWorld().spawnEntity(loc, EntityType.PHANTOM);
       case EXTRA_XP_PHANTOM:
-        summonExtraXPPhantom(loc);
-        break;
+        return summonExtraXPPhantom(loc);
       case FLAMING_PHANTOM:
-        summonFlamingPhantom(loc);
-        break;
+        return summonFlamingPhantom(loc);
       case MOUNTED_PHANTOM:
-        summonMountedPhantom(loc);
-        break;
+        return summonMountedPhantom(loc);
       case INVISIBLE_PHANTOM:
-        summonInvisiblePhantom(loc);
-        break;
+        return summonInvisiblePhantom(loc);
       case ENDER_PHANTOM:
-        summonEnderPhantom(loc);
-        break;
+        return summonEnderPhantom(loc);
+      default:
+        return null;
     }
   }
 
@@ -44,16 +40,17 @@ public class PhantomGenerator {
    * Summons an extra XP phantom at the specified location
    * @param loc  The location
    */
-  public static void summonExtraXPPhantom(Location loc) {
+  public static Phantom summonExtraXPPhantom(Location loc) {
     Phantom phantom = (Phantom) loc.getWorld().spawnEntity(loc, EntityType.PHANTOM);
     phantom.setMetadata(PhantomType.PHANTOM_TYPE_METADATA_KEY, new FixedMetadataValue(PhantomMain.getPlugin(), PhantomType.EXTRA_XP_PHANTOM.toString()));
+    return phantom;
   }
 
   /**
    * Summons a flaming phantom at the specified location
    * @param loc  The location
    */
-  public static void summonFlamingPhantom(Location loc) {
+  public static Phantom summonFlamingPhantom(Location loc) {
     Phantom phantom = (Phantom) loc.getWorld().spawnEntity(loc, EntityType.PHANTOM);
     PotionEffect fireRes = new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 1000000, 0, true, false, false);
     PotionEffect strength = new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 1000000, 0, true, false, false);
@@ -65,6 +62,7 @@ public class PhantomGenerator {
 
     // Add metadata
     phantom.setMetadata(PhantomType.PHANTOM_TYPE_METADATA_KEY, new FixedMetadataValue(PhantomMain.getPlugin(), PhantomType.FLAMING_PHANTOM.toString()));
+    return phantom;
   }
 
 
@@ -72,7 +70,7 @@ public class PhantomGenerator {
    * Summons a mounted phantom at the specified location
    * @param loc  The location
    */
-  public static void summonMountedPhantom(Location loc) {
+  public static Phantom summonMountedPhantom(Location loc) {
     Phantom phantom = (Phantom) loc.getWorld().spawnEntity(loc, EntityType.PHANTOM);
     PotionEffect speed = new PotionEffect(PotionEffectType.SPEED, 1000000, 0, true, false, false);
     phantom.addPotionEffect(speed);
@@ -83,17 +81,20 @@ public class PhantomGenerator {
     // Add metadata
     phantom.setMetadata(PhantomType.PHANTOM_TYPE_METADATA_KEY, new FixedMetadataValue(PhantomMain.getPlugin(), PhantomType.MOUNTED_PHANTOM.toString()));
     skeleton.setMetadata(PhantomType.PHANTOM_TYPE_METADATA_KEY, new FixedMetadataValue(PhantomMain.getPlugin(), PhantomType.MOUNTED_PHANTOM.toString()));
+    return phantom;
   }
 
-  public static void summonInvisiblePhantom(Location loc) {
+  public static Phantom summonInvisiblePhantom(Location loc) {
     Phantom phantom = (Phantom) loc.getWorld().spawnEntity(loc, EntityType.PHANTOM);
     phantom.setMetadata(PhantomType.PHANTOM_TYPE_METADATA_KEY, new FixedMetadataValue(PhantomMain.getPlugin(), PhantomType.INVISIBLE_PHANTOM.toString()));
     TogglePhantomInvisibilityRunnable invisRunnable = new TogglePhantomInvisibilityRunnable(phantom);
 		invisRunnable.runTask(PhantomMain.getPlugin());
+    return phantom;
   }
 
-  public static void summonEnderPhantom(Location loc) {
+  public static Phantom summonEnderPhantom(Location loc) {
     Phantom phantom = (Phantom) loc.getWorld().spawnEntity(loc, EntityType.PHANTOM);
     phantom.setMetadata(PhantomType.PHANTOM_TYPE_METADATA_KEY, new FixedMetadataValue(PhantomMain.getPlugin(), PhantomType.ENDER_PHANTOM.toString()));
+    return phantom;
   }
 }

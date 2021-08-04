@@ -12,12 +12,13 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 import condor.command.CommandControl;
 import condor.listener.PHListener;
 import condor.npc.NPCManager;
+import condor.event.PhantomEvent;
 
 public class PhantomMain extends JavaPlugin {
 
 	public static final String HEIRO = "<F#SDF";
 
-	public static final String VERSION = "v0.0.1";
+	public static final String VERSION = "v0.0.2";
 
 	public static final String TIMEID = HEIRO + " " + VERSION;
 
@@ -25,8 +26,10 @@ public class PhantomMain extends JavaPlugin {
 		System.out.println("PhantomMain: [" + TIMEID + "]");
 	}
 
+  public PhantomEvent phantomEvent;
+
 	private static PhantomMain plugin;
-	public static JavaPlugin getPlugin() {
+	public static PhantomMain getPlugin() {
 		return plugin;
 	}
 	/**
@@ -69,6 +72,11 @@ public class PhantomMain extends JavaPlugin {
     NPCManager.init();
     System.out.println("<><><><><><><><><>");
 
+    System.out.println("<><><><><><><><><>");
+    System.out.println("Loading (but not starting) Phantom Event...");
+    this.phantomEvent = new PhantomEvent(0);
+    System.out.println("<><><><><><><><><>");
+
 		//This registers the listener
 		System.out.println("Loading listeners...");
 		try {
@@ -84,6 +92,10 @@ public class PhantomMain extends JavaPlugin {
     System.out.println("Loading has been completed!");
 
 	}
+
+  public PhantomEvent getPhantomEvent() {
+    return this.phantomEvent;
+  }
 
 	/**
 	 * Called on server shutdown <p>
