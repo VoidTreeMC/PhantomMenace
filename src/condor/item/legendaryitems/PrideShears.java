@@ -41,7 +41,7 @@ public class PrideShears extends CustomItem {
     loreList.add("Pride Shears");
     loreList.add("Because the world needs more rainbows.");
     loreList.add("");
-    loreList.add("10 void coins");
+    loreList.add("10 VoidCoins");
 
     triggerList.add(PlayerShearEntityEvent.class);
 

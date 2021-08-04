@@ -33,7 +33,7 @@ public class FancyPants extends CustomItem {
     loreList.add("Gift of the Glam God.");
     loreList.add("Wear these and walk between the raindrops.");
     loreList.add("");
-    loreList.add("25 void coins");
+    loreList.add("25 VoidCoins");
 
     triggerList.add(EntityDamageEvent.class);
   }

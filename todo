@@ -9,16 +9,10 @@ When the wave ends, announce top 5 players that killed the most phantoms
 When the event ends, announce the top 5 players that killed the most phantoms
 - give them a prize, maybe?
 
-
 Make it so when the event is happening, it modifies the worldguard region to allow skeletons to spawn. Then, after it ends, it resets it so that skeletons can't spawn
 
 Can use lava walkers to make infinite obsidian
 Make it so lava walkers don't work while mounted on a strider
 
-DID
-===
-Added code for Phantom Events
-Added new command, /startphantomevent
-Updated plugin.yml
-Changed text for some of the items
-Renamed "Defender Tokens" to "Void Coins"
+TODO: Refactor some of the PhantomEvent code to be less repetitive. Some methods can be merged
+TODO: Make a dedicated file for constants, especially names for items.

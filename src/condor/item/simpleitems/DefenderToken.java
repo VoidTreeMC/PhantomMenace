@@ -14,14 +14,14 @@ import condor.item.CustomItemType;
 
 public class DefenderToken extends CustomItem {
 
-  private static final String NAME = "Void Coin";
+  private static final String NAME = "VoidCoin";
   private static ArrayList<String> loreList = new ArrayList<>();
   private static ArrayList<Class> triggerList = new ArrayList<>();
 
   private static Random rng = new Random();
 
   static {
-    loreList.add("Void Coin");
+    loreList.add("VoidCoin");
     loreList.add("Awarded to defenders of the realm.");
   }
 

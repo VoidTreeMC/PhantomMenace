@@ -31,7 +31,7 @@ import condor.runnable.DoDisableTargetAI;
 
 public class CreeperBow extends CustomItem {
 
-  private static final String NAME = "Creeper Bow";
+  private static final String NAME = "CreeperBane";
   private static ArrayList<String> loreList = new ArrayList<>();
   private static ArrayList<Class> triggerList = new ArrayList<>();
 
@@ -40,9 +40,9 @@ public class CreeperBow extends CustomItem {
   private static Random rng = new Random();
 
   static {
-    loreList.add("Creeper Bow");
+    loreList.add("CreeperBane");
     loreList.add("");
-    loreList.add("50 void coins");
+    loreList.add("50 VoidCoins");
 
     triggerList.add(EntityDamageEvent.class);
     triggerList.add(EntityDeathEvent.class);

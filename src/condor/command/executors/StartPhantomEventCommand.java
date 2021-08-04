@@ -20,9 +20,11 @@ public class StartPhantomEventCommand extends CommandControl {
 
 	@Override
 	protected FailureCode execute(CommandSender sender, String label, String[] args) {
+    PhantomStatus.setEnabled(true);
     // This *may* fail if executed a second time
     PhantomMain.getPlugin().getPhantomEvent().runTask(PhantomMain.getPlugin());
     sender.sendMessage(MSG);
+
 
 		return FailureCode.SUCCESS;
 	}

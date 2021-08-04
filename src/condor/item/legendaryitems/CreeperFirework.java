@@ -48,7 +48,7 @@ public class CreeperFirework extends CustomItem {
     loreList.add("Not recommended for use over water");
     loreList.add("Or indoors");
     loreList.add("");
-    loreList.add("1 void coin");
+    loreList.add("1 VoidCoin");
 
     triggerList.add(FireworkExplodeEvent.class);
   }

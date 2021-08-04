@@ -7,7 +7,7 @@ authors: [Iron-Condor]
 description: PhantomMenace event plugin
 load: POSTWORLD
 prefix: PHNTM
-depend: [ProtocolLib]
+depend: [ProtocolLib, Vault]
 commands:
    togglephantoms:
        description: Toggles phantom spawning

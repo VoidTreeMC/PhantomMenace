@@ -38,7 +38,7 @@ public class LavaWalkers extends CustomItem {
     loreList.add("who conquered the nether.");
     loreList.add("If you stop walking, you die.");
     loreList.add("");
-    loreList.add("50 void coins");
+    loreList.add("50 VoidCoins");
 
     triggerList.add(PlayerMoveEvent.class);
   }

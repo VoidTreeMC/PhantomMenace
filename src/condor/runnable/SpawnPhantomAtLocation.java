@@ -19,8 +19,6 @@ import condor.event.PhantomEvent;
 
 public class SpawnPhantomAtLocation extends BukkitRunnable {
 
-  static int num = 0;
-
 	//The plugin
 	JavaPlugin plugin;
 
@@ -44,6 +42,6 @@ public class SpawnPhantomAtLocation extends BukkitRunnable {
 	public void run() {
     Phantom phantom = PhantomGenerator.summonPhantom(phantomType, loc);
     phantom.setMetadata(PhantomEvent.EVENT_METADATA_KEY, new FixedMetadataValue(PhantomMain.getPlugin(), true));
-    System.out.println(++num + " spawned!");
+    phantom.setRemoveWhenFarAway(false);
 	}
 }

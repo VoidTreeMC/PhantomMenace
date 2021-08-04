@@ -11,8 +11,10 @@ public class FlamingAndExpWave extends Wave {
   private static TreeMap<PhantomType, Integer> map = new TreeMap<>();
 
   static {
-    map.put(PhantomType.FLAMING_PHANTOM, 15);
-    map.put(PhantomType.EXTRA_XP_PHANTOM, 30);
+    // map.put(PhantomType.FLAMING_PHANTOM, 15);
+    // map.put(PhantomType.EXTRA_XP_PHANTOM, 30);
+    map.put(PhantomType.FLAMING_PHANTOM, 1);
+    map.put(PhantomType.EXTRA_XP_PHANTOM, 2);
   }
 
   public FlamingAndExpWave() {

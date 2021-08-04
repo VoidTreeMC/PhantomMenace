@@ -74,7 +74,7 @@ public enum CustomItemType {
       case "Fancy Pants":
         return FANCY_PANTS;
       case "Defender Token":
-      case "Void Coin":
+      case "VoidCoin":
         return DEFENDER_TOKEN;
       case "Ender Blade":
         return ENDER_BLADE;

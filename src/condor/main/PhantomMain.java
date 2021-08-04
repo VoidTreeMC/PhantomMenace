@@ -14,6 +14,9 @@ import condor.listener.PHListener;
 import condor.npc.NPCManager;
 import condor.event.PhantomEvent;
 
+import net.milkbowl.vault.economy.Economy;
+import net.milkbowl.vault.economy.EconomyResponse;
+
 public class PhantomMain extends JavaPlugin {
 
 	public static final String HEIRO = "<F#SDF";
@@ -27,6 +30,8 @@ public class PhantomMain extends JavaPlugin {
 	}
 
   public PhantomEvent phantomEvent;
+
+  public Economy econ = null;
 
 	private static PhantomMain plugin;
 	public static PhantomMain getPlugin() {
@@ -77,6 +82,11 @@ public class PhantomMain extends JavaPlugin {
     this.phantomEvent = new PhantomEvent(0);
     System.out.println("<><><><><><><><><>");
 
+    System.out.println("Loading vault-economy hook...");
+    if (!setupEconomy()) {
+      System.out.println("Economy has failed to load.");
+    }
+
 		//This registers the listener
 		System.out.println("Loading listeners...");
 		try {
@@ -93,8 +103,24 @@ public class PhantomMain extends JavaPlugin {
 
 	}
 
+  private boolean setupEconomy() {
+    if (getServer().getPluginManager().getPlugin("Vault") == null) {
+      return false;
+    }
+    RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
+    if (rsp == null) {
+        return false;
+    }
+    econ = rsp.getProvider();
+    return econ != null;
+  }
+
   public PhantomEvent getPhantomEvent() {
     return this.phantomEvent;
+  }
+
+  public Economy getEconomy() {
+    return econ;
   }
 
 	/**
@@ -104,7 +130,7 @@ public class PhantomMain extends JavaPlugin {
 	 */
 	@Override
 	public void onDisable() {
-
+    PhantomEvent.getBossBar().removeAll();
 	}
 
 	//-------------------------------------------------------------------------------------
