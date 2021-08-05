@@ -8,6 +8,7 @@ import java.util.SortedSet;
 import java.util.Map;
 import java.util.Comparator;
 import java.util.TreeSet;
+import java.lang.Math;
 
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.OfflinePlayer;
@@ -23,6 +24,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Phantom;
 import org.bukkit.ChatColor;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.ChatMessageType;
 
@@ -39,10 +41,13 @@ public class PhantomEvent extends BukkitRunnable {
   private static ArrayList<TreeMap<UUID, Integer>> waveKillMapList = new ArrayList<>();
   private static ArrayList<Wave> waveList = new ArrayList<>();
   private static final World WORLD = PhantomMain.getPlugin().getServer().getWorld("lobby");
+  private static ArrayList<ArrayList<ItemStack>> itemAwards = new ArrayList<>();
+  private static ArrayList<Double> moneyAwards = new ArrayList<>();
   private static final double X = 3931.5;
   private static final double Y = 130;
   private static final double Z = 108.5;
   private static final Location loc = new Location(WORLD, X, Y, Z);
+
 
   public static final String EVENT_METADATA_KEY = "isAnEventPhantom";
 
@@ -61,13 +66,37 @@ public class PhantomEvent extends BukkitRunnable {
 
   static {
     waveList.add(new VanillaWave());
-    // waveList.add(new FlamingAndExpWave());
-    // waveList.add(new InvisibleAndFlamingWave());
-    // waveList.add(new InvisibleAndMountedWave());
-    // waveList.add(new EnderAndInvisibleWave());
+    waveList.add(new FlamingAndExpWave());
+    waveList.add(new InvisibleAndFlamingWave());
+    waveList.add(new InvisibleAndMountedWave());
+    waveList.add(new EnderAndInvisibleWave());
     for (int i = 0; i < waveList.size(); i++) {
       waveKillMapList.add(new TreeMap<UUID, Integer>());
     }
+
+    ArrayList<ItemStack> firstPlaceItems = new ArrayList<>();
+    firstPlaceItems.add(CustomItemManager.getItemByType(CustomItemType.DEFENDER_TOKEN).getInstance());
+    firstPlaceItems.get(0).setAmount(20);
+    ArrayList<ItemStack> secondPlaceItems = new ArrayList<>();
+    secondPlaceItems.add(CustomItemManager.getItemByType(CustomItemType.DEFENDER_TOKEN).getInstance());
+    secondPlaceItems.get(0).setAmount(15);
+    ArrayList<ItemStack> thirdPlaceItems = new ArrayList<>();
+    thirdPlaceItems.add(CustomItemManager.getItemByType(CustomItemType.DEFENDER_TOKEN).getInstance());
+    thirdPlaceItems.get(0).setAmount(10);
+    ArrayList<ItemStack> fourthPlaceItems = new ArrayList<>();
+    ArrayList<ItemStack> fifthPlaceItems = new ArrayList<>();
+
+    itemAwards.add(firstPlaceItems);
+    itemAwards.add(secondPlaceItems);
+    itemAwards.add(thirdPlaceItems);
+    itemAwards.add(fourthPlaceItems);
+    itemAwards.add(fifthPlaceItems);
+
+    moneyAwards.add(10000d);
+    moneyAwards.add(7500d);
+    moneyAwards.add(5000d);
+    moneyAwards.add(5000d);
+    moneyAwards.add(5000d);
   }
 
   public PhantomEvent(int waveIndex) {
@@ -90,6 +119,20 @@ public class PhantomEvent extends BukkitRunnable {
     }
   }
 
+  /**
+   * Resets the event and prepares it to be run again.
+   */
+  public static void reset() {
+    totalPhantomKillMap.clear();
+    waveKillMapList.clear();
+    for (int i = 0; i < waveList.size(); i++) {
+      waveKillMapList.add(new TreeMap<UUID, Integer>());
+    }
+    numKilledThisWave = 0;
+    totalThisWave = 0;
+    PhantomMain.getPlugin().phantomEvent = new PhantomEvent(0);
+  }
+
   public void run() {
     if (waveIndex == 0) {
       init();
@@ -109,9 +152,9 @@ public class PhantomEvent extends BukkitRunnable {
       // Give message
       Bukkit.broadcastMessage(ChatColor.YELLOW + "The phantoms have been vanquished! Thank you for defending" + ChatColor.RED + " Void" + ChatColor.GRAY + "Tree");
       PhantomStatus.setEnabled(false);
-      printTopFiveForEvent();
-      // TODO: Do the top player prize awards here
+      printTopFive(true);
       awardTopFive();
+      reset();
     }
   }
 
@@ -143,7 +186,7 @@ public class PhantomEvent extends BukkitRunnable {
       int num = getWaveIndex();
       (new PhantomEvent(num)).runTaskLater(PhantomMain.getPlugin(), TIME_BETWEEN_WAVES);
       Bukkit.broadcastMessage(ChatColor.YELLOW + "Wave " + ChatColor.GOLD + getWaveIndex() + ChatColor.YELLOW + " completed!");
-      printTopFiveForWave();
+      printTopFive(false);
     }
   }
 
@@ -169,33 +212,22 @@ public class PhantomEvent extends BukkitRunnable {
     return entriesSortedByValues(totalPhantomKillMap);
   }
 
-  public static void printTopFiveForWave() {
-    int num = getWaveIndex() - 1;
-    Bukkit.broadcastMessage(ChatColor.YELLOW + "Top " + ChatColor.GOLD + "5 " + ChatColor.YELLOW + "players for Wave " + ChatColor.GOLD + (num + 1));
-    Bukkit.broadcastMessage(ChatColor.GREEN + "=======================");
-    SortedSet<Map.Entry<UUID, Integer>> sorted = getTopFivePlayersForWave();
-    int i = 0;
-    for (Map.Entry<UUID, Integer> entry : sorted) {
-      // Only the top 5
-      if (++i >= 5) {
-        break;
-      }
-      int numKills = entry.getValue();
-      UUID playerUUID = entry.getKey();
-      String playerName = PhantomMain.getPlugin().getServer().getOfflinePlayer(playerUUID).getName();
-      Bukkit.broadcastMessage(ChatColor.YELLOW + playerName + ": " + ChatColor.GOLD + numKills + ChatColor.YELLOW + " phantoms killed.");
+  public static void printTopFive(boolean forEvent) {
+    SortedSet<Map.Entry<UUID, Integer>> sorted = null;
+    if (forEvent) {
+      Bukkit.broadcastMessage(ChatColor.YELLOW + "Top " + ChatColor.GOLD + "5 " + ChatColor.YELLOW + "players");
+      Bukkit.broadcastMessage(ChatColor.GREEN + "=======================");
+      sorted = getTopFivePlayersForEvent();
+    } else {
+      int num = getWaveIndex() - 1;
+      Bukkit.broadcastMessage(ChatColor.YELLOW + "Top " + ChatColor.GOLD + "5 " + ChatColor.YELLOW + "players for Wave " + ChatColor.GOLD + (num + 1));
+      Bukkit.broadcastMessage(ChatColor.GREEN + "=======================");
+      sorted = getTopFivePlayersForWave();
     }
-  }
-
-  public static void printTopFiveForEvent() {
-    int num = getWaveIndex() - 1;
-    Bukkit.broadcastMessage(ChatColor.YELLOW + "Top " + ChatColor.GOLD + "5 " + ChatColor.YELLOW + "players");
-    Bukkit.broadcastMessage(ChatColor.GREEN + "=======================");
-    SortedSet<Map.Entry<UUID, Integer>> sorted = getTopFivePlayersForEvent();
     int i = 0;
     for (Map.Entry<UUID, Integer> entry : sorted) {
       // Only the top 5
-      if (++i >= 5) {
+      if (++i > 5) {
         break;
       }
       int numKills = entry.getValue();
@@ -210,37 +242,37 @@ public class PhantomEvent extends BukkitRunnable {
     int numParticipants = sorted.length;
     Economy economy = PhantomMain.getPlugin().getEconomy();
     ItemStack voidCoins = CustomItemManager.getItemByType(CustomItemType.DEFENDER_TOKEN).getInstance();
-    // First place
-    if (numParticipants >= 1) {
-      Player firstPlace = Bukkit.getPlayer(((Map.Entry<UUID, Integer>) sorted[0]).getKey());
-      economy.depositPlayer(firstPlace, 10000);
-      voidCoins.setAmount(20);
-      firstPlace.getInventory().addItem(voidCoins);
-      firstPlace.sendMessage(ChatColor.YELLOW + "Congratulations! You came in first place. You have been awarded " + ChatColor.GOLD + "$10,000, " + ChatColor.YELLOW + "and"  + ChatColor.GOLD + " 20 VoidCoins");
-    }
-    if (numParticipants >= 2) {
-      Player secondPlace = Bukkit.getPlayer(((Map.Entry<UUID, Integer>) sorted[1]).getKey());
-      economy.depositPlayer(secondPlace, 7500);
-      voidCoins.setAmount(15);
-      secondPlace.getInventory().addItem(voidCoins);
-      secondPlace.sendMessage(ChatColor.YELLOW + "Congratulations! You came in second place. You have been awarded " + ChatColor.GOLD + "$7,500, " + ChatColor.YELLOW + "and"  + ChatColor.GOLD + " 15 VoidCoins");
-    }
-    if (numParticipants >= 3) {
-      Player thirdPlace = Bukkit.getPlayer(((Map.Entry<UUID, Integer>) sorted[2]).getKey());
-      economy.depositPlayer(thirdPlace, 5000);
-      voidCoins.setAmount(10);
-      thirdPlace.getInventory().addItem(voidCoins);
-      thirdPlace.sendMessage(ChatColor.YELLOW + "Congratulations! You came in third place. You have been awarded " + ChatColor.GOLD + "$5,000, " + ChatColor.YELLOW + "and"  + ChatColor.GOLD + " 10 VoidCoins");
-    }
-    if (numParticipants >= 4) {
-      Player fourthPlace = Bukkit.getPlayer(((Map.Entry<UUID, Integer>) sorted[3]).getKey());
-      economy.depositPlayer(fourthPlace, 5000);
-      fourthPlace.sendMessage(ChatColor.YELLOW + "Congratulations! You came in fourth place. You have been awarded " + ChatColor.GOLD + "$5,000");
-    }
-    if (numParticipants >= 5) {
-      Player fifthPlace = Bukkit.getPlayer(((Map.Entry<UUID, Integer>) sorted[4]).getKey());
-      economy.depositPlayer(fifthPlace, 5000);
-      fifthPlace.sendMessage(ChatColor.YELLOW + "Congratulations! You came in fifth place. You have been awarded " + ChatColor.GOLD + "$5,000");
+
+    for (int i = 0; i < Math.min(5, numParticipants); i++) {
+      Player awardRecipient = Bukkit.getPlayer(((Map.Entry<UUID, Integer>) sorted[i]).getKey());
+      double moneyAmt = moneyAwards.get(i);
+      ArrayList<ItemStack> itemsToAward = itemAwards.get(i);
+      String position = "";
+      switch (i) {
+        case 0:
+          position = "first";
+          break;
+        case 1:
+          position = "second";
+          break;
+        case 2:
+          position = "third";
+          break;
+        case 3:
+          position = "fourth";
+          break;
+        case 4:
+          position = "fifth";
+          break;
+      }
+      awardRecipient.sendMessage(ChatColor.YELLOW + "Congratulations! You came in " + position + " place. You have won");
+      awardRecipient.sendMessage(ChatColor.GREEN + "- " + ChatColor.GOLD + "$" + String.format("%.02f", moneyAmt));
+      economy.depositPlayer(awardRecipient, moneyAmt);
+      for (ItemStack is : itemsToAward) {
+        awardRecipient.getInventory().addItem(is);
+        ItemMeta meta = is.getItemMeta();
+        awardRecipient.sendMessage(ChatColor.GREEN + "- " + ChatColor.GOLD + is.getAmount() + " " + meta.getDisplayName());
+      }
     }
   }
 

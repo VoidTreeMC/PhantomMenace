@@ -81,6 +81,8 @@ public enum CustomItemType {
       case "Pride Shears":
         return PRIDE_SHEARS;
       case "Creeper Bow":
+      case "CreeperBane":
+      case "Creeper Bane":
         return CREEPER_BOW;
       case "Lava Walkers":
         return LAVA_WALKERS;

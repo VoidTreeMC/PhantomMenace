@@ -20,6 +20,12 @@ public class StartPhantomEventCommand extends CommandControl {
 
 	@Override
 	protected FailureCode execute(CommandSender sender, String label, String[] args) {
+
+    if (!sender.hasPermission("condor.commands.executors.startphantomevent")) {
+      sender.sendMessage("You do not have permission to start a phantom event.");
+      return FailureCode.PERMISSION_DENIED;
+    }
+
     PhantomStatus.setEnabled(true);
     // This *may* fail if executed a second time
     PhantomMain.getPlugin().getPhantomEvent().runTask(PhantomMain.getPlugin());

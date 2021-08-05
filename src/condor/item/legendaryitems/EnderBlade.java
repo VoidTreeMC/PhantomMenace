@@ -2,6 +2,8 @@ package condor.item.legendaryitems;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.TreeMap;
+import java.util.UUID;
 
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -40,7 +42,7 @@ public class EnderBlade extends CustomItem {
   // 15 second cooldown
   private static final long COOLDOWN_DURATION = 15 * 1000;
 
-  private long lastTimeUsed = 0;
+  private static TreeMap<UUID, Long> mapOfTimesUsed = new TreeMap<>();
 
   private static Random rng = new Random();
 
@@ -89,10 +91,14 @@ public class EnderBlade extends CustomItem {
     PlayerInteractEvent pie = (PlayerInteractEvent) event;
     Player player = pie.getPlayer();
     long currTime = System.currentTimeMillis();
+    long lastTimeUsed = 0;
+    if (mapOfTimesUsed.containsKey(player.getUniqueId())) {
+      lastTimeUsed = mapOfTimesUsed.get(player.getUniqueId());
+    }
     // If it's off cooldown
     if ((currTime - lastTimeUsed) >= COOLDOWN_DURATION) {
       (new DoEnderBladeTeleport(player)).runTask(PhantomMain.getPlugin());
-      lastTimeUsed = currTime;
+      mapOfTimesUsed.put(player.getUniqueId(), currTime);
     } else {
       player.sendMessage("The blade vibrates weakly. It must recharge.");
     }

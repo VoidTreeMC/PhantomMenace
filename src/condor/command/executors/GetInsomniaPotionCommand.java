@@ -22,6 +22,11 @@ public class GetInsomniaPotionCommand extends CommandControl {
 	protected FailureCode execute(CommandSender sender, String label, String[] args) {
     // TODO: Make it so you can give it to another player by specifying their name
 
+    if (!sender.hasPermission("condor.commands.executors.getinsomniapotion")) {
+      sender.sendMessage("You do not have permission to use this command.");
+      return FailureCode.PERMISSION_DENIED;
+    }
+
     if (!(sender instanceof Player)) {
       sender.sendMessage("You must be a player to run this command.");
       return FailureCode.NOT_A_PLAYER;

@@ -11,6 +11,7 @@ import condor.item.CustomItemGenerator;
 import condor.item.CustomItemManager;
 import condor.item.simpleitems.DefenderToken;
 import condor.item.CustomItemType;
+import condor.item.legendaryitems.CreeperFirework;
 
 public class PhantomShopGUI {
 
@@ -153,7 +154,7 @@ public class PhantomShopGUI {
 
         if (canAfford(player, CREEPER_FIREWORK_PRICE)) {
           chargeAmount(player, CREEPER_FIREWORK_PRICE);
-          player.getInventory().addItem(CREEPER_FIREWORK);
+          player.getInventory().addItem(new CreeperFirework().getInstance());
           purchased = true;
         }
 

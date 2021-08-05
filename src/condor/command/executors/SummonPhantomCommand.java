@@ -25,6 +25,12 @@ public class SummonPhantomCommand extends CommandControl {
 	@Override
 	protected FailureCode execute(CommandSender sender, String label, String[] args) {
     // TODO: Let player specify the location, and let a console/command block summon them if a location is specified.
+
+    if (!sender.hasPermission("condor.commands.executors.summonphantom")) {
+      sender.sendMessage("You do not have permission to use this command.");
+      return FailureCode.PERMISSION_DENIED;
+    }
+
     PhantomType type = PhantomType.VANILLA;
     if (!(sender instanceof Player)) {
       sender.sendMessage(NOT_A_PLAYER_MSG);

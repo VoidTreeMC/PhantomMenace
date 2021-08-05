@@ -22,6 +22,10 @@ public class PhantomToggleCommand extends CommandControl {
 	@Override
 	protected FailureCode execute(CommandSender sender, String label, String[] args) {
 
+    if (!sender.hasPermission("condor.commands.executors.togglephantoms")) {
+      sender.sendMessage("You do not have permission to use this command.");
+      return FailureCode.PERMISSION_DENIED;
+    }
 
 		//If there are no arguments
 		if (args.length <= 0) {
