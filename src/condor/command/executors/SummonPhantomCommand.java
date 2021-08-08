@@ -70,6 +70,11 @@ public class SummonPhantomCommand extends CommandControl {
           type = PhantomType.ENDER_PHANTOM;
           sender.sendMessage(SUMMON_MSG);
           break;
+        case "moap":
+        case "motherofallphantoms":
+          type = PhantomType.MOTHER_OF_ALL_PHANTOMS;
+          sender.sendMessage(SUMMON_MSG);
+          break;
         default:
           sender.sendMessage(UNKNOWN_TYPE_MSG);
           break;

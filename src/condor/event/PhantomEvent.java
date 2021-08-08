@@ -72,6 +72,7 @@ public class PhantomEvent extends BukkitRunnable {
     waveList.add(new InvisibleAndMountedWave());
     waveList.add(new EnderAndInvisibleWave());
     waveList.add(new AllPhantomsWave());
+    waveList.add(new MOAPWave());
     for (int i = 0; i < waveList.size(); i++) {
       waveKillMapList.add(new TreeMap<UUID, Integer>());
     }
@@ -119,6 +120,11 @@ public class PhantomEvent extends BukkitRunnable {
     for (Player p : Bukkit.getOnlinePlayers()) {
       bossBar.addPlayer(p);
     }
+    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "region flag phantomarena -w lobby mob-spawning allow");
+    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "gamerule doDaylightCycle false");
+    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "time set night");
+    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "gamerule doWeatherCycle false");
+    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "weather lobby sun");
   }
 
   /**
@@ -133,6 +139,9 @@ public class PhantomEvent extends BukkitRunnable {
     numKilledThisWave = 0;
     totalThisWave = 0;
     PhantomMain.getPlugin().phantomEvent = new PhantomEvent(0);
+    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "region flag phantomarena -w lobby mob-spawning deny");
+    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "gamerule doDaylightCycle true");
+    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "gamerule doWeatherCycle true");
   }
 
   public void run() {
@@ -274,7 +283,11 @@ public class PhantomEvent extends BukkitRunnable {
       for (ItemStack is : itemsToAward) {
         awardRecipient.getInventory().addItem(is);
         ItemMeta meta = is.getItemMeta();
-        awardRecipient.sendMessage(ChatColor.GREEN + "- " + ChatColor.GOLD + is.getAmount() + " " + meta.getDisplayName());
+        if (CustomItemType.getTypeFromCustomItem(is) == CustomItemType.DEFENDER_TOKEN) {
+          awardRecipient.sendMessage(ChatColor.GREEN + "- " + ChatColor.GOLD + is.getAmount() + " " + meta.getDisplayName() + "s");
+        } else {
+          awardRecipient.sendMessage(ChatColor.GREEN + "- " + ChatColor.GOLD + is.getAmount() + " " + meta.getDisplayName());
+        }
       }
     }
   }

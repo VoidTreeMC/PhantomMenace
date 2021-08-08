@@ -72,6 +72,9 @@ public class PhantomDropHandler {
       case ENDER_PHANTOM:
         handleGenericPhantomDrops(event, PhantomType.ENDER_PHANTOM);
         break;
+      case MOTHER_OF_ALL_PHANTOMS:
+        handleGenericPhantomDrops(event, PhantomType.MOTHER_OF_ALL_PHANTOMS);
+        break;
       // Subsequent levels are presently disabled until such time that they exist
     }
   }
@@ -100,7 +103,9 @@ public class PhantomDropHandler {
     int tokenAmt = PhantomDropTable.getNumTokens(type);
 
     if (tokenAmt > 0) {
-      player.getInventory().addItem(CustomItemManager.getItemByType(CustomItemType.DEFENDER_TOKEN).getInstance());
+      ItemStack tokens = CustomItemManager.getItemByType(CustomItemType.DEFENDER_TOKEN).getInstance();
+      tokens.setAmount(tokenAmt);
+      player.getInventory().addItem(tokens);
     }
   }
 }

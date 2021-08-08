@@ -22,11 +22,11 @@ public class NPCManager {
 
   // Add new NPCs here
   static {
-    // PhantomVendor phantomVendor = new PhantomVendor();
-    // phnpcMap.put(phantomVendor.getUniqueId(), phantomVendor);
+    PhantomVendor phantomVendor = new PhantomVendor();
+    phnpcMap.put(phantomVendor.getUniqueId(), phantomVendor);
 
-    // LegendaryBlacksmith blacksmith = new LegendaryBlacksmith();
-    // phnpcMap.put(blacksmith.getUniqueId(), blacksmith);
+    LegendaryBlacksmith blacksmith = new LegendaryBlacksmith();
+    phnpcMap.put(blacksmith.getUniqueId(), blacksmith);
   }
 
   private static NPCPool npcPool;

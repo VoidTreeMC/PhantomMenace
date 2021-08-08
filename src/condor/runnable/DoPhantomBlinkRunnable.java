@@ -29,6 +29,11 @@ public class DoPhantomBlinkRunnable extends BukkitRunnable {
   // Maximum range
   final static int MAX_RANGE = 10;
 
+  final static int MIN_Z = 86;
+  final static int MAX_Z = 130;
+  final static int MIN_X = 3877;
+  final static int MAX_X = 3976;
+
   // RNG
   static Random rng = new Random();
 
@@ -50,6 +55,18 @@ public class DoPhantomBlinkRunnable extends BukkitRunnable {
     int zDelta = rng.nextInt(MAX_RANGE * 2) - MAX_RANGE;
     Location curr = phantom.getLocation();
     Location potential = new Location(curr.getWorld(), curr.getX() + xDelta, curr.getY(), curr.getZ() + zDelta);
+
+    boolean isInsideBox = true;
+    double newX = curr.getX() + xDelta;
+    double newZ = curr.getZ() + zDelta;
+    if (newX > MAX_X || newX < MIN_X || newZ > MAX_Z || newZ < MIN_Z) {
+      isInsideBox = false;
+    }
+
+    // If it's not inside the box, abort the teleportation.
+    if (!isInsideBox) {
+      return;
+    }
 
     // If the block isn't empty, try the block above it.
     // Repeat until an empty space is found

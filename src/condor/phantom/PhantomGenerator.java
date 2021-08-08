@@ -31,9 +31,26 @@ public class PhantomGenerator {
         return summonInvisiblePhantom(loc);
       case ENDER_PHANTOM:
         return summonEnderPhantom(loc);
+      case MOTHER_OF_ALL_PHANTOMS:
+        return summonMOAP(loc);
       default:
         return null;
     }
+  }
+
+  /**
+   * Summons a Mother-of-all-Phantoms at the specified location
+   * @param  loc The location
+   */
+  public static Phantom summonMOAP(Location loc) {
+    Phantom phantom = (Phantom) loc.getWorld().spawnEntity(loc, EntityType.PHANTOM);
+    phantom.setSize(40);
+    phantom.setMaxHealth(200);
+    phantom.setHealth(200);
+    // PotionEffect strengthOne = new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 1000000, 0, true, false, false);
+    // phantom.addPotionEffect(strengthOne);
+    phantom.setMetadata(PhantomType.PHANTOM_TYPE_METADATA_KEY, new FixedMetadataValue(PhantomMain.getPlugin(), PhantomType.MOTHER_OF_ALL_PHANTOMS.toString()));
+    return phantom;
   }
 
   /**

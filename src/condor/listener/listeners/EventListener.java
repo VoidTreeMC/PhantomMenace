@@ -334,6 +334,8 @@ public class EventListener  extends PHListener {
           if (phantomType == PhantomType.FLAMING_PHANTOM) {
             final int THREE_SECONDS = 20 * 3;
             entity.setFireTicks(THREE_SECONDS);
+          } else if (phantomType == PhantomType.MOTHER_OF_ALL_PHANTOMS) {
+            edbee.setDamage(20);
           }
         }
       }

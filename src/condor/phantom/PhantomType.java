@@ -12,7 +12,8 @@ public enum PhantomType {
   FLAMING_PHANTOM,
   INVISIBLE_PHANTOM,
   MOUNTED_PHANTOM,
-  ENDER_PHANTOM;
+  ENDER_PHANTOM,
+  MOTHER_OF_ALL_PHANTOMS;
 
   private static TreeMap<String, PhantomType> PHANTOM_TYPES;
 

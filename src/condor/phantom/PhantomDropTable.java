@@ -7,6 +7,9 @@ import java.util.Random;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.Material;
 
+import condor.item.CustomItemManager;
+import condor.item.CustomItemType;
+
 public class PhantomDropTable {
 
 /*
@@ -30,6 +33,7 @@ public class PhantomDropTable {
   private static ArrayList<Object[]> invisiblePhantomDrops = new ArrayList<>();
   private static ArrayList<Object[]> mountedPhantomDrops = new ArrayList<>();
   private static ArrayList<Object[]> enderPhantomDrops = new ArrayList<>();
+  private static ArrayList<Object[]> moapPhantomDrops = new ArrayList<>();
 
   private static TreeMap<PhantomType, ArrayList<Object[]>> dropMap = new TreeMap<>();
   private static TreeMap<PhantomType, Integer> xpMap = new TreeMap<>();
@@ -63,6 +67,13 @@ public class PhantomDropTable {
     enderPhantomDrops.add(constructDrop(new ItemStack(Material.END_CRYSTAL), 0.05, 1, 1));
     enderPhantomDrops.add(constructDrop(new ItemStack(Material.BUDDING_AMETHYST), 0.05, 1, 1));
 
+    moapPhantomDrops.add(constructDrop(new ItemStack(Material.PHANTOM_MEMBRANE), 0.75, 32, 64));
+    moapPhantomDrops.add(constructDrop(new ItemStack(Material.QUARTZ), 0.25, 32, 64));
+    moapPhantomDrops.add(constructDrop(new ItemStack(Material.AMETHYST_SHARD), 0.05, 32, 64));
+    moapPhantomDrops.add(constructDrop(new ItemStack(Material.CRYING_OBSIDIAN), 0.01, 10, 16));
+    moapPhantomDrops.add(constructDrop(new ItemStack(Material.EMERALD_BLOCK), 0.10, 2, 5));
+    moapPhantomDrops.add(constructDrop(new ItemStack(Material.DIAMOND), 0.50, 2, 5));
+
     // Append to drop map
     dropMap.put(PhantomType.VANILLA, vanillaDrops);
     dropMap.put(PhantomType.EXTRA_XP_PHANTOM, extraXPPhantomDrops);
@@ -70,6 +81,7 @@ public class PhantomDropTable {
     dropMap.put(PhantomType.INVISIBLE_PHANTOM, invisiblePhantomDrops);
     dropMap.put(PhantomType.MOUNTED_PHANTOM, mountedPhantomDrops);
     dropMap.put(PhantomType.ENDER_PHANTOM, enderPhantomDrops);
+    dropMap.put(PhantomType.MOTHER_OF_ALL_PHANTOMS, moapPhantomDrops);
 
     // Append to XP map
     xpMap.put(PhantomType.VANILLA, 50);
@@ -78,6 +90,7 @@ public class PhantomDropTable {
     xpMap.put(PhantomType.INVISIBLE_PHANTOM, 125);
     xpMap.put(PhantomType.MOUNTED_PHANTOM, 150);
     xpMap.put(PhantomType.ENDER_PHANTOM, 200);
+    xpMap.put(PhantomType.MOTHER_OF_ALL_PHANTOMS, 500);
   }
 
   public static ArrayList<ItemStack> getDrops(PhantomType type, double rolledNum) {
@@ -109,6 +122,9 @@ public class PhantomDropTable {
   }
 
   public static int getNumTokens(PhantomType type) {
+    if (type == PhantomType.MOTHER_OF_ALL_PHANTOMS) {
+      return rng.nextInt(10) + 10;
+    }
     // 10% chance to drop token
     if (rng.nextInt(10) < 1) {
       return 1;
