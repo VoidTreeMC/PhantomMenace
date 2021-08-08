@@ -45,7 +45,7 @@ import org.bukkit.event.inventory.InventoryType.SlotType;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.entity.FireworkExplodeEvent;
 import org.bukkit.entity.LivingEntity;
-
+import io.papermc.paper.event.block.PlayerShearBlockEvent;
 
 import condor.listener.PHListener;
 import condor.main.PhantomMain;
@@ -196,6 +196,11 @@ public class EventListener  extends PHListener {
 
   @EventHandler
   public void onPlayerMoveEvent(PlayerMoveEvent event) {
+    CustomItemEventManager.parseEvent(event);
+  }
+
+  @EventHandler
+  public void onPlayerShearBlockEvent(PlayerShearBlockEvent event) {
     CustomItemEventManager.parseEvent(event);
   }
 

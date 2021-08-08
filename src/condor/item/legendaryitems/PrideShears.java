@@ -20,6 +20,8 @@ import org.bukkit.event.player.PlayerShearEntityEvent;
 import org.bukkit.event.block.Action;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Sheep;
+import org.bukkit.block.data.type.Beehive;
+import io.papermc.paper.event.block.PlayerShearBlockEvent;
 
 
 import condor.item.CustomItem;
@@ -34,6 +36,7 @@ public class PrideShears extends CustomItem {
   private static ArrayList<Class> triggerList = new ArrayList<>();
 
   private static ArrayList<Material> WOOL_TYPES = new ArrayList<>();
+  private static ArrayList<Material> CANDLE_TYPES = new ArrayList<>();
 
   private static Random rng = new Random();
 
@@ -44,6 +47,7 @@ public class PrideShears extends CustomItem {
     loreList.add("10 VoidCoins");
 
     triggerList.add(PlayerShearEntityEvent.class);
+    triggerList.add(PlayerShearBlockEvent.class);
 
     WOOL_TYPES.add(Material.WHITE_WOOL);
     WOOL_TYPES.add(Material.ORANGE_WOOL);
@@ -61,6 +65,24 @@ public class PrideShears extends CustomItem {
     WOOL_TYPES.add(Material.GREEN_WOOL);
     WOOL_TYPES.add(Material.RED_WOOL);
     WOOL_TYPES.add(Material.BLACK_WOOL);
+
+    CANDLE_TYPES.add(Material.CANDLE);
+    CANDLE_TYPES.add(Material.WHITE_CANDLE);
+    CANDLE_TYPES.add(Material.ORANGE_CANDLE);
+    CANDLE_TYPES.add(Material.MAGENTA_CANDLE);
+    CANDLE_TYPES.add(Material.LIGHT_BLUE_CANDLE);
+    CANDLE_TYPES.add(Material.YELLOW_CANDLE);
+    CANDLE_TYPES.add(Material.LIME_CANDLE);
+    CANDLE_TYPES.add(Material.PINK_CANDLE);
+    CANDLE_TYPES.add(Material.GRAY_CANDLE);
+    CANDLE_TYPES.add(Material.LIGHT_GRAY_CANDLE);
+    CANDLE_TYPES.add(Material.CYAN_CANDLE);
+    CANDLE_TYPES.add(Material.PURPLE_CANDLE);
+    CANDLE_TYPES.add(Material.BLUE_CANDLE);
+    CANDLE_TYPES.add(Material.BROWN_CANDLE);
+    CANDLE_TYPES.add(Material.GREEN_CANDLE);
+    CANDLE_TYPES.add(Material.RED_CANDLE);
+    CANDLE_TYPES.add(Material.BLACK_CANDLE);
   }
 
   public PrideShears() {
@@ -91,19 +113,44 @@ public class PrideShears extends CustomItem {
           ret = !sheep.isSheared();
         }
       }
+    } else if (event instanceof PlayerShearBlockEvent) {
+      PlayerShearBlockEvent psbe = (PlayerShearBlockEvent) event;
+      Player player = psbe.getPlayer();
+      // If they right-clicked a bee hive
+      if (psbe.getBlock().getType() == Material.BEE_NEST || psbe.getBlock().getType() == Material.BEEHIVE) {
+        if (isPrideShears(psbe.getItem())) {
+          ret = true;
+        }
+      }
     }
     return ret;
   }
 
   public void execute(Event event) {
-    PlayerShearEntityEvent psee = (PlayerShearEntityEvent) event;
-    Player player = psee.getPlayer();
-    psee.setCancelled(true);
-    ((Sheep) (psee.getEntity())).setSheared(true);
-    Material woolType = WOOL_TYPES.get(rng.nextInt(WOOL_TYPES.size()));
-    int woolAmt = rng.nextInt(5) + 3;
-    ItemStack item = new ItemStack(woolType, woolAmt);
-    player.getInventory().addItem(item);
+    if (event instanceof PlayerShearEntityEvent) {
+      PlayerShearEntityEvent psee = (PlayerShearEntityEvent) event;
+      Player player = psee.getPlayer();
+      psee.setCancelled(true);
+      ((Sheep) (psee.getEntity())).setSheared(true);
+      Material woolType = WOOL_TYPES.get(rng.nextInt(WOOL_TYPES.size()));
+      int woolAmt = rng.nextInt(5) + 3;
+      ItemStack item = new ItemStack(woolType, woolAmt);
+      player.getInventory().addItem(item);
+    } else if (event instanceof PlayerShearBlockEvent) {
+      PlayerShearBlockEvent psbe = (PlayerShearBlockEvent) event;
+      Player player = psbe.getPlayer();
+      Beehive hive = (Beehive) psbe.getBlock().getBlockData();
+      // If the hive is at max honey level
+      if (hive.getHoneyLevel() == hive.getMaximumHoneyLevel()) {
+        hive.setHoneyLevel(0);
+        psbe.setCancelled(true);
+        Material candleType = CANDLE_TYPES.get(rng.nextInt(CANDLE_TYPES.size()));
+        int candleAmt = rng.nextInt(5) + 3;
+        ItemStack item = new ItemStack(candleType, candleAmt);
+        player.getInventory().addItem(item);
+      }
+      psbe.getBlock().setBlockData(hive);
+    }
   }
 
   public boolean isPrideShears(ItemStack item) {
