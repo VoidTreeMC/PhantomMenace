@@ -53,6 +53,7 @@ import condor.phantom.PhantomStatus;
 import condor.phantom.PhantomDropHandler;
 import condor.phantom.PhantomType;
 import condor.runnable.DoPhantomBlinkRunnable;
+import condor.runnable.DeleteIfIsWild;
 import condor.item.CustomItemType;
 import condor.gui.PhantomShopGUI;
 import condor.item.CustomItemGenerator;
@@ -215,6 +216,7 @@ public class EventListener  extends PHListener {
       if (entity.hasMetadata(PhantomEvent.EVENT_METADATA_KEY)) {
         PhantomEvent.manageKill(((Phantom) entity), null);
       }
+      PhantomDropHandler.classifyAndDividePDE(event);
     }
     CustomItemEventManager.parseEvent(event);
   }
@@ -238,6 +240,9 @@ public class EventListener  extends PHListener {
     // If phantoms are disabled
     if (spawnedEntity.getType() == EntityType.PHANTOM && !PhantomStatus.isEnabled()) {
       event.setCancelled(true);
+    // If phantoms are enabled and an event is active
+    } else if (spawnedEntity.getType() == EntityType.PHANTOM && PhantomEvent.isActive()) {
+      (new DeleteIfIsWild((Phantom) spawnedEntity)).runTaskLater(PhantomMain.getPlugin(), 10);
     }
   }
 
