@@ -67,6 +67,12 @@ public class GetCustomItemCommand extends CommandControl {
       case "creeperfirework":
         is = CustomItemManager.getItemByType(CustomItemType.CREEPER_FIREWORK).getInstance();
         break;
+      case "superpick":
+      case "tab":
+      case "thickassboy":
+      case "thickassboye":
+        is = CustomItemManager.getItemByType(CustomItemType.SUPER_PICK).getInstance();
+        break;
     }
 
     if (is != null) {

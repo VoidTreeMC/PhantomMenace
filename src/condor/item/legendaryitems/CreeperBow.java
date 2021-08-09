@@ -95,7 +95,7 @@ public class CreeperBow extends CustomItem {
       // Give it metadata that says it's been shot by this bow
       entity.setMetadata(METADATA_KEY, new FixedMetadataValue(PhantomMain.getPlugin(), true));
       // Disable entity's AI for 5 seconds
-      (new DoDisableTargetAI(entity, 5)).runTask(PhantomMain.getPlugin());
+      (new DoDisableTargetAI(entity, 5)).runTaskLater(PhantomMain.getPlugin(), 13);
     } else {
       EntityDeathEvent ede = (EntityDeathEvent) event;
       int amt = rng.nextInt(3) + 1;

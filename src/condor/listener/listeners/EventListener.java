@@ -300,12 +300,10 @@ public class EventListener  extends PHListener {
 
 	}
 
-  // @EventHandler
-  // public void onBlockBreak(BlockBreakEvent event) {
-  //   Player player = event.getPlayer();
-  //   player.sendMessage("" + player.getStatistic(Statistic.TIME_SINCE_REST));
-  //   player.setStatistic(Statistic.TIME_SINCE_REST, 1000000);
-  // }
+  @EventHandler
+  public void onBlockBreak(BlockBreakEvent event) {
+    CustomItemEventManager.parseEvent(event);
+  }
 
 	/**
 	 * Called when an {@link Entity} takes damage <p?

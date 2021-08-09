@@ -36,6 +36,7 @@ public class BlacksmithGUI {
     obtainableItems.add(CustomItemType.PRIDE_SHEARS);
     obtainableItems.add(CustomItemType.CREEPER_BOW);
     obtainableItems.add(CustomItemType.LAVA_WALKERS);
+    obtainableItems.add(CustomItemType.SUPER_PICK);
 
     ItemMeta redPaneMeta = CONFIRM_PANE_RED.getItemMeta();
     redPaneMeta.setDisplayName("Destroy these items");

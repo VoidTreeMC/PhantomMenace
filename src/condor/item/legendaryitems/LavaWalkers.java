@@ -59,7 +59,6 @@ public class LavaWalkers extends CustomItem {
     meta.addEnchant(Enchantment.PROTECTION_FIRE, 4, false);
     meta.addEnchant(Enchantment.SOUL_SPEED, 3, false);
     meta.addEnchant(Enchantment.THORNS, 3, false);
-    // TODO: Make them un-enchantable
     is.setItemMeta(meta);
     return is;
   }

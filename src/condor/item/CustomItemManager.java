@@ -20,6 +20,7 @@ public class CustomItemManager {
     itemMap.put(CustomItemType.CREEPER_BOW, new CreeperBow());
     itemMap.put(CustomItemType.LAVA_WALKERS, new LavaWalkers());
     itemMap.put(CustomItemType.CREEPER_FIREWORK, new CreeperFirework());
+    itemMap.put(CustomItemType.SUPER_PICK, new SuperPick());
   }
 
   public static TreeMap<CustomItemType, CustomItem> getMap() {
