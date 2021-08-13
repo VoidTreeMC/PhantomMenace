@@ -54,6 +54,7 @@ import condor.phantom.PhantomDropHandler;
 import condor.phantom.PhantomType;
 import condor.runnable.DoPhantomBlinkRunnable;
 import condor.runnable.DeleteIfIsWild;
+import condor.runnable.DeleteIfIsWildSkeleton;
 import condor.item.CustomItemType;
 import condor.gui.PhantomShopGUI;
 import condor.item.CustomItemGenerator;
@@ -240,7 +241,7 @@ public class EventListener  extends PHListener {
   }
 
   @EventHandler
-  public void onPhantomSpawn(EntitySpawnEvent event) {
+  public void onEntitySpawn(EntitySpawnEvent event) {
     Entity spawnedEntity = event.getEntity();
     // If phantoms are disabled
     if (spawnedEntity.getType() == EntityType.PHANTOM && !PhantomStatus.isEnabled()) {
@@ -248,6 +249,8 @@ public class EventListener  extends PHListener {
     // If phantoms are enabled and an event is active
     } else if (spawnedEntity.getType() == EntityType.PHANTOM && PhantomEvent.isActive()) {
       (new DeleteIfIsWild((Phantom) spawnedEntity)).runTaskLater(PhantomMain.getPlugin(), 10);
+    } else if (spawnedEntity.getType() == EntityType.SKELETON && PhantomEvent.isActive()) {
+      (new DeleteIfIsWildSkeleton((LivingEntity) spawnedEntity)).runTaskLater(PhantomMain.getPlugin(), 5);
     }
   }
 
@@ -329,6 +332,8 @@ public class EventListener  extends PHListener {
           Phantom phantom = (Phantom) damager;
           // If it's a flaming phantom
           PhantomType phantomType = PhantomType.getTypeFromPhantom(phantom);
+          // Add 2 hearts of extra damage to phantom attacks
+          edbee.setDamage(edbee.getDamage() + 4);
           if (phantomType == PhantomType.FLAMING_PHANTOM) {
             final int THREE_SECONDS = 20 * 3;
             entity.setFireTicks(THREE_SECONDS);

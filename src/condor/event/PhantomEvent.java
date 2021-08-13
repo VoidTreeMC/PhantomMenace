@@ -125,6 +125,7 @@ public class PhantomEvent extends BukkitRunnable {
     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "time set night");
     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "gamerule doWeatherCycle false");
     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "weather lobby sun");
+    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "announcer togglebroadcasts");
   }
 
   /**
@@ -142,6 +143,7 @@ public class PhantomEvent extends BukkitRunnable {
     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "region flag phantomarena -w lobby mob-spawning deny");
     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "gamerule doDaylightCycle true");
     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "gamerule doWeatherCycle true");
+    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "announcer togglebroadcasts");
   }
 
   public void run() {

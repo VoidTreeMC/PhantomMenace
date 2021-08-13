@@ -27,6 +27,12 @@ public class NPCManager {
 
     LegendaryBlacksmith blacksmith = new LegendaryBlacksmith();
     phnpcMap.put(blacksmith.getUniqueId(), blacksmith);
+
+    QueenBear queenBear = new QueenBear();
+    phnpcMap.put(queenBear.getUniqueId(), queenBear);
+
+    BartenderRaccoon bartenderRaccoon = new BartenderRaccoon();
+    phnpcMap.put(bartenderRaccoon.getUniqueId(), bartenderRaccoon);
   }
 
   private static NPCPool npcPool;
