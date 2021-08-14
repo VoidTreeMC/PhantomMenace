@@ -43,5 +43,9 @@ public class SpawnPhantomAtLocation extends BukkitRunnable {
     Phantom phantom = PhantomGenerator.summonPhantom(phantomType, loc);
     phantom.setMetadata(PhantomEvent.EVENT_METADATA_KEY, new FixedMetadataValue(PhantomMain.getPlugin(), true));
     phantom.setRemoveWhenFarAway(false);
+    // After 10 seconds, start making the phantom aggressively target players
+    (new PhantomRetarget(phantom)).runTaskLater(PhantomMain.getPlugin(), 10 * 20);
+    // After two minutes, make the phantom glow
+    (new MakePhantomGlow(phantom)).runTaskLater(PhantomMain.getPlugin(), 2 * 60 * 20);
 	}
 }

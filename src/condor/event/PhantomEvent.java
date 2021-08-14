@@ -25,6 +25,7 @@ import org.bukkit.entity.Phantom;
 import org.bukkit.ChatColor;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.Color;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.ChatMessageType;
 
@@ -33,6 +34,8 @@ import condor.main.PhantomMain;
 import condor.phantom.PhantomStatus;
 import condor.item.CustomItemManager;
 import condor.item.CustomItemType;
+import condor.runnable.DoFireworkShow;
+import condor.runnable.SetTimeInWorld;
 
 import net.milkbowl.vault.economy.Economy;
 
@@ -63,6 +66,8 @@ public class PhantomEvent extends BukkitRunnable {
   private static int totalThisWave = 0;
 
   private static BossBar bossBar = null;
+
+  private static long timeBeforeSetting = 0;
 
   static {
     waveList.add(new VanillaWave());
@@ -120,6 +125,7 @@ public class PhantomEvent extends BukkitRunnable {
     for (Player p : Bukkit.getOnlinePlayers()) {
       bossBar.addPlayer(p);
     }
+    timeBeforeSetting = loc.getWorld().getTime();
     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "region flag phantomarena -w lobby mob-spawning allow");
     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "gamerule doDaylightCycle false");
     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "time set night");
@@ -140,6 +146,7 @@ public class PhantomEvent extends BukkitRunnable {
     numKilledThisWave = 0;
     totalThisWave = 0;
     PhantomMain.getPlugin().phantomEvent = new PhantomEvent(0);
+    (new SetTimeInWorld(loc.getWorld(), timeBeforeSetting)).runTaskLater(PhantomMain.getPlugin(), 10 * 20);
     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "region flag phantomarena -w lobby mob-spawning deny");
     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "gamerule doDaylightCycle true");
     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "gamerule doWeatherCycle true");
@@ -167,6 +174,7 @@ public class PhantomEvent extends BukkitRunnable {
       PhantomStatus.setEnabled(false);
       printTopFive(true);
       awardTopFive();
+      (new DoFireworkShow(loc)).runTask(PhantomMain.getPlugin());
       reset();
     }
   }

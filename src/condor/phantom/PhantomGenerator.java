@@ -47,8 +47,8 @@ public class PhantomGenerator {
     phantom.setSize(40);
     phantom.setMaxHealth(200);
     phantom.setHealth(200);
-    // PotionEffect strengthOne = new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 1000000, 0, true, false, false);
-    // phantom.addPotionEffect(strengthOne);
+    PotionEffect speedFour = new PotionEffect(PotionEffectType.SPEED, 1000000, 3, true, false, false);
+    phantom.addPotionEffect(speedFour);
     phantom.setMetadata(PhantomType.PHANTOM_TYPE_METADATA_KEY, new FixedMetadataValue(PhantomMain.getPlugin(), PhantomType.MOTHER_OF_ALL_PHANTOMS.toString()));
     return phantom;
   }

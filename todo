@@ -15,5 +15,11 @@ Add fireworks going off to the event code
 
 Maybe add a bossbar for the MOAP, and a custom message at the end of the event saying who killed the MOAP
 
+Make firework show at night
+
 DID
 ===
+Made phantoms that are not currently targeting people periodically target them
+Added a glowing effect to the phantoms after a delay
+Added firework show
+Restored time after event
