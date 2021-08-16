@@ -1,23 +1,23 @@
 package condor.runnable;
 
-import java.util.List;
-
-import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.entity.Phantom;
+import org.bukkit.Color;
+import org.bukkit.FireworkEffect;
+import org.bukkit.Location;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Phantom;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Entity;
-import org.bukkit.Location;
+import org.bukkit.entity.Phantom;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.meta.FireworkMeta;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.FireworkEffect;
-import org.bukkit.inventory.meta.FireworkMeta;
-import org.bukkit.Color;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import condor.main.PhantomMain;
+
+import java.util.List;
 
 public class DoFireworkShow extends BukkitRunnable {
 

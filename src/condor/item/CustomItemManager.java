@@ -10,6 +10,8 @@ import condor.item.simpleitems.*;
 public class CustomItemManager {
   private static TreeMap<CustomItemType, CustomItem> itemMap = new TreeMap<>();
 
+  private static final double priceScale = 2;
+
   // Add custom items here
   static {
     // itemMap.put(CustomItemType.INSOMNIA_POTION, InsomniaPotion);
@@ -21,6 +23,10 @@ public class CustomItemManager {
     itemMap.put(CustomItemType.LAVA_WALKERS, new LavaWalkers());
     itemMap.put(CustomItemType.CREEPER_FIREWORK, new CreeperFirework());
     itemMap.put(CustomItemType.SUPER_PICK, new SuperPick());
+  }
+
+  public static double getPriceScale() {
+    return priceScale;
   }
 
   public static TreeMap<CustomItemType, CustomItem> getMap() {

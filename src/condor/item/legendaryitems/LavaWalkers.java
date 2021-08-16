@@ -38,19 +38,19 @@ public class LavaWalkers extends CustomItem {
     loreList.add("who conquered the nether.");
     loreList.add("If you stop walking, you die.");
     loreList.add("");
-    loreList.add("50 VoidCoins");
 
     triggerList.add(PlayerMoveEvent.class);
   }
 
   public LavaWalkers() {
-    super(NAME, loreList, triggerList, CustomItemType.LAVA_WALKERS, false);
+    super(NAME, loreList, triggerList, CustomItemType.LAVA_WALKERS, 50, false);
   }
 
   public ItemStack getInstance() {
     ItemStack is = new ItemStack(Material.NETHERITE_BOOTS, 1);
     ItemMeta meta = is.getItemMeta();
     meta.setDisplayName(NAME);
+    loreList.add(this.getPrice() + " VoidCoins");
     meta.setLore(loreList);
     meta.setUnbreakable(true);
     meta.addEnchant(Enchantment.MENDING, 1, false);

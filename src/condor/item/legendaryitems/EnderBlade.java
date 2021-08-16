@@ -48,20 +48,24 @@ public class EnderBlade extends CustomItem {
 
   static {
     loreList.add("Ender Blade");
+    loreList.add("The Quacken battled endless hordes");
+    loreList.add("of the tall demons while retreating to");
+    loreList.add("VoidTree. Without this sword, all would");
+    loreList.add("have been lost.");
     loreList.add("");
-    loreList.add("50 VoidCoins");
 
     triggerList.add(PlayerInteractEvent.class);
   }
 
   public EnderBlade() {
-    super(NAME, loreList, triggerList, CustomItemType.ENDER_BLADE);
+    super(NAME, loreList, triggerList, CustomItemType.ENDER_BLADE, 50);
   }
 
   public ItemStack getInstance() {
     ItemStack is = new ItemStack(Material.NETHERITE_SWORD, 1);
     ItemMeta meta = is.getItemMeta();
     meta.setDisplayName(NAME);
+    loreList.add(this.getPrice() + " VoidCoins");
     meta.setLore(loreList);
     meta.addEnchant(Enchantment.MENDING, 1, false);
     meta.addEnchant(Enchantment.DURABILITY, 3, false);

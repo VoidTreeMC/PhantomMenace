@@ -33,19 +33,19 @@ public class FancyPants extends CustomItem {
     loreList.add("Gift of the Glam God.");
     loreList.add("Wear these and walk between the raindrops.");
     loreList.add("");
-    loreList.add("25 VoidCoins");
 
     triggerList.add(EntityDamageEvent.class);
   }
 
   public FancyPants() {
-    super(NAME, loreList, triggerList, CustomItemType.FANCY_PANTS);
+    super(NAME, loreList, triggerList, CustomItemType.FANCY_PANTS, 25);
   }
 
   public ItemStack getInstance() {
     ItemStack is = new ItemStack(Material.GOLDEN_LEGGINGS, 1);
     ItemMeta meta = is.getItemMeta();
     meta.setDisplayName(NAME);
+    loreList.add(this.getPrice() + " VoidCoins");
     meta.setLore(loreList);
     meta.setUnbreakable(true);
     is.setItemMeta(meta);

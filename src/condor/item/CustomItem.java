@@ -12,20 +12,23 @@ public abstract class CustomItem {
   private ArrayList<Class> triggers;
   private CustomItemType type;
   private boolean isEnchantable;
+  private int price;
 
-  protected CustomItem(String name, ArrayList<String> lore, ArrayList<Class> triggers, CustomItemType type) {
+  protected CustomItem(String name, ArrayList<String> lore, ArrayList<Class> triggers, CustomItemType type, int price) {
     this.name = name;
     this.lore = lore;
     this.triggers = triggers;
     this.type = type;
+    this.price = price;
     this.isEnchantable = true;
   }
 
-  protected CustomItem(String name, ArrayList<String> lore, ArrayList<Class> triggers, CustomItemType type, boolean enchantable) {
+  protected CustomItem(String name, ArrayList<String> lore, ArrayList<Class> triggers, CustomItemType type, int price, boolean enchantable) {
     this.name = name;
     this.lore = lore;
     this.triggers = triggers;
     this.type = type;
+    this.price = price;
     this.isEnchantable = enchantable;
   }
 
@@ -63,6 +66,15 @@ public abstract class CustomItem {
     if (isTriggerEvent && isNecessary) {
       execute(event);
     }
+  }
+
+  /**
+   * Returns the price for the item, factoring in
+   * price scaling
+   * @return The scaled price for the item
+   */
+  public int getPrice() {
+    return (int) (this.price * CustomItemManager.getPriceScale());
   }
 
   /**

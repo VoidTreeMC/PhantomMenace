@@ -48,19 +48,19 @@ public class CreeperFirework extends CustomItem {
     loreList.add("Not recommended for use over water");
     loreList.add("Or indoors");
     loreList.add("");
-    loreList.add("1 VoidCoin");
 
     triggerList.add(FireworkExplodeEvent.class);
   }
 
   public CreeperFirework() {
-    super(NAME, loreList, triggerList, CustomItemType.CREEPER_FIREWORK);
+    super(NAME, loreList, triggerList, CustomItemType.CREEPER_FIREWORK, 1);
   }
 
   public ItemStack getInstance() {
     ItemStack is = new ItemStack(Material.FIREWORK_ROCKET, 1);
     FireworkMeta meta = (FireworkMeta) is.getItemMeta();
     meta.setDisplayName(NAME);
+    loreList.add(this.getPrice() + " VoidCoin");
     meta.setLore(loreList);
     FireworkEffect effect = FireworkEffect.builder()
                             .trail(true)

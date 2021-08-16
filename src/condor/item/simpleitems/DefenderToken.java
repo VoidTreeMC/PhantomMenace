@@ -26,7 +26,7 @@ public class DefenderToken extends CustomItem {
   }
 
   public DefenderToken() {
-    super(NAME, loreList, triggerList, CustomItemType.DEFENDER_TOKEN);
+    super(NAME, loreList, triggerList, CustomItemType.DEFENDER_TOKEN, 0);
   }
 
   public ItemStack getInstance() {

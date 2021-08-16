@@ -44,7 +44,6 @@ public class PrideShears extends CustomItem {
     loreList.add("Pride Shears");
     loreList.add("Because the world needs more rainbows.");
     loreList.add("");
-    loreList.add("10 VoidCoins");
 
     triggerList.add(PlayerShearEntityEvent.class);
     triggerList.add(PlayerShearBlockEvent.class);
@@ -86,13 +85,14 @@ public class PrideShears extends CustomItem {
   }
 
   public PrideShears() {
-    super(NAME, loreList, triggerList, CustomItemType.PRIDE_SHEARS);
+    super(NAME, loreList, triggerList, CustomItemType.PRIDE_SHEARS, 10);
   }
 
   public ItemStack getInstance() {
     ItemStack is = new ItemStack(Material.SHEARS, 1);
     ItemMeta meta = is.getItemMeta();
     meta.setDisplayName(NAME);
+    loreList.add(this.getPrice() + " VoidCoins");
     meta.setLore(loreList);
     meta.addEnchant(Enchantment.MENDING, 1, false);
     meta.addEnchant(Enchantment.DURABILITY, 3, false);

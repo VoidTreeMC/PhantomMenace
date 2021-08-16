@@ -37,21 +37,23 @@ public class SuperPick extends CustomItem {
 
   static {
     loreList.add("TAB");
+    loreList.add("Breaks 3x3 areas of blocks when mining,");
+    loreList.add("but only drops the original block");
     loreList.add("");
-    loreList.add("100 VoidCoins");
 
     triggerList.add(BlockBreakEvent.class);
     triggerList.add(PlayerInteractEvent.class);
   }
 
   public SuperPick() {
-    super(NAME, loreList, triggerList, CustomItemType.SUPER_PICK, false);
+    super(NAME, loreList, triggerList, CustomItemType.SUPER_PICK, 100, false);
   }
 
   public ItemStack getInstance() {
     ItemStack is = new ItemStack(Material.NETHERITE_PICKAXE, 1);
     ItemMeta meta = is.getItemMeta();
     meta.setDisplayName(NAME);
+    loreList.add(this.getPrice() + " VoidCoins");
     meta.setLore(loreList);
     meta.addEnchant(Enchantment.MENDING, 1, false);
     // meta.setUnbreakable(true);

@@ -42,20 +42,20 @@ public class CreeperBow extends CustomItem {
   static {
     loreList.add("CreeperBane");
     loreList.add("");
-    loreList.add("50 VoidCoins");
 
     triggerList.add(EntityDamageEvent.class);
     triggerList.add(EntityDeathEvent.class);
   }
 
   public CreeperBow() {
-    super(NAME, loreList, triggerList, CustomItemType.CREEPER_BOW);
+    super(NAME, loreList, triggerList, CustomItemType.CREEPER_BOW, 50);
   }
 
   public ItemStack getInstance() {
     ItemStack is = new ItemStack(Material.BOW, 1);
     ItemMeta meta = is.getItemMeta();
     meta.setDisplayName(NAME);
+    loreList.add(this.getPrice() + " VoidCoins");
     meta.setLore(loreList);
     meta.addEnchant(Enchantment.MENDING, 1, false);
     meta.addEnchant(Enchantment.ARROW_INFINITE, 1, false);

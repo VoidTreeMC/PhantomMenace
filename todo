@@ -11,15 +11,11 @@ There are 2 "The phantoms have been vanquished! Thank you for defending"
 Ender phantoms and invisible phantoms are still spawning even though we got the message
 - Couldn't reproduce it alone
 
-Add fireworks going off to the event code
-
 Maybe add a bossbar for the MOAP, and a custom message at the end of the event saying who killed the MOAP
 
 Make firework show at night
 
 DID
 ===
-Made phantoms that are not currently targeting people periodically target them
-Added a glowing effect to the phantoms after a delay
-Added firework show
-Restored time after event
+Increased phantom retargetting range
+Made it so phantom retargetting doesn't target players in creative mode

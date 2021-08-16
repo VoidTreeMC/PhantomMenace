@@ -11,6 +11,7 @@ import org.bukkit.entity.Phantom;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Entity;
 import org.bukkit.Location;
+import org.bukkit.GameMode;
 
 import condor.main.PhantomMain;
 
@@ -27,7 +28,7 @@ public class PhantomRetarget extends BukkitRunnable {
   private static final int INTERVAL = 3 * 20;
 
   // The radius of blocks in which players are sought out
-  private static final int RADIUS = 50;
+  private static final int RADIUS = 100;
 
 	public PhantomRetarget(Phantom phantom) {
 		this.plugin = PhantomMain.getPlugin();
@@ -41,12 +42,14 @@ public class PhantomRetarget extends BukkitRunnable {
 
     for (Entity entity : nearbyEntities) {
       if (entity.getType() == EntityType.PLAYER) {
-        Location phantomPos = this.phantom.getLocation();
-        Location playerPos = entity.getLocation();
-        double distance = phantomPos.distance(playerPos);
-        if (distance < shortestDistance) {
-          shortestDistance = distance;
-          nearestPlayer = (Player) entity;
+        if (((Player) entity).getGameMode() != GameMode.CREATIVE) {
+          Location phantomPos = this.phantom.getLocation();
+          Location playerPos = entity.getLocation();
+          double distance = phantomPos.distance(playerPos);
+          if (distance < shortestDistance) {
+            shortestDistance = distance;
+            nearestPlayer = (Player) entity;
+          }
         }
       }
     }
@@ -59,7 +62,6 @@ public class PhantomRetarget extends BukkitRunnable {
 	 */
 	@Override
 	public void run() {
-    System.out.println("Running retarget procedure.");
     // If the entity is dead, we are done.
     if (this.phantom.isDead()) {
       this.cancel();
@@ -68,11 +70,7 @@ public class PhantomRetarget extends BukkitRunnable {
 
     // If the phantom isn't targeting anybody
     if (this.phantom.getTarget() == null) {
-      System.out.println("Phantom is not targeting anything.");
       Player nearestPlayer = getNearestPlayer();
-      if (nearestPlayer != null) {
-        System.out.println("Setting target to " + nearestPlayer.getName());
-      }
       this.phantom.setTarget(nearestPlayer);
     }
 
