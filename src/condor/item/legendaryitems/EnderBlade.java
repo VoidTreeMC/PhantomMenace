@@ -59,13 +59,13 @@ public class EnderBlade extends CustomItem {
 
   public EnderBlade() {
     super(NAME, loreList, triggerList, CustomItemType.ENDER_BLADE, 50);
+    loreList.add(this.getPrice() + " VoidCoins");
   }
 
   public ItemStack getInstance() {
     ItemStack is = new ItemStack(Material.NETHERITE_SWORD, 1);
     ItemMeta meta = is.getItemMeta();
     meta.setDisplayName(NAME);
-    loreList.add(this.getPrice() + " VoidCoins");
     meta.setLore(loreList);
     meta.addEnchant(Enchantment.MENDING, 1, false);
     meta.addEnchant(Enchantment.DURABILITY, 3, false);

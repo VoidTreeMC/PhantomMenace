@@ -9,6 +9,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Phantom;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.Bukkit;
 
 import condor.phantom.PhantomType;
 import condor.runnable.SpawnPhantomAtLocation;
@@ -18,6 +19,9 @@ public abstract class Wave {
 
   // Measured in ticks
   private static final long TIME_BETWEEN_PHANTOMS = 5;
+
+  private static final int MAX_PHANTOMS = 200;
+  private static final int PHANTOMS_PER_PLAYER = 15;
 
   protected TreeMap<PhantomType, Integer> waveMap;
 
@@ -36,7 +40,14 @@ public abstract class Wave {
       sum += num;
     }
 
-    return sum;
+    int scaleNum = Bukkit.getOnlinePlayers().size();
+    // If the phantom number would exceed the max, change the
+    // scaling factor
+    if (scaleNum * sum > MAX_PHANTOMS) {
+      scaleNum = MAX_PHANTOMS / sum;
+    }
+
+    return scaleNum * sum;
   }
 
   /**
@@ -44,10 +55,21 @@ public abstract class Wave {
    * @param  loc The location
    */
   public void spawnWave(Location loc) {
+    // Update the number of phantoms to reflect the number of players online
+    int scaleNum = Bukkit.getOnlinePlayers().size();
+    int totalPhantoms = this.getTotalPhantoms();
+    // If the phantom number would exceed the max, change the
+    // scaling factor
+    if (totalPhantoms > MAX_PHANTOMS) {
+      scaleNum = MAX_PHANTOMS / totalPhantoms;
+    }
+    for (Entry<PhantomType, Integer> entry : waveMap.entrySet()) {
+      waveMap.put(entry.getKey(), entry.getValue() * scaleNum);
+    }
     // Set the number of phantoms in the current event wave to the
     // number of phantoms in this wave
     PhantomMain.getPlugin().getPhantomEvent().setWaveCount(this.getTotalPhantoms());
-    
+
     ArrayList<PhantomType> waveList = new ArrayList<>();
     for (Entry<PhantomType, Integer> entry : waveMap.entrySet()) {
       for (int i = 0; i < entry.getValue(); i++) {

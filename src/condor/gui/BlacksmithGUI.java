@@ -26,6 +26,7 @@ public class BlacksmithGUI {
   private static ItemStack CONFIRM_PANE_RED = new ItemStack(Material.RED_STAINED_GLASS_PANE);
   private static ItemStack CONFIRM_PANE_GREEN = new ItemStack(Material.LIME_STAINED_GLASS_PANE);
   private static ItemStack CONFIRM_PANE_YELLOW = new ItemStack(Material.YELLOW_STAINED_GLASS_PANE);
+  private static ItemStack CONFIRM_PANE_ORANGE = new ItemStack(Material.ORANGE_STAINED_GLASS_PANE);
   private static ItemStack INSTRUCTION_BOOK = new ItemStack(Material.BOOK);
 
   public static ArrayList<CustomItemType> obtainableItems = new ArrayList<>();
@@ -53,6 +54,14 @@ public class BlacksmithGUI {
     yellowPaneLore.add("the forge slots to forge them together");
     yellowPaneMeta.setLore(yellowPaneLore);
     CONFIRM_PANE_YELLOW.setItemMeta(yellowPaneMeta);
+
+    ItemMeta orangePaneMeta = CONFIRM_PANE_ORANGE.getItemMeta();
+    orangePaneMeta.setDisplayName("No possible results");
+    ArrayList<String> orangePaneLore = new ArrayList<>();
+    orangePaneLore.add("There are no results available");
+    orangePaneLore.add("from forging these items");
+    orangePaneMeta.setLore(orangePaneLore);
+    CONFIRM_PANE_ORANGE.setItemMeta(orangePaneMeta);
 
     ItemMeta greenPaneMeta = CONFIRM_PANE_GREEN.getItemMeta();
     greenPaneMeta.setDisplayName("Forging confirmed.");
@@ -89,10 +98,22 @@ public class BlacksmithGUI {
       return null;
     }
 
+    int firstPrice = CustomItemManager.getItemByType(firstType).getPrice();
+    int secondPrice = CustomItemManager.getItemByType(secondType).getPrice();
+    int maxPrice = Math.max(firstPrice, secondPrice);
+
     CustomItemType thirdType;
     ArrayList<CustomItemType> potentials = (ArrayList<CustomItemType>) obtainableItems.clone();
     potentials.remove(firstType);
     potentials.remove(secondType);
+    for (CustomItemType potential : (ArrayList<CustomItemType>) potentials.clone()) {
+      if (CustomItemManager.getItemByType(potential).getPrice() > maxPrice) {
+        potentials.remove(potential);
+      }
+    }
+    if (potentials.size() <= 0) {
+      return CONFIRM_PANE_ORANGE;
+    }
     thirdType = potentials.get(rng.nextInt(potentials.size()));
 
     return CustomItemManager.getItemByType(thirdType).getInstance();
@@ -139,6 +160,8 @@ public class BlacksmithGUI {
       ItemStack newItem = forgeItems(firstItem, secondItem);
       if (newItem == null) {
         gui.updateItem(5, 5, new GuiItem(CONFIRM_PANE_YELLOW));
+      } else if (newItem == CONFIRM_PANE_ORANGE) {
+        gui.updateItem(5, 5, new GuiItem(CONFIRM_PANE_ORANGE));
       } else {
         gui.updateItem(2, 3, air);
         gui.updateItem(2, 7, air);

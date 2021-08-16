@@ -1,15 +1,9 @@
-Turn off weather in the arena
-
 Phantoms that give you levitation
+Phantoms that drop instant damage potions periodically
 Can use lava walkers to make infinite obsidian
 Make it so lava walkers don't work while mounted on a strider
 Make a dedicated file for constants, especially names for items.
-
-Phantoms stuck above barriers. Should be fixed?
-There are 2 "The phantoms have been vanquished! Thank you for defending"
-- Couldn't reproduce it alone
-Ender phantoms and invisible phantoms are still spawning even though we got the message
-- Couldn't reproduce it alone
+Change wave scaling code to reflect players in the arena, not players on the server
 
 Maybe add a bossbar for the MOAP, and a custom message at the end of the event saying who killed the MOAP
 
@@ -17,5 +11,6 @@ Make firework show at night
 
 DID
 ===
-Increased phantom retargetting range
-Made it so phantom retargetting doesn't target players in creative mode
+Added scaling for the number of phantoms in the event, so that there are 15 phantoms for every player online up to a maximum
+Fixed a bug related to item price scaling and the lore list
+Made it so items can only be reforged into items at least as valuable as the most valuable item being reforged

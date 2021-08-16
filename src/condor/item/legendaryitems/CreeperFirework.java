@@ -54,13 +54,13 @@ public class CreeperFirework extends CustomItem {
 
   public CreeperFirework() {
     super(NAME, loreList, triggerList, CustomItemType.CREEPER_FIREWORK, 1);
+    loreList.add(this.getPrice() + " VoidCoins");
   }
 
   public ItemStack getInstance() {
     ItemStack is = new ItemStack(Material.FIREWORK_ROCKET, 1);
     FireworkMeta meta = (FireworkMeta) is.getItemMeta();
     meta.setDisplayName(NAME);
-    loreList.add(this.getPrice() + " VoidCoin");
     meta.setLore(loreList);
     FireworkEffect effect = FireworkEffect.builder()
                             .trail(true)

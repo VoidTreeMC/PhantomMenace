@@ -44,13 +44,13 @@ public class LavaWalkers extends CustomItem {
 
   public LavaWalkers() {
     super(NAME, loreList, triggerList, CustomItemType.LAVA_WALKERS, 50, false);
+    loreList.add(this.getPrice() + " VoidCoins");
   }
 
   public ItemStack getInstance() {
     ItemStack is = new ItemStack(Material.NETHERITE_BOOTS, 1);
     ItemMeta meta = is.getItemMeta();
     meta.setDisplayName(NAME);
-    loreList.add(this.getPrice() + " VoidCoins");
     meta.setLore(loreList);
     meta.setUnbreakable(true);
     meta.addEnchant(Enchantment.MENDING, 1, false);

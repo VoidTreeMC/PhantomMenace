@@ -39,13 +39,13 @@ public class FancyPants extends CustomItem {
 
   public FancyPants() {
     super(NAME, loreList, triggerList, CustomItemType.FANCY_PANTS, 25);
+    loreList.add(this.getPrice() + " VoidCoins");
   }
 
   public ItemStack getInstance() {
     ItemStack is = new ItemStack(Material.GOLDEN_LEGGINGS, 1);
     ItemMeta meta = is.getItemMeta();
     meta.setDisplayName(NAME);
-    loreList.add(this.getPrice() + " VoidCoins");
     meta.setLore(loreList);
     meta.setUnbreakable(true);
     is.setItemMeta(meta);

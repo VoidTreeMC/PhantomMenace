@@ -47,13 +47,13 @@ public class SuperPick extends CustomItem {
 
   public SuperPick() {
     super(NAME, loreList, triggerList, CustomItemType.SUPER_PICK, 100, false);
+    loreList.add(this.getPrice() + " VoidCoins");
   }
 
   public ItemStack getInstance() {
     ItemStack is = new ItemStack(Material.NETHERITE_PICKAXE, 1);
     ItemMeta meta = is.getItemMeta();
     meta.setDisplayName(NAME);
-    loreList.add(this.getPrice() + " VoidCoins");
     meta.setLore(loreList);
     meta.addEnchant(Enchantment.MENDING, 1, false);
     // meta.setUnbreakable(true);

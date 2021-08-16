@@ -49,13 +49,13 @@ public class CreeperBow extends CustomItem {
 
   public CreeperBow() {
     super(NAME, loreList, triggerList, CustomItemType.CREEPER_BOW, 50);
+    loreList.add(this.getPrice() + " VoidCoins");
   }
 
   public ItemStack getInstance() {
     ItemStack is = new ItemStack(Material.BOW, 1);
     ItemMeta meta = is.getItemMeta();
     meta.setDisplayName(NAME);
-    loreList.add(this.getPrice() + " VoidCoins");
     meta.setLore(loreList);
     meta.addEnchant(Enchantment.MENDING, 1, false);
     meta.addEnchant(Enchantment.ARROW_INFINITE, 1, false);
