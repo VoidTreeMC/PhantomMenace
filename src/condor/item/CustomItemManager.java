@@ -10,7 +10,7 @@ import condor.item.simpleitems.*;
 public class CustomItemManager {
   private static TreeMap<CustomItemType, CustomItem> itemMap = new TreeMap<>();
 
-  private static final double priceScale = 2;
+  private static final double priceScale = 1;
 
   // Add custom items here
   static {

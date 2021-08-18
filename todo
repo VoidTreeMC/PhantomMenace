@@ -11,6 +11,6 @@ Make firework show at night
 
 DID
 ===
-Added scaling for the number of phantoms in the event, so that there are 15 phantoms for every player online up to a maximum
-Fixed a bug related to item price scaling and the lore list
-Made it so items can only be reforged into items at least as valuable as the most valuable item being reforged
+Changed item scaling factor to 1
+Updated all System.out.println instances to use bukkit logger
+Changed the number of phantoms per player to 10

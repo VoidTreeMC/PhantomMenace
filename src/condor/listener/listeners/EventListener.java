@@ -45,6 +45,7 @@ import org.bukkit.event.inventory.InventoryType.SlotType;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.entity.FireworkExplodeEvent;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.event.block.BlockShearEntityEvent;
 import io.papermc.paper.event.block.PlayerShearBlockEvent;
 
 import condor.listener.PHListener;
@@ -181,7 +182,6 @@ public class EventListener  extends PHListener {
   //
   // @EventHandler
   // public void onPrepareItemEnchantEvent(PrepareItemEnchantEvent event) {
-  //   System.out.println("PIEE.");
   //   PrepareItemEnchantEvent piee = (PrepareItemEnchantEvent) event;
   //   ItemStack item = piee.getItem();
   //   if (item != null) {
@@ -202,6 +202,11 @@ public class EventListener  extends PHListener {
 
   @EventHandler
   public void onPlayerShearBlockEvent(PlayerShearBlockEvent event) {
+    CustomItemEventManager.parseEvent(event);
+  }
+
+  @EventHandler
+  public void onBlockShearEntityEvent(BlockShearEntityEvent event) {
     CustomItemEventManager.parseEvent(event);
   }
 

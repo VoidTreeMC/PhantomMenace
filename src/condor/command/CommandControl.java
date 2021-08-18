@@ -2,11 +2,13 @@ package condor.command;
 
 import java.util.Map.Entry;
 import java.util.TreeMap;
+import java.util.logging.Level;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.Bukkit;
 
 import condor.command.executors.PhantomToggleCommand;
 import condor.command.executors.SummonPhantomCommand;
@@ -62,10 +64,10 @@ public abstract class CommandControl implements CommandExecutor {
 	 */
 	public static final void loadExecutors(JavaPlugin j) {
 
-		System.out.println("loadExecutors -> initExecutors");
+    Bukkit.getLogger().log(Level.INFO, "loadExecutors -> initExecutors");
 
 		initExecutors();
-		System.out.println("initExecutors completed.");
+    Bukkit.getLogger().log(Level.INFO, "initExecutors completed.");
 
 		//loadall
 		for(Entry<String,CommandControl> c : executors.entrySet()) {

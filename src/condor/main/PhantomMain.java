@@ -2,6 +2,7 @@ package condor.main;
 
 import java.sql.Connection;
 import java.util.Collection;
+import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -26,7 +27,7 @@ public class PhantomMain extends JavaPlugin {
 	public static final String TIMEID = HEIRO + " " + VERSION;
 
 	static {
-		System.out.println("PhantomMain: [" + TIMEID + "]");
+    Bukkit.getLogger().log(Level.INFO, "PhantomMain: [" + TIMEID + "]");
 	}
 
   public PhantomEvent phantomEvent;
@@ -50,7 +51,7 @@ public class PhantomMain extends JavaPlugin {
 	//public static RaceWarsMain instance = new RaceWarsMain();
 
 	public PhantomMain() {
-		System.out.println("Initializing");
+    Bukkit.getLogger().log(Level.INFO, "Initializing");
 	}
 
 	static final String RWLOAD =
@@ -66,29 +67,30 @@ public class PhantomMain extends JavaPlugin {
 		plugin = this;
 		getLogger().info(RWLOAD + TIMEID);
 
-		System.out.println("Command Control...");
 
-		System.out.println("<><><><><><><><><>");
+		Bukkit.getLogger().log(Level.INFO, "Command Control...");
+
+		Bukkit.getLogger().log(Level.INFO, "<><><><><><><><><>");
 		CommandControl.loadExecutors(this);
-		System.out.println("<><><><><><><><><>");
+		Bukkit.getLogger().log(Level.INFO, "<><><><><><><><><>");
 
-    System.out.println("<><><><><><><><><>");
-    System.out.println("Loading NPCs...");
+    Bukkit.getLogger().log(Level.INFO, "<><><><><><><><><>");
+    Bukkit.getLogger().log(Level.INFO, "Loading NPCs...");
     NPCManager.init();
-    System.out.println("<><><><><><><><><>");
+    Bukkit.getLogger().log(Level.INFO, "<><><><><><><><><>");
 
-    System.out.println("<><><><><><><><><>");
-    System.out.println("Loading (but not starting) Phantom Event...");
+    Bukkit.getLogger().log(Level.INFO, "<><><><><><><><><>");
+    Bukkit.getLogger().log(Level.INFO, "Loading (but not starting) Phantom Event...");
     this.phantomEvent = new PhantomEvent(0);
-    System.out.println("<><><><><><><><><>");
+    Bukkit.getLogger().log(Level.INFO, "<><><><><><><><><>");
 
-    System.out.println("Loading vault-economy hook...");
+    Bukkit.getLogger().log(Level.INFO, "Loading vault-economy hook...");
     if (!setupEconomy()) {
-      System.out.println("Economy has failed to load.");
+      Bukkit.getLogger().log(Level.INFO, "Economy has failed to load.");
     }
 
 		//This registers the listener
-		System.out.println("Loading listeners...");
+		Bukkit.getLogger().log(Level.INFO, "Loading listeners...");
 		try {
 			PHListener.loadListeners(this);
 		}
@@ -96,10 +98,10 @@ public class PhantomMain extends JavaPlugin {
 
 		}
 
-		System.out.println("Calling onStart...");
+		Bukkit.getLogger().log(Level.INFO, "Calling onStart...");
 		this.onStart();
 
-    System.out.println("Loading has been completed!");
+    Bukkit.getLogger().log(Level.INFO, "Loading has been completed!");
 
 	}
 

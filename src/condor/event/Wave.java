@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Map.Entry;
 import java.util.Collections;
 import java.util.TreeMap;
+import java.util.logging.Level;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Phantom;
@@ -21,7 +22,7 @@ public abstract class Wave {
   private static final long TIME_BETWEEN_PHANTOMS = 5;
 
   private static final int MAX_PHANTOMS = 200;
-  private static final int PHANTOMS_PER_PLAYER = 15;
+  private static final int PHANTOMS_PER_PLAYER = 10;
 
   protected TreeMap<PhantomType, Integer> waveMap;
 
@@ -83,7 +84,6 @@ public abstract class Wave {
     // Iterate through the list of phantoms, and summon them in a random
     // order with some time between each phantom as defined by
     // TIME_BETWEEN_PHANTOMS
-    System.out.println(waveList.size());
     for (PhantomType phantom : waveList) {
       (new SpawnPhantomAtLocation(phantom, loc)).runTaskLater(PhantomMain.getPlugin(), delay);
       delay += TIME_BETWEEN_PHANTOMS;

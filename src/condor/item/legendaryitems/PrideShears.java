@@ -22,6 +22,8 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Sheep;
 import org.bukkit.block.data.type.Beehive;
 import io.papermc.paper.event.block.PlayerShearBlockEvent;
+import org.bukkit.event.block.BlockShearEntityEvent;
+import org.bukkit.block.Block;
 
 
 import condor.item.CustomItem;
@@ -47,6 +49,7 @@ public class PrideShears extends CustomItem {
 
     triggerList.add(PlayerShearEntityEvent.class);
     triggerList.add(PlayerShearBlockEvent.class);
+    triggerList.add(BlockShearEntityEvent.class);
 
     WOOL_TYPES.add(Material.WHITE_WOOL);
     WOOL_TYPES.add(Material.ORANGE_WOOL);
@@ -122,6 +125,17 @@ public class PrideShears extends CustomItem {
           ret = true;
         }
       }
+    } else if (event instanceof BlockShearEntityEvent) {
+      BlockShearEntityEvent bsee = (BlockShearEntityEvent) event;
+      Block block = bsee.getBlock();
+      if (block.getType() == Material.DISPENSER) {
+        ItemStack tool = bsee.getTool();
+        if (bsee.getEntity().getType() == EntityType.SHEEP) {
+          if (isPrideShears(tool)) {
+            ret = true;
+          }
+        }
+      }
     }
     return ret;
   }
@@ -150,6 +164,15 @@ public class PrideShears extends CustomItem {
         player.getInventory().addItem(item);
       }
       psbe.getBlock().setBlockData(hive);
+    } else if (event instanceof BlockShearEntityEvent) {
+      BlockShearEntityEvent bsee = (BlockShearEntityEvent) event;
+      bsee.setCancelled(true);
+      ((Sheep) (bsee.getEntity())).setSheared(true);
+      Material woolType = WOOL_TYPES.get(rng.nextInt(WOOL_TYPES.size()));
+      int woolAmt = rng.nextInt(5) + 3;
+      ItemStack item = new ItemStack(woolType, woolAmt);
+      Location sheepLoc = bsee.getEntity().getLocation();
+      sheepLoc.getWorld().dropItemNaturally(sheepLoc, item);
     }
   }
 
