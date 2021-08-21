@@ -1,16 +1,13 @@
 Phantoms that give you levitation
+Kamikaze phantoms
 Phantoms that drop instant damage potions periodically
 Can use lava walkers to make infinite obsidian
 Make it so lava walkers don't work while mounted on a strider
 Make a dedicated file for constants, especially names for items.
 Change wave scaling code to reflect players in the arena, not players on the server
 
-Maybe add a bossbar for the MOAP, and a custom message at the end of the event saying who killed the MOAP
-
-Make firework show at night
-
 DID
 ===
-Changed item scaling factor to 1
-Updated all System.out.println instances to use bukkit logger
-Changed the number of phantoms per player to 10
+Reworked wave scaling
+Added a bossbar for the MOAP and a custom death message
+Added skip wave command

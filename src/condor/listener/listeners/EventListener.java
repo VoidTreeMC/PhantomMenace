@@ -379,6 +379,12 @@ public class EventListener  extends PHListener {
           edbee.setDamage(edbee.getDamage() * 1.5);
         }
 
+        if (PhantomType.getTypeFromPhantom(phantom) == PhantomType.MOTHER_OF_ALL_PHANTOMS) {
+          if (PhantomEvent.moapBar != null) {
+            PhantomEvent.moapBar.setProgress(phantom.getHealth() / phantom.getMaxHealth());
+          }
+        }
+
         // If it's an ender phantom that is being damaged, make it blink
         if (PhantomType.getTypeFromPhantom(phantom) == PhantomType.ENDER_PHANTOM) {
           // Make the phantom blink

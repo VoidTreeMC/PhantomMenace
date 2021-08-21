@@ -24,9 +24,9 @@ public abstract class Wave {
   private static final int MAX_PHANTOMS = 200;
   private static final int PHANTOMS_PER_PLAYER = 10;
 
-  protected TreeMap<PhantomType, Integer> waveMap;
+  protected TreeMap<PhantomType, Double> waveMap;
 
-  public Wave(TreeMap<PhantomType, Integer> map) {
+  public Wave(TreeMap<PhantomType, Double> map) {
     this.waveMap = map;
   }
 
@@ -37,18 +37,18 @@ public abstract class Wave {
   public int getTotalPhantoms() {
     int sum = 0;
 
-    for (Integer num : waveMap.values()) {
-      sum += num;
+    for (Double num : waveMap.values()) {
+      sum += Math.ceil(num);
     }
 
-    int scaleNum = Bukkit.getOnlinePlayers().size();
-    // If the phantom number would exceed the max, change the
-    // scaling factor
-    if (scaleNum * sum > MAX_PHANTOMS) {
-      scaleNum = MAX_PHANTOMS / sum;
+    // Update the number of phantoms to reflect the number of players online
+    int numPlayers = Bukkit.getOnlinePlayers().size();
+    int numToSpawn = numPlayers * sum;
+    if (numToSpawn >= MAX_PHANTOMS) {
+      numToSpawn = 200;
     }
 
-    return scaleNum * sum;
+    return numToSpawn;
   }
 
   /**
@@ -56,25 +56,31 @@ public abstract class Wave {
    * @param  loc The location
    */
   public void spawnWave(Location loc) {
-    // Update the number of phantoms to reflect the number of players online
-    int scaleNum = Bukkit.getOnlinePlayers().size();
-    int totalPhantoms = this.getTotalPhantoms();
-    // If the phantom number would exceed the max, change the
-    // scaling factor
-    if (totalPhantoms > MAX_PHANTOMS) {
-      scaleNum = MAX_PHANTOMS / totalPhantoms;
-    }
-    for (Entry<PhantomType, Integer> entry : waveMap.entrySet()) {
-      waveMap.put(entry.getKey(), entry.getValue() * scaleNum);
+    int numToSpawn = getTotalPhantoms();
+    for (Entry<PhantomType, Double> entry : waveMap.entrySet()) {
+      waveMap.put(entry.getKey(), entry.getValue().doubleValue());
     }
     // Set the number of phantoms in the current event wave to the
     // number of phantoms in this wave
-    PhantomMain.getPlugin().getPhantomEvent().setWaveCount(this.getTotalPhantoms());
+    PhantomMain.getPlugin().getPhantomEvent().setWaveCount(numToSpawn);
 
     ArrayList<PhantomType> waveList = new ArrayList<>();
-    for (Entry<PhantomType, Integer> entry : waveMap.entrySet()) {
-      for (int i = 0; i < entry.getValue(); i++) {
-        waveList.add(entry.getKey());
+    int numSoFar = 0;
+    boolean hasMoapSpawned = false;
+    while (numSoFar < numToSpawn) {
+      for (Entry<PhantomType, Double> entry : waveMap.entrySet()) {
+        for (int i = 0; i < entry.getValue(); i++) {
+          if (entry.getKey() == PhantomType.MOTHER_OF_ALL_PHANTOMS) {
+            if (!hasMoapSpawned) {
+              waveList.add(entry.getKey());
+              numSoFar++;
+              hasMoapSpawned = true;
+            }
+          } else {
+            waveList.add(entry.getKey());
+            numSoFar++;
+          }
+        }
       }
     }
     // Shuffle the list of phantoms, so we deploy them in a random order

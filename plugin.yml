@@ -34,3 +34,8 @@ commands:
      usage: /startphantomevent
      permision: condor.commands.executors.startphantomevent
      permission-message: You do not have permission to use this command. If you really want a phantom event though, try asking a staff member really, really nicely for one.
+   skipwave:
+     description: Skips the current wave in the phantom event
+     usage: /skipwave
+     permision: condor.commands.executors.skipwave
+     permission-message: You do not have permission to use this command.

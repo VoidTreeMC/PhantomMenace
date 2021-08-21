@@ -15,6 +15,7 @@ import condor.command.executors.SummonPhantomCommand;
 import condor.command.executors.GetInsomniaPotionCommand;
 import condor.command.executors.GetCustomItemCommand;
 import condor.command.executors.StartPhantomEventCommand;
+import condor.command.executors.SkipWaveCommand;
 
 /**
  * Extends CommandExecutor to create new commands for RaceWars <br>
@@ -56,6 +57,7 @@ public abstract class CommandControl implements CommandExecutor {
     new GetInsomniaPotionCommand("getinsomniapotion");
     new GetCustomItemCommand("getcustomitem");
     new StartPhantomEventCommand("startphantomevent");
+    new SkipWaveCommand("skipwave");
 	}
 
 	/**

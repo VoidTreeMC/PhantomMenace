@@ -8,11 +8,11 @@ import condor.phantom.PhantomType;
 
 public class FlamingAndExpWave extends Wave {
 
-  private static TreeMap<PhantomType, Integer> map = new TreeMap<>();
+  private static TreeMap<PhantomType, Double> map = new TreeMap<>();
 
   static {
-    map.put(PhantomType.FLAMING_PHANTOM, 15);
-    map.put(PhantomType.EXTRA_XP_PHANTOM, 30);
+    map.put(PhantomType.FLAMING_PHANTOM, 1.5);
+    map.put(PhantomType.EXTRA_XP_PHANTOM, 3.0);
   }
 
   public FlamingAndExpWave() {

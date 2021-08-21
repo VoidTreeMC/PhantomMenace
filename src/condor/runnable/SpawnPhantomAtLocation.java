@@ -11,6 +11,11 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.Location;
 import org.bukkit.metadata.FixedMetadataValue;
+import org.bukkit.boss.BarColor;
+import org.bukkit.boss.BarStyle;
+import org.bukkit.boss.BarFlag;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 
 import condor.main.PhantomMain;
 import condor.phantom.PhantomType;
@@ -43,6 +48,14 @@ public class SpawnPhantomAtLocation extends BukkitRunnable {
     Phantom phantom = PhantomGenerator.summonPhantom(phantomType, loc);
     phantom.setMetadata(PhantomEvent.EVENT_METADATA_KEY, new FixedMetadataValue(PhantomMain.getPlugin(), true));
     phantom.setRemoveWhenFarAway(false);
+
+    if (phantomType == PhantomType.MOTHER_OF_ALL_PHANTOMS) {
+      PhantomEvent.moapBar = Bukkit.createBossBar(ChatColor.RED + "" + ChatColor.UNDERLINE + "MOTHER OF ALL PHANTOMS", BarColor.RED, BarStyle.SOLID, BarFlag.PLAY_BOSS_MUSIC);
+      for (Player p : Bukkit.getOnlinePlayers()) {
+        PhantomEvent.moapBar.addPlayer(p);
+      }
+    }
+
     // After 10 seconds, start making the phantom aggressively target players
     (new PhantomRetarget(phantom)).runTaskLater(PhantomMain.getPlugin(), 10 * 20);
     // After two minutes, make the phantom glow

@@ -8,11 +8,11 @@ import condor.phantom.PhantomType;
 
 public class MOAPWave extends Wave {
 
-  private static TreeMap<PhantomType, Integer> map = new TreeMap<>();
+  private static TreeMap<PhantomType, Double> map = new TreeMap<>();
 
   static {
-    map.put(PhantomType.MOTHER_OF_ALL_PHANTOMS, 1);
-    map.put(PhantomType.EXTRA_XP_PHANTOM, 59);
+    map.put(PhantomType.MOTHER_OF_ALL_PHANTOMS, 1.0);
+    map.put(PhantomType.EXTRA_XP_PHANTOM, 6.0);
   }
 
   public MOAPWave() {

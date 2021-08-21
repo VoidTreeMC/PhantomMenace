@@ -8,13 +8,13 @@ import condor.phantom.PhantomType;
 
 public class AllPhantomsWave extends Wave {
 
-  private static TreeMap<PhantomType, Integer> map = new TreeMap<>();
+  private static TreeMap<PhantomType, Double> map = new TreeMap<>();
 
   static {
-    map.put(PhantomType.INVISIBLE_PHANTOM, 10);
-    map.put(PhantomType.ENDER_PHANTOM, 15);
-    map.put(PhantomType.FLAMING_PHANTOM, 30);
-    map.put(PhantomType.MOUNTED_PHANTOM, 15);
+    map.put(PhantomType.INVISIBLE_PHANTOM, 1.0);
+    map.put(PhantomType.ENDER_PHANTOM, 1.5);
+    map.put(PhantomType.FLAMING_PHANTOM, 3.0);
+    map.put(PhantomType.MOUNTED_PHANTOM, 1.5);
   }
 
   public AllPhantomsWave() {

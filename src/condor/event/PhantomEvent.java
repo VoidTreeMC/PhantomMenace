@@ -28,6 +28,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.Color;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.ChatMessageType;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 
 import condor.event.waves.*;
 import condor.main.PhantomMain;
@@ -36,6 +38,7 @@ import condor.item.CustomItemManager;
 import condor.item.CustomItemType;
 import condor.runnable.DoFireworkShow;
 import condor.runnable.SetTimeInWorld;
+import condor.phantom.PhantomType;
 
 import net.milkbowl.vault.economy.Economy;
 
@@ -66,6 +69,7 @@ public class PhantomEvent extends BukkitRunnable {
   private static int totalThisWave = 0;
 
   private static BossBar bossBar = null;
+  public static BossBar moapBar = null;
 
   private static long timeBeforeSetting = 0;
 
@@ -153,6 +157,18 @@ public class PhantomEvent extends BukkitRunnable {
     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "announcer togglebroadcasts");
   }
 
+  public void skipWave() {
+    int num = getWaveIndex();
+    for (Entity entity : loc.getWorld().getEntities()) {
+      if (entity.getType() == EntityType.PHANTOM) {
+        if (entity.hasMetadata(EVENT_METADATA_KEY)) {
+          PhantomEvent.manageKill(((Phantom) entity), null);
+          entity.remove();
+        }
+      }
+    }
+  }
+
   public void run() {
     if (waveIndex == 0) {
       init();
@@ -194,7 +210,20 @@ public class PhantomEvent extends BukkitRunnable {
       numKilledThisWave++;
     }
 
-    bossBar.setProgress(1 - ((0.0 + numKilledThisWave) / totalThisWave));
+    if (PhantomType.getTypeFromPhantom(phantom) == PhantomType.MOTHER_OF_ALL_PHANTOMS) {
+      if (player != null) {
+        Bukkit.broadcastMessage(ChatColor.GOLD + player.getDisplayName() + ChatColor.YELLOW + " has vanquished the Mother of All Phantoms!");
+      } else {
+        Bukkit.broadcastMessage(ChatColor.YELLOW + "The Mother of All Phantoms has been vanquished!");
+      }
+      moapBar.removeAll();
+    }
+
+    double toSet = 1 - ((0.0 + numKilledThisWave) / totalThisWave);
+    if (toSet < 0) {
+      toSet = 0;
+    }
+    bossBar.setProgress(toSet);
 
     for (Player p : Bukkit.getOnlinePlayers()) {
       TextComponent theText = new TextComponent("" + (totalThisWave - numKilledThisWave) + " phantoms remaining");
