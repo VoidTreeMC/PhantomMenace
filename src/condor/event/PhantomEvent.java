@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Comparator;
 import java.util.TreeSet;
 import java.lang.Math;
+import java.util.logging.Level;
 
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.OfflinePlayer;
@@ -223,6 +224,7 @@ public class PhantomEvent extends BukkitRunnable {
     if (toSet < 0) {
       toSet = 0;
     }
+    // Bukkit.getLogger().log(Level.INFO, numKilledThisWave + "/" + totalThisWave);
     bossBar.setProgress(toSet);
 
     for (Player p : Bukkit.getOnlinePlayers()) {

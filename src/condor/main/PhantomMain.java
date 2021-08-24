@@ -132,7 +132,9 @@ public class PhantomMain extends JavaPlugin {
 	 */
 	@Override
 	public void onDisable() {
-    PhantomEvent.getBossBar().removeAll();
+		if (PhantomEvent.getBossBar() != null) {
+			PhantomEvent.getBossBar().removeAll();
+		}
     if (PhantomEvent.moapBar != null) {
       PhantomEvent.moapBar.removeAll();
     }

@@ -8,6 +8,5 @@ Change wave scaling code to reflect players in the arena, not players on the ser
 
 DID
 ===
-Reworked wave scaling
-Added a bossbar for the MOAP and a custom death message
-Added skip wave command
+Reworked wave scaling to use integers instead of doubles
+Fixed incorrect wave counts which previously caused waves to end early
