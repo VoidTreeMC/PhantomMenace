@@ -2,6 +2,7 @@ package condor.listener.listeners;
 
 import java.util.Random;
 import java.util.UUID;
+import java.util.logging.Level;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -46,7 +47,9 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.entity.FireworkExplodeEvent;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.block.BlockShearEntityEvent;
+import org.bukkit.Bukkit;
 import io.papermc.paper.event.block.PlayerShearBlockEvent;
+import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
 
 import condor.listener.PHListener;
 import condor.main.PhantomMain;
@@ -56,6 +59,7 @@ import condor.phantom.PhantomType;
 import condor.runnable.DoPhantomBlinkRunnable;
 import condor.runnable.DeleteIfIsWild;
 import condor.runnable.DeleteIfIsWildSkeleton;
+import condor.runnable.ManageDeathImmunity;
 import condor.item.CustomItemType;
 import condor.gui.PhantomShopGUI;
 import condor.item.CustomItemGenerator;
@@ -64,6 +68,7 @@ import condor.item.CustomItemManager;
 import condor.npc.PHNPC;
 import condor.npc.NPCManager;
 import condor.event.PhantomEvent;
+import condor.phantom.RecentPlayerDeaths;
 
 import com.github.juliarn.npc.NPC;
 import com.github.juliarn.npc.event.PlayerNPCEvent;
@@ -325,7 +330,31 @@ public class EventListener  extends PHListener {
     CustomItemEventManager.parseEvent(event);
     managePhantomDamaged(event);
     managePossiblePlayerDamagedByPhantom(event);
-	}
+    if (event instanceof EntityDamageByEntityEvent) {
+      EntityDamageByEntityEvent edbee = (EntityDamageByEntityEvent) event;
+      if (edbee.getDamager() instanceof Projectile && edbee.getEntity() instanceof Player) {
+        Entity damager = edbee.getDamager();
+        Entity entity = edbee.getEntity();
+        Projectile proj = (Projectile) damager;
+        if (proj.getShooter() instanceof LivingEntity) {
+          damager = (LivingEntity) proj.getShooter();
+          if (damager.hasMetadata(PhantomEvent.EVENT_METADATA_KEY)) {
+            UUID playerUUID = ((Player) edbee.getEntity()).getUniqueId();
+            boolean doCancel = RecentPlayerDeaths.isPlayerOnList(playerUUID);
+            event.setCancelled(doCancel);
+            if (doCancel) {
+              entity.setFireTicks(0);
+            }
+
+            Player player = (Player) event.getEntity();
+            if (!doCancel && (player.getHealth() - event.getFinalDamage()) <= 0) {
+              (new ManageDeathImmunity(player.getUniqueId())).runTask(PhantomMain.getPlugin());
+            }
+          }
+        }
+      }
+    }
+  }
 
   public void managePossiblePlayerDamagedByPhantom(EntityDamageEvent event) {
     if (event instanceof EntityDamageByEntityEvent) {
@@ -344,6 +373,31 @@ public class EventListener  extends PHListener {
             entity.setFireTicks(THREE_SECONDS);
           } else if (phantomType == PhantomType.MOTHER_OF_ALL_PHANTOMS) {
             edbee.setDamage(20);
+          }
+
+          if (edbee.getEntity() != null && damager != null) {
+
+            if (damager instanceof Projectile) {
+              Projectile proj = (Projectile) damager;
+              if (proj.getShooter() instanceof LivingEntity) {
+                damager = (LivingEntity) proj.getShooter();
+              }
+            }
+
+            // If it's an event creature targetting a player
+            if (damager.hasMetadata(PhantomEvent.EVENT_METADATA_KEY)) {
+              UUID playerUUID = ((Player) edbee.getEntity()).getUniqueId();
+              boolean doCancel = RecentPlayerDeaths.isPlayerOnList(playerUUID);
+              event.setCancelled(doCancel);
+              if (doCancel) {
+                entity.setFireTicks(0);
+              }
+
+              Player player = (Player) event.getEntity();
+              if (!doCancel && (player.getHealth() - event.getFinalDamage()) <= 0) {
+                (new ManageDeathImmunity(player.getUniqueId())).runTask(PhantomMain.getPlugin());
+              }
+            }
           }
         }
       }
@@ -400,6 +454,12 @@ public class EventListener  extends PHListener {
           // If there's an event going on
           if (PhantomEvent.isActive()) {
             PhantomEvent.manageKill(phantom, player);
+          }
+        }
+
+        if (player != null) {
+          if (RecentPlayerDeaths.isPlayerOnList(player.getUniqueId())) {
+            RecentPlayerDeaths.removeFromList(player.getUniqueId());
           }
         }
       }

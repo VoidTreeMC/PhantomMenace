@@ -5,6 +5,7 @@ import java.util.Map.Entry;
 import java.util.Collections;
 import java.util.TreeMap;
 import java.util.logging.Level;
+import java.util.Collection;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Phantom;
@@ -24,10 +25,35 @@ public abstract class Wave {
   private static final int MAX_PHANTOMS = 200;
   private static final int PHANTOMS_PER_PLAYER = 10;
 
+  final static int ARENA_MIN_Z = 86;
+  final static int ARENA_MAX_Z = 130;
+  final static int ARENA_MIN_X = 3877;
+  final static int ARENA_MAX_X = 3976;
+
   protected TreeMap<PhantomType, Integer> waveMap;
 
   public Wave(TreeMap<PhantomType, Integer> map) {
     this.waveMap = map;
+  }
+
+  public int getNumberOfPlayersInArena() {
+    int ret = 0;
+    Player[] onlinePlayers = Bukkit.getOnlinePlayers().toArray(new Player[1]);
+
+    for (Player player : onlinePlayers) {
+      // Bukkit.getLogger().log(Level.INFO, "Evaluating player: " + player.getName());
+      double x = player.getLocation().getX();
+      double z = player.getLocation().getZ();
+      // Bukkit.getLogger().log(Level.INFO, "Less than max X: " + (x <= ARENA_MAX_X));
+      // Bukkit.getLogger().log(Level.INFO, "Less than max Z: " + (z <= ARENA_MAX_Z));
+      // Bukkit.getLogger().log(Level.INFO, "Greater than min X: " + (x >= ARENA_MIN_X));
+      // Bukkit.getLogger().log(Level.INFO, "Greater than min Z: " + (z >= ARENA_MIN_Z));
+      if (x <= ARENA_MAX_X && x >= ARENA_MIN_X && z <= ARENA_MAX_Z && z >= ARENA_MIN_Z) {
+        ret++;
+      }
+    }
+
+    return ret;
   }
 
   /**
@@ -41,8 +67,10 @@ public abstract class Wave {
       sum += num;
     }
 
+
     // Update the number of phantoms to reflect the number of players online
-    int numPlayers = Bukkit.getOnlinePlayers().size();
+    int numPlayers = getNumberOfPlayersInArena();
+    Bukkit.getLogger().log(Level.INFO, "Number of players in arena: " + numPlayers);
     int numToSpawn = numPlayers * sum;
     if (numToSpawn >= MAX_PHANTOMS) {
       numToSpawn = 200;

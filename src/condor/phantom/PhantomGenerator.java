@@ -10,6 +10,7 @@ import org.bukkit.metadata.FixedMetadataValue;
 
 import condor.main.PhantomMain;
 import condor.runnable.TogglePhantomInvisibilityRunnable;
+import condor.event.PhantomEvent;
 
 public class PhantomGenerator {
   /**
@@ -27,6 +28,32 @@ public class PhantomGenerator {
         return summonFlamingPhantom(loc);
       case MOUNTED_PHANTOM:
         return summonMountedPhantom(loc);
+      case INVISIBLE_PHANTOM:
+        return summonInvisiblePhantom(loc);
+      case ENDER_PHANTOM:
+        return summonEnderPhantom(loc);
+      case MOTHER_OF_ALL_PHANTOMS:
+        return summonMOAP(loc);
+      default:
+        return null;
+    }
+  }
+
+  /**
+   * Summons a phantom of the specified type at the specified location
+   * @param type  The type of phantom to summon
+   * @param loc   The location to summon the phantom at
+   */
+  public static Phantom summonPhantom(PhantomType type, Location loc, boolean event) {
+    switch (type) {
+      case VANILLA:
+        return (Phantom) loc.getWorld().spawnEntity(loc, EntityType.PHANTOM);
+      case EXTRA_XP_PHANTOM:
+        return summonExtraXPPhantom(loc);
+      case FLAMING_PHANTOM:
+        return summonFlamingPhantom(loc);
+      case MOUNTED_PHANTOM:
+        return summonMountedPhantom(loc, event);
       case INVISIBLE_PHANTOM:
         return summonInvisiblePhantom(loc);
       case ENDER_PHANTOM:
@@ -87,6 +114,28 @@ public class PhantomGenerator {
    * Summons a mounted phantom at the specified location
    * @param loc  The location
    */
+  public static Phantom summonMountedPhantom(Location loc, boolean event) {
+    Phantom phantom = (Phantom) loc.getWorld().spawnEntity(loc, EntityType.PHANTOM);
+    PotionEffect speed = new PotionEffect(PotionEffectType.SPEED, 1000000, 0, true, false, false);
+    phantom.addPotionEffect(speed);
+
+    Skeleton skeleton = (Skeleton) loc.getWorld().spawnEntity(loc, EntityType.SKELETON);
+    phantom.setPassenger(skeleton);
+
+    // Add metadata
+    phantom.setMetadata(PhantomType.PHANTOM_TYPE_METADATA_KEY, new FixedMetadataValue(PhantomMain.getPlugin(), PhantomType.MOUNTED_PHANTOM.toString()));
+    skeleton.setMetadata(PhantomType.PHANTOM_TYPE_METADATA_KEY, new FixedMetadataValue(PhantomMain.getPlugin(), PhantomType.MOUNTED_PHANTOM.toString()));
+
+    if (event) {
+      skeleton.setMetadata(PhantomEvent.EVENT_METADATA_KEY, new FixedMetadataValue(PhantomMain.getPlugin(), true));
+    }
+    return phantom;
+  }
+
+  /**
+   * Summons a mounted phantom at the specified location
+   * @param loc  The location
+   */
   public static Phantom summonMountedPhantom(Location loc) {
     Phantom phantom = (Phantom) loc.getWorld().spawnEntity(loc, EntityType.PHANTOM);
     PotionEffect speed = new PotionEffect(PotionEffectType.SPEED, 1000000, 0, true, false, false);
@@ -98,6 +147,7 @@ public class PhantomGenerator {
     // Add metadata
     phantom.setMetadata(PhantomType.PHANTOM_TYPE_METADATA_KEY, new FixedMetadataValue(PhantomMain.getPlugin(), PhantomType.MOUNTED_PHANTOM.toString()));
     skeleton.setMetadata(PhantomType.PHANTOM_TYPE_METADATA_KEY, new FixedMetadataValue(PhantomMain.getPlugin(), PhantomType.MOUNTED_PHANTOM.toString()));
+
     return phantom;
   }
 

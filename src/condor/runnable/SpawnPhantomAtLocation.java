@@ -45,7 +45,7 @@ public class SpawnPhantomAtLocation extends BukkitRunnable {
 	 */
 	@Override
 	public void run() {
-    Phantom phantom = PhantomGenerator.summonPhantom(phantomType, loc);
+    Phantom phantom = PhantomGenerator.summonPhantom(phantomType, loc, true);
     phantom.setMetadata(PhantomEvent.EVENT_METADATA_KEY, new FixedMetadataValue(PhantomMain.getPlugin(), true));
     phantom.setRemoveWhenFarAway(false);
 

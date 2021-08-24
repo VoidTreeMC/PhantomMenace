@@ -4,9 +4,13 @@ Phantoms that drop instant damage potions periodically
 Can use lava walkers to make infinite obsidian
 Make it so lava walkers don't work while mounted on a strider
 Make a dedicated file for constants, especially names for items.
-Change wave scaling code to reflect players in the arena, not players on the server
+
+Skipwave doesnt work if it spawns a wave with 0 phantoms
+Add behavior for what happens if everyone leaves the arena
+  - Wait a delay and then end the event if nobody comes back
+Add behavior that checks if there are any players left in the arena when the phantoms get highlighted
 
 DID
 ===
-Reworked wave scaling to use integers instead of doubles
-Fixed incorrect wave counts which previously caused waves to end early
+Made wave counts reflect the number of players in the arena, not on the server
+Added player immunity period upon dying to an event phantom
