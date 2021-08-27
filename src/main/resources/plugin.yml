@@ -1,5 +1,5 @@
 #The �main:� line needs to list the package and class name of the class which is loaded by Spigot when it loads the plugin�s jar file.
-main: condor.main.PhantomMain
+main: com.condor.phantommenace.main.PhantomMain
 name: PhantomMenace
 version: 0.0.4
 api-version: 1.17
