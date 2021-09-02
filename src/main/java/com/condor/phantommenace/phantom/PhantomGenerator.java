@@ -11,6 +11,7 @@ import org.bukkit.metadata.FixedMetadataValue;
 import com.condor.phantommenace.main.PhantomMain;
 import com.condor.phantommenace.runnable.TogglePhantomInvisibilityRunnable;
 import com.condor.phantommenace.event.PhantomEvent;
+import com.condor.phantommenace.runnable.MOAPBombs;
 
 public class PhantomGenerator {
   /**
@@ -77,6 +78,7 @@ public class PhantomGenerator {
     PotionEffect speedFour = new PotionEffect(PotionEffectType.SPEED, 1000000, 3, true, false, false);
     phantom.addPotionEffect(speedFour);
     phantom.setMetadata(PhantomType.PHANTOM_TYPE_METADATA_KEY, new FixedMetadataValue(PhantomMain.getPlugin(), PhantomType.MOTHER_OF_ALL_PHANTOMS.toString()));
+    (new MOAPBombs(phantom)).runTask(PhantomMain.getPlugin());
     return phantom;
   }
 

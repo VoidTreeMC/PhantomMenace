@@ -48,6 +48,7 @@ import org.bukkit.event.entity.FireworkExplodeEvent;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.block.BlockShearEntityEvent;
 import org.bukkit.Bukkit;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import io.papermc.paper.event.block.PlayerShearBlockEvent;
 import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
 
@@ -158,6 +159,16 @@ public class EventListener  extends PHListener {
             }
           }
         }
+      }
+    }
+  }
+
+  @EventHandler
+  public void onPlayerDeathEvent(PlayerDeathEvent event) {
+    if (PhantomEvent.isActive()) {
+      Player player = event.getEntity();
+      if (event.getDeathMessage().endsWith("was killed by Potion using magic")) {
+        event.setDeathMessage(player.getDisplayName() + " was killed by the Mother of All Phantoms");
       }
     }
   }
@@ -385,6 +396,22 @@ public class EventListener  extends PHListener {
             }
 
             // If it's an event creature targetting a player
+            if (damager.hasMetadata(PhantomEvent.EVENT_METADATA_KEY)) {
+              UUID playerUUID = ((Player) edbee.getEntity()).getUniqueId();
+              boolean doCancel = RecentPlayerDeaths.isPlayerOnList(playerUUID);
+              event.setCancelled(doCancel);
+              if (doCancel) {
+                entity.setFireTicks(0);
+              }
+
+              Player player = (Player) event.getEntity();
+              if (!doCancel && (player.getHealth() - event.getFinalDamage()) <= 0) {
+                (new ManageDeathImmunity(player.getUniqueId())).runTask(PhantomMain.getPlugin());
+              }
+            }
+          }
+        } else if (damager.getType() == EntityType.SPLASH_POTION) {
+          if (PhantomEvent.isActive()) {
             if (damager.hasMetadata(PhantomEvent.EVENT_METADATA_KEY)) {
               UUID playerUUID = ((Player) edbee.getEntity()).getUniqueId();
               boolean doCancel = RecentPlayerDeaths.isPlayerOnList(playerUUID);

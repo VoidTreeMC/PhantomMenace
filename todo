@@ -1,6 +1,5 @@
 Phantoms that give you levitation
 Kamikaze phantoms
-Phantoms that drop instant damage potions periodically
 Can use lava walkers to make infinite obsidian
 Make it so lava walkers don't work while mounted on a strider
 Make a dedicated file for constants, especially names for items.
@@ -12,6 +11,4 @@ Add behavior that checks if there are any players left in the arena when the pha
 
 DID
 ===
-Increased wave counts
-Increased MOAP HP
-Decreased MOAP size
+Added bomber effect to MOAP

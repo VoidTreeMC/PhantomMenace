@@ -33,6 +33,7 @@
           <artifactSet>
             <includes>
               <include>com.github.juliarn</include>
+              <include>com.github.juliarn</include>
             </includes>
           </artifactSet>
         </configuration>
