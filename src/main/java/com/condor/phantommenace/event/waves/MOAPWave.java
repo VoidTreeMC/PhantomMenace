@@ -12,7 +12,7 @@ public class MOAPWave extends Wave {
 
   static {
     map.put(PhantomType.MOTHER_OF_ALL_PHANTOMS, 1);
-    map.put(PhantomType.EXTRA_XP_PHANTOM, 6);
+    map.put(PhantomType.EXTRA_XP_PHANTOM, 10);
   }
 
   public MOAPWave() {

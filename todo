@@ -12,5 +12,6 @@ Add behavior that checks if there are any players left in the arena when the pha
 
 DID
 ===
-Made wave counts reflect the number of players in the arena, not on the server
-Added player immunity period upon dying to an event phantom
+Increased wave counts
+Increased MOAP HP
+Decreased MOAP size

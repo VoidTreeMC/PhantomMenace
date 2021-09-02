@@ -71,9 +71,9 @@ public class PhantomGenerator {
    */
   public static Phantom summonMOAP(Location loc) {
     Phantom phantom = (Phantom) loc.getWorld().spawnEntity(loc, EntityType.PHANTOM);
-    phantom.setSize(40);
-    phantom.setMaxHealth(200);
-    phantom.setHealth(200);
+    phantom.setSize(30);
+    phantom.setMaxHealth(600);
+    phantom.setHealth(600);
     PotionEffect speedFour = new PotionEffect(PotionEffectType.SPEED, 1000000, 3, true, false, false);
     phantom.addPotionEffect(speedFour);
     phantom.setMetadata(PhantomType.PHANTOM_TYPE_METADATA_KEY, new FixedMetadataValue(PhantomMain.getPlugin(), PhantomType.MOTHER_OF_ALL_PHANTOMS.toString()));

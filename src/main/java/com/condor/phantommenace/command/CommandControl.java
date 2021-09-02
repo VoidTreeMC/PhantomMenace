@@ -144,10 +144,10 @@ public abstract class CommandControl implements CommandExecutor {
 
 	/**
 	 * Executes command with given arguments
-	 * @param sender
-	 * @param label
-	 * @param args
-	 * @return FailureLevel
+	 * @param sender The command's sender
+	 * @param label The command label
+	 * @param args The arguments for the command
+	 * @return The method's failure code
 	 */
 	protected abstract FailureCode execute(CommandSender sender, String label, String[] args);
 
@@ -155,10 +155,10 @@ public abstract class CommandControl implements CommandExecutor {
 	/**
 	 * Used to determine if action is necessary <p>
 	 * Called in evaluate before execute
-	 * @param sender
-	 * @param label
-	 * @param args
-	 * @return failure level, 0 means success
+	 * @param sender The command's sender
+	 * @param label  The command's label
+	 * @param args   The arguments for the command
+	 * @return       The method's failure code
 	 */
 	protected abstract FailureCode isNecessary(CommandSender sender, String label, String[] args);
 
