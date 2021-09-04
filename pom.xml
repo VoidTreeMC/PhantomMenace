@@ -100,6 +100,7 @@
             <includes>
               <include>com.github.juliarn</include>
               <include>com.github.juliarn</include>
+              <include>dev.triumphteam</include>
             </includes>
           </artifactSet>
         </configuration>

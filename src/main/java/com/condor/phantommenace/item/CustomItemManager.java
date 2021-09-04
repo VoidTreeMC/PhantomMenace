@@ -23,6 +23,7 @@ public class CustomItemManager {
     itemMap.put(CustomItemType.LAVA_WALKERS, new LavaWalkers());
     itemMap.put(CustomItemType.CREEPER_FIREWORK, new CreeperFirework());
     itemMap.put(CustomItemType.SUPER_PICK, new SuperPick());
+    itemMap.put(CustomItemType.SLAYER_SWORD, new SlayerSword());
   }
 
   public static double getPriceScale() {

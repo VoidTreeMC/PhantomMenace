@@ -7,6 +7,7 @@ import org.bukkit.Material;
 import dev.triumphteam.gui.guis.Gui;
 import dev.triumphteam.gui.guis.GuiItem;
 
+import com.condor.phantommenace.item.CustomItem;
 import com.condor.phantommenace.item.CustomItemGenerator;
 import com.condor.phantommenace.item.CustomItemManager;
 import com.condor.phantommenace.item.simpleitems.DefenderToken;
@@ -17,13 +18,14 @@ import com.condor.phantommenace.item.legendaryitems.SuperPick;
 public class PhantomShopGUI {
 
   private static ItemStack INSOMNIA_POTION = CustomItemGenerator.getInsomniaPotion();
-  private static ItemStack FANCY_PANTS = CustomItemManager.getItemByType(CustomItemType.FANCY_PANTS).getInstance();
-  private static ItemStack ENDER_BLADE = CustomItemManager.getItemByType(CustomItemType.ENDER_BLADE).getInstance();
-  private static ItemStack PRIDE_SHEARS = CustomItemManager.getItemByType(CustomItemType.PRIDE_SHEARS).getInstance();
-  private static ItemStack CREEPER_BOW = CustomItemManager.getItemByType(CustomItemType.CREEPER_BOW).getInstance();
-  private static ItemStack LAVA_WALKERS = CustomItemManager.getItemByType(CustomItemType.LAVA_WALKERS).getInstance();
-  private static ItemStack CREEPER_FIREWORK = CustomItemManager.getItemByType(CustomItemType.CREEPER_FIREWORK).getInstance();
-  private static ItemStack SUPER_PICK = CustomItemManager.getItemByType(CustomItemType.SUPER_PICK).getInstance();
+  private static CustomItem FANCY_PANTS = CustomItemManager.getItemByType(CustomItemType.FANCY_PANTS);
+  private static CustomItem ENDER_BLADE = CustomItemManager.getItemByType(CustomItemType.ENDER_BLADE);
+  private static CustomItem PRIDE_SHEARS = CustomItemManager.getItemByType(CustomItemType.PRIDE_SHEARS);
+  private static CustomItem CREEPER_BOW = CustomItemManager.getItemByType(CustomItemType.CREEPER_BOW);
+  private static CustomItem LAVA_WALKERS = CustomItemManager.getItemByType(CustomItemType.LAVA_WALKERS);
+  private static CustomItem CREEPER_FIREWORK = CustomItemManager.getItemByType(CustomItemType.CREEPER_FIREWORK);
+  private static CustomItem SUPER_PICK = CustomItemManager.getItemByType(CustomItemType.SUPER_PICK);
+  private static CustomItem SLAYER_SWORD = CustomItemManager.getItemByType(CustomItemType.SLAYER_SWORD);
 
   private static int FANCY_PANTS_PRICE = 25;
   private static int ENDER_BLADE_PRICE = 50;
@@ -32,6 +34,7 @@ public class PhantomShopGUI {
   private static int LAVA_WALKERS_PRICE = 50;
   private static int CREEPER_FIREWORK_PRICE = 1;
   private static int SUPER_PICK_PRICE = 100;
+  private static int SLAYER_SWORD_PRICE = 50;
 
   private static boolean canAfford(Player player, int price) {
     int amt = 0;
@@ -41,6 +44,22 @@ public class PhantomShopGUI {
       }
     }
     return amt >= price;
+  }
+
+  private static void handleGenericPurchase(Gui gui, Player player, ItemStack item, int price) {
+    boolean purchased = false;
+
+    if (canAfford(player, price)) {
+      chargeAmount(player, price);
+      player.getInventory().addItem(item);
+      purchased = true;
+    }
+
+    if (!purchased) {
+      player.sendMessage("You can't afford that.");
+    } else {
+      gui.close(player);
+    }
   }
 
   private static void chargeAmount(Player player, int price) {
@@ -72,116 +91,36 @@ public class PhantomShopGUI {
         gui.close(player);
   	});
 
-    GuiItem fancyPantsItem = new GuiItem(FANCY_PANTS, event -> {
-        boolean purchased = false;
-
-        if (canAfford(player, FANCY_PANTS_PRICE)) {
-          chargeAmount(player, FANCY_PANTS_PRICE);
-          player.getInventory().addItem(FANCY_PANTS);
-          purchased = true;
-        }
-
-        if (!purchased) {
-          player.sendMessage("You can't afford that.");
-        } else {
-          gui.close(player);
-        }
+    GuiItem fancyPantsItem = new GuiItem(FANCY_PANTS.getInstance(), event -> {
+        handleGenericPurchase(gui, player, FANCY_PANTS.getInstance(), FANCY_PANTS_PRICE);
   	});
 
-    GuiItem enderBladeItem = new GuiItem(ENDER_BLADE, event -> {
-        boolean purchased = false;
-
-        if (canAfford(player, ENDER_BLADE_PRICE)) {
-          chargeAmount(player, ENDER_BLADE_PRICE);
-          player.getInventory().addItem(ENDER_BLADE);
-          purchased = true;
-        }
-
-        if (!purchased) {
-          player.sendMessage("You can't afford that.");
-        } else {
-          gui.close(player);
-        }
+    GuiItem enderBladeItem = new GuiItem(ENDER_BLADE.getInstance(), event -> {
+        handleGenericPurchase(gui, player, ENDER_BLADE.getInstance(), ENDER_BLADE_PRICE);
   	});
 
-    GuiItem prideShearsItem = new GuiItem(PRIDE_SHEARS, event -> {
-        boolean purchased = false;
-
-        if (canAfford(player, PRIDE_SHEARS_PRICE)) {
-          chargeAmount(player, PRIDE_SHEARS_PRICE);
-          player.getInventory().addItem(PRIDE_SHEARS);
-          purchased = true;
-        }
-
-        if (!purchased) {
-          player.sendMessage("You can't afford that.");
-        } else {
-          gui.close(player);
-        }
+    GuiItem prideShearsItem = new GuiItem(PRIDE_SHEARS.getInstance(), event -> {
+        handleGenericPurchase(gui, player, PRIDE_SHEARS.getInstance(), PRIDE_SHEARS_PRICE);
   	});
 
-    GuiItem creeperBowItem = new GuiItem(CREEPER_BOW, event -> {
-        boolean purchased = false;
-
-        if (canAfford(player, CREEPER_BOW_PRICE)) {
-          chargeAmount(player, CREEPER_BOW_PRICE);
-          player.getInventory().addItem(CREEPER_BOW);
-          purchased = true;
-        }
-
-        if (!purchased) {
-          player.sendMessage("You can't afford that.");
-        } else {
-          gui.close(player);
-        }
+    GuiItem creeperBowItem = new GuiItem(CREEPER_BOW.getInstance(), event -> {
+        handleGenericPurchase(gui, player, CREEPER_BOW.getInstance(), CREEPER_BOW_PRICE);
   	});
 
-    GuiItem lavaWalkersItem = new GuiItem(LAVA_WALKERS, event -> {
-        boolean purchased = false;
-
-        if (canAfford(player, LAVA_WALKERS_PRICE)) {
-          chargeAmount(player, LAVA_WALKERS_PRICE);
-          player.getInventory().addItem(LAVA_WALKERS);
-          purchased = true;
-        }
-
-        if (!purchased) {
-          player.sendMessage("You can't afford that.");
-        } else {
-          gui.close(player);
-        }
+    GuiItem lavaWalkersItem = new GuiItem(LAVA_WALKERS.getInstance(), event -> {
+        handleGenericPurchase(gui, player, LAVA_WALKERS.getInstance(), LAVA_WALKERS_PRICE);
   	});
 
-    GuiItem creeperFireworkItem = new GuiItem(CREEPER_FIREWORK, event -> {
-        boolean purchased = false;
-
-        if (canAfford(player, CREEPER_FIREWORK_PRICE)) {
-          chargeAmount(player, CREEPER_FIREWORK_PRICE);
-          player.getInventory().addItem(new CreeperFirework().getInstance());
-          purchased = true;
-        }
-
-        if (!purchased) {
-          player.sendMessage("You can't afford that.");
-        } else {
-          gui.close(player);
-        }
+    GuiItem creeperFireworkItem = new GuiItem(CREEPER_FIREWORK.getInstance(), event -> {
+        handleGenericPurchase(gui, player, CREEPER_FIREWORK.getInstance(), CREEPER_FIREWORK_PRICE);
   	});
 
-    GuiItem superPickItem = new GuiItem(SUPER_PICK, event -> {
-        boolean purchased = false;
+    GuiItem superPickItem = new GuiItem(SUPER_PICK.getInstance(), event -> {
+        handleGenericPurchase(gui, player, SUPER_PICK.getInstance(), SUPER_PICK_PRICE);
+  	});
 
-        if (canAfford(player, SUPER_PICK_PRICE)) {
-          chargeAmount(player, SUPER_PICK_PRICE);
-          player.getInventory().addItem(new SuperPick().getInstance());
-          purchased = true;
-        }
-
-        if (!purchased) {
-          player.sendMessage("You can't afford that.");
-        } else {
-          gui.close(player);
-        }
+    GuiItem slayerSwordItem = new GuiItem(SLAYER_SWORD.getInstance(), event -> {
+        handleGenericPurchase(gui, player, SLAYER_SWORD.getInstance(), SLAYER_SWORD_PRICE);
   	});
 
     gui.setItem(1, 5, insomniaPotionItem);
@@ -192,6 +131,7 @@ public class PhantomShopGUI {
     gui.setItem(2, 6, fancyPantsItem);
     gui.setItem(2, 7, creeperBowItem);
     gui.setItem(2, 8, superPickItem);
+    gui.setItem(3, 5, slayerSwordItem);
 
   	gui.open(player);
   }

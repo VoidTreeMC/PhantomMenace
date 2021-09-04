@@ -16,7 +16,8 @@ public enum CustomItemType {
   CREEPER_BOW,
   LAVA_WALKERS,
   CREEPER_FIREWORK,
-  SUPER_PICK;
+  SUPER_PICK,
+  SLAYER_SWORD;
 
   private static TreeMap<String, CustomItemType> CUSTOM_ITEM_TYPES;
 
@@ -92,6 +93,8 @@ public enum CustomItemType {
       case "Super Pick":
       case "TAB":
         return SUPER_PICK;
+      case "Slayer Sword":
+        return SLAYER_SWORD;
       default:
         return null;
     }

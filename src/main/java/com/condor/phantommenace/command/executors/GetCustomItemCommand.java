@@ -73,6 +73,9 @@ public class GetCustomItemCommand extends CommandControl {
       case "thickassboye":
         is = CustomItemManager.getItemByType(CustomItemType.SUPER_PICK).getInstance();
         break;
+      case "slayersword":
+        is = CustomItemManager.getItemByType(CustomItemType.SLAYER_SWORD).getInstance();
+        break;
     }
 
     if (is != null) {
