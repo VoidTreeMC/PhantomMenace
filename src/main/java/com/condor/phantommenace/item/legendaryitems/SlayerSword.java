@@ -62,7 +62,7 @@ public class SlayerSword extends CustomItem {
   }
 
   public SlayerSword() {
-    super(NAME, loreList, triggerList, CustomItemType.SLAYER_SWORD, 50);
+    super(NAME, loreList, triggerList, CustomItemType.SLAYER_SWORD, 50, false);
     loreList.add(this.getPrice() + " VoidCoins");
   }
 

@@ -50,6 +50,8 @@ public class GetCustomItemCommand extends CommandControl {
         is = CustomItemGenerator.getInsomniaPotion();
         break;
       case "defendertoken":
+      case "voidcoin":
+      case "voidcoins":
         is = CustomItemManager.getItemByType(CustomItemType.DEFENDER_TOKEN).getInstance();
         break;
       case "enderblade":
