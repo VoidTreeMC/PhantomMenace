@@ -149,10 +149,12 @@ public class SlayerSword extends CustomItem {
       EntityDeathEvent ede = (EntityDeathEvent) event;
       List<ItemStack> drops = ede.getDrops();
       for (ItemStack itemStack : drops) {
-        int maxAmt = itemStack.getMaxStackSize();
-        int amt = itemStack.getAmount() + (rng.nextInt(3) + 1);
-        amt = (amt > maxAmt) ? maxAmt : amt;
-        itemStack.setAmount(amt);
+        if (itemStack.getType() != Material.NETHER_STAR && itemStack.getType() != Material.WITHER_SKELETON_SKULL) {
+          int maxAmt = itemStack.getMaxStackSize();
+          int amt = itemStack.getAmount() + (rng.nextInt(3) + 1);
+          amt = (amt > maxAmt) ? maxAmt : amt;
+          itemStack.setAmount(amt);
+        }
       }
     }
   }
