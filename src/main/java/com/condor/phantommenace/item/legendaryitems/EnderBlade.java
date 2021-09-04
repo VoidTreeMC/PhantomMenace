@@ -21,11 +21,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.block.Action;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.ChatColor;
 
 import com.condor.phantommenace.item.CustomItem;
 import com.condor.phantommenace.item.CustomItemType;
 import com.condor.phantommenace.runnable.DoEnderBladeTeleport;
 import com.condor.phantommenace.main.PhantomMain;
+import com.condor.phantommenace.runnable.DisplayCooldown;
 
 public class EnderBlade extends CustomItem {
 
@@ -79,9 +81,10 @@ public class EnderBlade extends CustomItem {
     if (event instanceof PlayerInteractEvent) {
       PlayerInteractEvent pie = (PlayerInteractEvent) event;
       Player player = pie.getPlayer();
-      // If they right-clicked
+      // If they shift-right-clicked
       if (pie.getAction() == Action.RIGHT_CLICK_AIR ||
-          pie.getAction() == Action.RIGHT_CLICK_BLOCK) {
+          pie.getAction() == Action.RIGHT_CLICK_BLOCK &&
+          player.isSneaking()) {
         // If they're holding an ender blade
         if (isEnderBlade(player.getItemInHand())) {
           ret = true;
@@ -102,6 +105,7 @@ public class EnderBlade extends CustomItem {
     // If it's off cooldown
     if ((currTime - lastTimeUsed) >= COOLDOWN_DURATION) {
       (new DoEnderBladeTeleport(player)).runTask(PhantomMain.getPlugin());
+      (new DisplayCooldown(player, ChatColor.GOLD + "Blink cooldown", COOLDOWN_DURATION, 1000)).runTaskAsynchronously(PhantomMain.getPlugin());
       mapOfTimesUsed.put(player.getUniqueId(), currTime);
     } else {
       player.sendMessage("The blade vibrates weakly. It must recharge.");

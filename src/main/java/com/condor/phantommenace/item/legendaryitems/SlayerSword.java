@@ -27,11 +27,13 @@ import org.bukkit.entity.Monster;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.metadata.FixedMetadataValue;
+import org.bukkit.ChatColor;
 
 import com.condor.phantommenace.item.CustomItem;
 import com.condor.phantommenace.item.CustomItemType;
 import com.condor.phantommenace.main.PhantomMain;
 import com.condor.phantommenace.runnable.DoSlayerSwordEffect;
+import com.condor.phantommenace.runnable.DisplayCooldown;
 
 public class SlayerSword extends CustomItem {
 
@@ -125,6 +127,7 @@ public class SlayerSword extends CustomItem {
       // If it's off cooldown
       if ((currTime - lastTimeUsed) >= COOLDOWN_DURATION) {
         (new DoSlayerSwordEffect(player)).runTask(PhantomMain.getPlugin());
+        (new DisplayCooldown(player, ChatColor.GOLD + "Divine Smite cooldown", COOLDOWN_DURATION, 1000)).runTaskAsynchronously(PhantomMain.getPlugin());
         mapOfTimesUsed.put(player.getUniqueId(), currTime);
       } else {
         player.sendMessage("The hilt sears your hand. It must cool down.");

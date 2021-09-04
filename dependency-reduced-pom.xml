@@ -4,7 +4,7 @@
   <groupId>com.condor.phantommenace</groupId>
   <artifactId>PhantomMenace</artifactId>
   <name>PhantomMenace</name>
-  <version>0.0.5-SNAPSHOT</version>
+  <version>0.0.6-SNAPSHOT</version>
   <url>http://www.example.com</url>
   <build>
     <resources>

@@ -13,6 +13,5 @@ Add behavior that checks if there are any players left in the arena when the pha
 
 DID
 ===
-Increased MOAP potion bomb damage, made MOAP drop poison potion bombs sometimes
-Change slayer sword activate to be on shift + right-click
-Fixed bug where slayer sword didn't work on some mobs / entities
+Added a visual indicator for the enderblade and slayer sword cooldown times (bossbar)
+Made EnderBlade trigger on shift-right-click
