@@ -75,6 +75,12 @@ public class SummonPhantomCommand extends CommandControl {
           type = PhantomType.MOTHER_OF_ALL_PHANTOMS;
           sender.sendMessage(SUMMON_MSG);
           break;
+        case "kamikaze":
+        case "kamikazephantom":
+        case "kamikaze_phantom":
+          type = PhantomType.KAMIKAZE_PHANTOM;
+          sender.sendMessage(SUMMON_MSG);
+          break;
         default:
           sender.sendMessage(UNKNOWN_TYPE_MSG);
           break;

@@ -15,6 +15,7 @@ public class AllPhantomsWave extends Wave {
     map.put(PhantomType.ENDER_PHANTOM, 3);
     map.put(PhantomType.FLAMING_PHANTOM, 4);
     map.put(PhantomType.MOUNTED_PHANTOM, 4);
+    map.put(PhantomType.KAMIKAZE_PHANTOM, 1);
   }
 
   public AllPhantomsWave() {

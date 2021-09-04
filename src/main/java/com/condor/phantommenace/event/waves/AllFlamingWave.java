@@ -12,6 +12,7 @@ public class AllFlamingWave extends Wave {
 
   static {
     map.put(PhantomType.FLAMING_PHANTOM, 7);
+    map.put(PhantomType.KAMIKAZE_PHANTOM, 1);
   }
 
   public AllFlamingWave() {

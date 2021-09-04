@@ -13,7 +13,8 @@ public enum PhantomType {
   INVISIBLE_PHANTOM,
   MOUNTED_PHANTOM,
   ENDER_PHANTOM,
-  MOTHER_OF_ALL_PHANTOMS;
+  MOTHER_OF_ALL_PHANTOMS,
+  KAMIKAZE_PHANTOM;
 
   private static TreeMap<String, PhantomType> PHANTOM_TYPES;
 

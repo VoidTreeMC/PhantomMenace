@@ -13,6 +13,7 @@ public class InvisibleAndFlamingWave extends Wave {
   static {
     map.put(PhantomType.FLAMING_PHANTOM, 3);
     map.put(PhantomType.INVISIBLE_PHANTOM, 4);
+    map.put(PhantomType.KAMIKAZE_PHANTOM, 1);
   }
 
   public InvisibleAndFlamingWave() {

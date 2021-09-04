@@ -61,6 +61,7 @@ import com.condor.phantommenace.runnable.DoPhantomBlinkRunnable;
 import com.condor.phantommenace.runnable.DeleteIfIsWild;
 import com.condor.phantommenace.runnable.DeleteIfIsWildSkeleton;
 import com.condor.phantommenace.runnable.ManageDeathImmunity;
+import com.condor.phantommenace.runnable.SpawnSilverfishAtLoc;
 import com.condor.phantommenace.item.CustomItemType;
 import com.condor.phantommenace.gui.PhantomShopGUI;
 import com.condor.phantommenace.item.CustomItemGenerator;
@@ -373,6 +374,24 @@ public class EventListener  extends PHListener {
       Entity entity = edbee.getEntity();
       if (entity.getType() == EntityType.PLAYER) {
         Entity damager = edbee.getDamager();
+        UUID playerUUID = ((Player) edbee.getEntity()).getUniqueId();
+        boolean doCancel = RecentPlayerDeaths.isPlayerOnList(playerUUID);
+        // If it's an event creature targetting a player
+        if (damager.hasMetadata(PhantomEvent.EVENT_METADATA_KEY)) {
+          event.setCancelled(doCancel);
+          if (doCancel) {
+            entity.setFireTicks(0);
+          }
+
+          Player player = (Player) event.getEntity();
+          if (!doCancel && (player.getHealth() - event.getFinalDamage()) <= 0) {
+            (new ManageDeathImmunity(player.getUniqueId())).runTask(PhantomMain.getPlugin());
+          }
+
+          if (doCancel) {
+            return;
+          }
+        }
         if (damager.getType() == EntityType.PHANTOM) {
           Phantom phantom = (Phantom) damager;
           // If it's a flaming phantom
@@ -395,26 +414,21 @@ public class EventListener  extends PHListener {
               }
             }
 
-            // If it's an event creature targetting a player
-            if (damager.hasMetadata(PhantomEvent.EVENT_METADATA_KEY)) {
-              UUID playerUUID = ((Player) edbee.getEntity()).getUniqueId();
-              boolean doCancel = RecentPlayerDeaths.isPlayerOnList(playerUUID);
-              event.setCancelled(doCancel);
-              if (doCancel) {
-                entity.setFireTicks(0);
-              }
-
-              Player player = (Player) event.getEntity();
-              if (!doCancel && (player.getHealth() - event.getFinalDamage()) <= 0) {
-                (new ManageDeathImmunity(player.getUniqueId())).runTask(PhantomMain.getPlugin());
+            if (!doCancel) {
+              if (phantomType == PhantomType.KAMIKAZE_PHANTOM && edbee.getCause() != DamageCause.ENTITY_EXPLOSION) {
+                Location phantomLoc = phantom.getLocation();
+                double x = phantomLoc.getX();
+                double y = phantomLoc.getY();
+                double z = phantomLoc.getZ();
+                phantom.getLocation().getWorld().createExplosion(x, y, z, 2, false, false, phantom);
+                phantom.setHealth(0);
+                (new SpawnSilverfishAtLoc(phantomLoc)).runTaskLater(PhantomMain.getPlugin(), 3);
               }
             }
           }
         } else if (damager.getType() == EntityType.SPLASH_POTION) {
           if (PhantomEvent.isActive()) {
             if (damager.hasMetadata(PhantomEvent.EVENT_METADATA_KEY)) {
-              UUID playerUUID = ((Player) edbee.getEntity()).getUniqueId();
-              boolean doCancel = RecentPlayerDeaths.isPlayerOnList(playerUUID);
               event.setCancelled(doCancel);
               if (doCancel) {
                 entity.setFireTicks(0);

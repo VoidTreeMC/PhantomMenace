@@ -35,6 +35,8 @@ public class PhantomGenerator {
         return summonEnderPhantom(loc);
       case MOTHER_OF_ALL_PHANTOMS:
         return summonMOAP(loc);
+      case KAMIKAZE_PHANTOM:
+        return summonKamikaze(loc);
       default:
         return null;
     }
@@ -61,9 +63,17 @@ public class PhantomGenerator {
         return summonEnderPhantom(loc);
       case MOTHER_OF_ALL_PHANTOMS:
         return summonMOAP(loc);
+      case KAMIKAZE_PHANTOM:
+        return summonKamikaze(loc);
       default:
         return null;
     }
+  }
+
+  public static Phantom summonKamikaze(Location loc) {
+    Phantom phantom = (Phantom) loc.getWorld().spawnEntity(loc, EntityType.PHANTOM);
+    phantom.setMetadata(PhantomType.PHANTOM_TYPE_METADATA_KEY, new FixedMetadataValue(PhantomMain.getPlugin(), PhantomType.KAMIKAZE_PHANTOM.toString()));
+    return phantom;
   }
 
   /**
