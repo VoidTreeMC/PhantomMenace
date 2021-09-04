@@ -75,7 +75,7 @@ public class SlayerSword extends CustomItem {
     meta.addEnchant(Enchantment.DURABILITY, 3, false);
     meta.addEnchant(Enchantment.DAMAGE_ALL, 5, false);
     meta.addEnchant(Enchantment.SWEEPING_EDGE, 3, false);
-    meta.addEnchant(Enchantment.FIRE_ASPECT, 3, false);
+    meta.addEnchant(Enchantment.FIRE_ASPECT, 2, false);
     meta.addEnchant(Enchantment.LOOT_BONUS_MOBS, 3, false);
     // meta.setUnbreakable(true);
     is.setItemMeta(meta);
@@ -87,9 +87,10 @@ public class SlayerSword extends CustomItem {
     if (event instanceof PlayerInteractEvent) {
       PlayerInteractEvent pie = (PlayerInteractEvent) event;
       Player player = pie.getPlayer();
-      // If they right-clicked
-      if (pie.getAction() == Action.RIGHT_CLICK_AIR ||
-          pie.getAction() == Action.RIGHT_CLICK_BLOCK) {
+      // If they right-clicked and are crouching
+      if ((pie.getAction() == Action.RIGHT_CLICK_AIR ||
+          pie.getAction() == Action.RIGHT_CLICK_BLOCK) &&
+          player.isSneaking()) {
         // If they're holding a slayer sword
         if (isSlayerSword(player.getItemInHand())) {
           ret = true;
@@ -140,7 +141,7 @@ public class SlayerSword extends CustomItem {
         edbee.setDamage(edbee.getDamage() + DAMAGE_TO_ADD_TO_UNDEAD);
         target.setMetadata(METADATA_KEY, new FixedMetadataValue(PhantomMain.getPlugin(), true));
       } else {
-        if (isInnocent(target)) {
+        if (!shouldDealDamageTo(target)) {
         // If the target is innocent, make it deal no damage
           edbee.setCancelled(true);
         }
@@ -159,8 +160,83 @@ public class SlayerSword extends CustomItem {
     }
   }
 
-  public static boolean isInnocent(LivingEntity entity) {
-    return !(entity instanceof Monster);
+  public static boolean shouldDealDamageTo(LivingEntity entity) {
+    switch (entity.getType()) {
+      case ARMOR_STAND:
+      case BLAZE:
+      case BOAT:
+      case CAVE_SPIDER:
+      case CREEPER:
+      case DRAGON_FIREBALL:
+      case DROPPED_ITEM:
+      case DROWNED:
+      case EGG:
+      case ELDER_GUARDIAN:
+      case ENDER_CRYSTAL:
+      case ENDER_DRAGON:
+      case ENDER_PEARL:
+      case ENDERMAN:
+      case ENDERMITE:
+      case EVOKER:
+      case EVOKER_FANGS:
+      case EXPERIENCE_ORB:
+      case FALLING_BLOCK:
+      case FIREBALL:
+      case FIREWORK:
+      case FISHING_HOOK:
+      case GHAST:
+      case GIANT:
+      case GLOW_ITEM_FRAME:
+      case GUARDIAN:
+      case HOGLIN:
+      case HUSK:
+      case ILLUSIONER:
+      case ITEM_FRAME:
+      case LEASH_HITCH:
+      case LIGHTNING:
+      case MAGMA_CUBE:
+      case MINECART:
+      case MINECART_CHEST:
+      case MINECART_COMMAND:
+      case MINECART_FURNACE:
+      case MINECART_MOB_SPAWNER:
+      case MINECART_TNT:
+      case PAINTING:
+      case PHANTOM:
+      case PIGLIN:
+      case PIGLIN_BRUTE:
+      case PILLAGER:
+      case PRIMED_TNT:
+      case RAVAGER:
+      case SHULKER:
+      case SHULKER_BULLET:
+      case SILVERFISH:
+      case SKELETON:
+      case SKELETON_HORSE:
+      case SLIME:
+      case SMALL_FIREBALL:
+      case SNOWBALL:
+      case SPIDER:
+      case SPLASH_POTION:
+      case STRAY:
+      case THROWN_EXP_BOTTLE:
+      case TRIDENT:
+      case UNKNOWN:
+      case VEX:
+      case VINDICATOR:
+      case WITCH:
+      case WITHER:
+      case WITHER_SKELETON:
+      case WITHER_SKULL:
+      case ZOGLIN:
+      case ZOMBIE:
+      case ZOMBIE_HORSE:
+      case ZOMBIE_VILLAGER:
+      case ZOMBIFIED_PIGLIN:
+        return true;
+      default:
+        return false;
+    }
   }
 
   public boolean isSlayerSword(ItemStack item) {

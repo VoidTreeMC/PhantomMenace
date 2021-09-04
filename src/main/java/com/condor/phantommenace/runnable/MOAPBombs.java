@@ -1,6 +1,7 @@
 package com.condor.phantommenace.runnable;
 
 import java.util.List;
+import java.util.Random;
 
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.entity.Player;
@@ -35,6 +36,8 @@ public class MOAPBombs extends BukkitRunnable {
   // The MOAP
   Phantom phantom;
 
+  private static final Random rng = new Random();
+
 	public MOAPBombs(Phantom entity) {
 		this.plugin = PhantomMain.getPlugin();
 		this.phantom = entity;
@@ -54,7 +57,13 @@ public class MOAPBombs extends BukkitRunnable {
     ThrownPotion potion = (ThrownPotion) loc.getWorld().spawnEntity(loc, EntityType.SPLASH_POTION);
     ItemStack potionItem = new ItemStack(Material.SPLASH_POTION);
     PotionMeta potionMeta = (PotionMeta) potionItem.getItemMeta();
-	  PotionData potionData = new PotionData(PotionType.INSTANT_DAMAGE, false, false);
+	  PotionData potionData = null;
+
+    if (rng.nextInt(2) == 0) {
+      potionData = new PotionData(PotionType.INSTANT_DAMAGE, false, true);
+    } else {
+      potionData = new PotionData(PotionType.POISON, false, true);
+    }
 
     potionMeta.setBasePotionData(potionData);
   	potionMeta.setColor(Color.MAROON);
