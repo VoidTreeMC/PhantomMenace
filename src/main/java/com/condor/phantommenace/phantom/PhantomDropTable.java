@@ -33,6 +33,7 @@ public class PhantomDropTable {
   private static ArrayList<Object[]> invisiblePhantomDrops = new ArrayList<>();
   private static ArrayList<Object[]> mountedPhantomDrops = new ArrayList<>();
   private static ArrayList<Object[]> enderPhantomDrops = new ArrayList<>();
+  private static ArrayList<Object[]> kamikazePhantomDrops = new ArrayList<>();
   private static ArrayList<Object[]> moapPhantomDrops = new ArrayList<>();
 
   private static TreeMap<PhantomType, ArrayList<Object[]>> dropMap = new TreeMap<>();
@@ -59,6 +60,10 @@ public class PhantomDropTable {
     mountedPhantomDrops.add(constructDrop(new ItemStack(Material.CRYING_OBSIDIAN), 0.01, 1, 1));
     mountedPhantomDrops.add(constructDrop(new ItemStack(Material.SKELETON_SPAWN_EGG), 0.01, 1, 1));
 
+    kamikazePhantomDrops.add(constructDrop(new ItemStack(Material.GUNPOWDER), 0.75, 1, 3));
+    kamikazePhantomDrops.add(constructDrop(new ItemStack(Material.TNT), 0.10, 1, 1));
+    kamikazePhantomDrops.add(constructDrop(new ItemStack(Material.CREEPER_SPAWN_EGG), 0.01, 1, 1));
+
     invisiblePhantomDrops.add(constructDrop(new ItemStack(Material.GOLDEN_CARROT), 0.75, 1, 1));
 
     enderPhantomDrops.add(constructDrop(new ItemStack(Material.ENDER_PEARL), 0.75, 1, 2));
@@ -81,6 +86,7 @@ public class PhantomDropTable {
     dropMap.put(PhantomType.INVISIBLE_PHANTOM, invisiblePhantomDrops);
     dropMap.put(PhantomType.MOUNTED_PHANTOM, mountedPhantomDrops);
     dropMap.put(PhantomType.ENDER_PHANTOM, enderPhantomDrops);
+    dropMap.put(PhantomType.KAMIKAZE_PHANTOM, kamikazePhantomDrops);
     dropMap.put(PhantomType.MOTHER_OF_ALL_PHANTOMS, moapPhantomDrops);
 
     // Append to XP map
@@ -90,6 +96,7 @@ public class PhantomDropTable {
     xpMap.put(PhantomType.INVISIBLE_PHANTOM, 125);
     xpMap.put(PhantomType.MOUNTED_PHANTOM, 150);
     xpMap.put(PhantomType.ENDER_PHANTOM, 200);
+    xpMap.put(PhantomType.KAMIKAZE_PHANTOM, 200);
     xpMap.put(PhantomType.MOTHER_OF_ALL_PHANTOMS, 500);
   }
 

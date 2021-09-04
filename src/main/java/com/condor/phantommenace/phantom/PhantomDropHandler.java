@@ -72,6 +72,9 @@ public class PhantomDropHandler {
       case ENDER_PHANTOM:
         handleGenericPhantomDrops(event, PhantomType.ENDER_PHANTOM);
         break;
+      case KAMIKAZE_PHANTOM:
+        handleGenericPhantomDrops(event, PhantomType.KAMIKAZE_PHANTOM);
+        break;
       case MOTHER_OF_ALL_PHANTOMS:
         handleGenericPhantomDrops(event, PhantomType.MOTHER_OF_ALL_PHANTOMS);
         break;
