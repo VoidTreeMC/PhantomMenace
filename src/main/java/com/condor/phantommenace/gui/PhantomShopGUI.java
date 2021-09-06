@@ -26,15 +26,7 @@ public class PhantomShopGUI {
   private static CustomItem CREEPER_FIREWORK = CustomItemManager.getItemByType(CustomItemType.CREEPER_FIREWORK);
   private static CustomItem SUPER_PICK = CustomItemManager.getItemByType(CustomItemType.SUPER_PICK);
   private static CustomItem SLAYER_SWORD = CustomItemManager.getItemByType(CustomItemType.SLAYER_SWORD);
-
-  private static int FANCY_PANTS_PRICE = 25;
-  private static int ENDER_BLADE_PRICE = 50;
-  private static int PRIDE_SHEARS_PRICE = 10;
-  private static int CREEPER_BOW_PRICE = 50;
-  private static int LAVA_WALKERS_PRICE = 50;
-  private static int CREEPER_FIREWORK_PRICE = 1;
-  private static int SUPER_PICK_PRICE = 100;
-  private static int SLAYER_SWORD_PRICE = 50;
+  private static CustomItem FLIGHT_POTION = CustomItemManager.getItemByType(CustomItemType.FLIGHT_POTION);
 
   private static boolean canAfford(Player player, int price) {
     int amt = 0;
@@ -92,35 +84,39 @@ public class PhantomShopGUI {
   	});
 
     GuiItem fancyPantsItem = new GuiItem(FANCY_PANTS.getInstance(), event -> {
-        handleGenericPurchase(gui, player, FANCY_PANTS.getInstance(), FANCY_PANTS_PRICE);
+        handleGenericPurchase(gui, player, FANCY_PANTS.getInstance(), FANCY_PANTS.getPrice());
   	});
 
     GuiItem enderBladeItem = new GuiItem(ENDER_BLADE.getInstance(), event -> {
-        handleGenericPurchase(gui, player, ENDER_BLADE.getInstance(), ENDER_BLADE_PRICE);
+        handleGenericPurchase(gui, player, ENDER_BLADE.getInstance(), ENDER_BLADE.getPrice());
   	});
 
     GuiItem prideShearsItem = new GuiItem(PRIDE_SHEARS.getInstance(), event -> {
-        handleGenericPurchase(gui, player, PRIDE_SHEARS.getInstance(), PRIDE_SHEARS_PRICE);
+        handleGenericPurchase(gui, player, PRIDE_SHEARS.getInstance(), PRIDE_SHEARS.getPrice());
   	});
 
     GuiItem creeperBowItem = new GuiItem(CREEPER_BOW.getInstance(), event -> {
-        handleGenericPurchase(gui, player, CREEPER_BOW.getInstance(), CREEPER_BOW_PRICE);
+        handleGenericPurchase(gui, player, CREEPER_BOW.getInstance(), CREEPER_BOW.getPrice());
   	});
 
     GuiItem lavaWalkersItem = new GuiItem(LAVA_WALKERS.getInstance(), event -> {
-        handleGenericPurchase(gui, player, LAVA_WALKERS.getInstance(), LAVA_WALKERS_PRICE);
+        handleGenericPurchase(gui, player, LAVA_WALKERS.getInstance(), LAVA_WALKERS.getPrice());
   	});
 
     GuiItem creeperFireworkItem = new GuiItem(CREEPER_FIREWORK.getInstance(), event -> {
-        handleGenericPurchase(gui, player, CREEPER_FIREWORK.getInstance(), CREEPER_FIREWORK_PRICE);
+        handleGenericPurchase(gui, player, CREEPER_FIREWORK.getInstance(), CREEPER_FIREWORK.getPrice());
   	});
 
     GuiItem superPickItem = new GuiItem(SUPER_PICK.getInstance(), event -> {
-        handleGenericPurchase(gui, player, SUPER_PICK.getInstance(), SUPER_PICK_PRICE);
+        handleGenericPurchase(gui, player, SUPER_PICK.getInstance(), SUPER_PICK.getPrice());
   	});
 
     GuiItem slayerSwordItem = new GuiItem(SLAYER_SWORD.getInstance(), event -> {
-        handleGenericPurchase(gui, player, SLAYER_SWORD.getInstance(), SLAYER_SWORD_PRICE);
+        handleGenericPurchase(gui, player, SLAYER_SWORD.getInstance(), SLAYER_SWORD.getPrice());
+  	});
+
+    GuiItem flightPotionItem = new GuiItem(FLIGHT_POTION.getInstance(), event -> {
+        handleGenericPurchase(gui, player, FLIGHT_POTION.getInstance(), FLIGHT_POTION.getPrice());
   	});
 
     gui.setItem(1, 5, insomniaPotionItem);
@@ -131,7 +127,9 @@ public class PhantomShopGUI {
     gui.setItem(2, 6, fancyPantsItem);
     gui.setItem(2, 7, creeperBowItem);
     gui.setItem(2, 8, superPickItem);
-    gui.setItem(3, 5, slayerSwordItem);
+    gui.setItem(3, 4, slayerSwordItem);
+    gui.setItem(3, 6, flightPotionItem);
+
 
   	gui.open(player);
   }

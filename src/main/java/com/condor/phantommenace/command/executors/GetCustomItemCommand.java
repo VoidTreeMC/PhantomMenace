@@ -78,6 +78,9 @@ public class GetCustomItemCommand extends CommandControl {
       case "slayersword":
         is = CustomItemManager.getItemByType(CustomItemType.SLAYER_SWORD).getInstance();
         break;
+      case "flightpotion":
+        is = CustomItemManager.getItemByType(CustomItemType.FLIGHT_POTION).getInstance();
+        break;
     }
 
     if (is != null) {

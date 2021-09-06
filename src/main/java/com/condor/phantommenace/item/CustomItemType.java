@@ -17,7 +17,8 @@ public enum CustomItemType {
   LAVA_WALKERS,
   CREEPER_FIREWORK,
   SUPER_PICK,
-  SLAYER_SWORD;
+  SLAYER_SWORD,
+  FLIGHT_POTION;
 
   private static TreeMap<String, CustomItemType> CUSTOM_ITEM_TYPES;
 
@@ -95,6 +96,8 @@ public enum CustomItemType {
         return SUPER_PICK;
       case "Slayer Sword":
         return SLAYER_SWORD;
+      case "Flight Potion":
+        return FLIGHT_POTION;
       default:
         return null;
     }

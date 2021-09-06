@@ -24,6 +24,7 @@ public class CustomItemManager {
     itemMap.put(CustomItemType.CREEPER_FIREWORK, new CreeperFirework());
     itemMap.put(CustomItemType.SUPER_PICK, new SuperPick());
     itemMap.put(CustomItemType.SLAYER_SWORD, new SlayerSword());
+    itemMap.put(CustomItemType.FLIGHT_POTION, new FlightPotion());
   }
 
   public static double getPriceScale() {
