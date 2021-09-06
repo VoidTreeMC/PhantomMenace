@@ -1,14 +1,21 @@
-Phantoms that give you levitation
-Can use lava walkers to make infinite obsidian
+Bugs
+===
 Make it so lava walkers don't work while mounted on a strider
-Make a dedicated file for constants, especially names for items.
 Limit creeper fireworks that can go off in a row
-
-
 Skipwave doesnt work if it spawns a wave with 0 phantoms
+
+Exploits
+===
+Can use lava walkers to make infinite obsidian
+
+Features
+===
+Phantoms that give you levitation
+Make a dedicated file for constants, especially names for items.
 Add behavior for what happens if everyone leaves the arena
-  - Wait a delay and then end the event if nobody comes back
+- Wait a delay and then end the event if nobody comes back
 Add behavior that checks if there are any players left in the arena when the phantoms get highlighted
+
 
 DID
 ===
