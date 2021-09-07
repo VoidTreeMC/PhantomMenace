@@ -61,7 +61,6 @@ import com.condor.phantommenace.runnable.DoPhantomBlinkRunnable;
 import com.condor.phantommenace.runnable.DeleteIfIsWild;
 import com.condor.phantommenace.runnable.DeleteIfIsWildSkeleton;
 import com.condor.phantommenace.runnable.ManageDeathImmunity;
-import com.condor.phantommenace.runnable.SpawnSilverfishAtLoc;
 import com.condor.phantommenace.item.CustomItemType;
 import com.condor.phantommenace.gui.PhantomShopGUI;
 import com.condor.phantommenace.item.CustomItemGenerator;
@@ -423,7 +422,6 @@ public class EventListener  extends PHListener {
                 double z = phantomLoc.getZ();
                 phantom.getLocation().getWorld().createExplosion(x, y, z, 2, false, false, phantom);
                 phantom.setHealth(0);
-                (new SpawnSilverfishAtLoc(phantomLoc)).runTaskLater(PhantomMain.getPlugin(), 3);
               }
             }
           }
