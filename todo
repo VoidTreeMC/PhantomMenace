@@ -1,12 +1,22 @@
+General Changes
+===
+Add creeper fireworks and flight potions to the no-forge list
+If a phantom explodes on you, you should get credit for its kills
+Have the tiny phantoms constantly target the MOAP to make it look like a swarm of bees
+
+
 Bugs
 ===
 Make it so lava walkers don't work while mounted on a strider
 Limit creeper fireworks that can go off in a row
 Skipwave doesnt work if it spawns a wave with 0 phantoms
+Flight potions expire when you switch dimensions
+The TAB doesnt do block updates
 
 Exploits
 ===
 Can use lava walkers to make infinite obsidian
+Can use TAB to grief in Towny or Worldguard
 
 Features
 ===
@@ -15,8 +25,64 @@ Make a dedicated file for constants, especially names for items.
 Add behavior for what happens if everyone leaves the arena
 - Wait a delay and then end the event if nobody comes back
 Add behavior that checks if there are any players left in the arena when the phantoms get highlighted
+Have the tiny phantoms constantly target the MOAP to make it look like a swarm of bees
+Phantoms that heal the MOAP if not killed
+	- Use invisible mounted guardians that target the MOAP
 
 
 DID
 ===
-Removed silverfish from kamikaze phantoms
+Added flight potion
+
+ERROR Could not pass event PotionSplashEvent to Towny v0.97.1.0
+07.09 02:17:31 [Server] INFO java.lang.NullPointerException: Cannot invoke "org.bukkit.entity.Entity.getLocation()" because "attackingEntity" is null
+07.09 02:17:31 [Server] INFO at com.palmergames.bukkit.towny.utils.CombatUtil.preventDamageCall(CombatUtil.java:116) ~[Towny-0.97.1.0.jar:?]
+07.09 02:17:31 [Server] INFO at com.palmergames.bukkit.towny.utils.CombatUtil.preventDamageCall(CombatUtil.java:95) ~[Towny-0.97.1.0.jar:?]
+07.09 02:17:31 [Server] INFO at com.palmergames.bukkit.towny.listeners.TownyEntityListener.onPotionSplashEvent(TownyEntityListener.java:374) ~[Towny-0.97.1.0.jar:?]
+07.09 02:17:31 [Server] INFO at com.destroystokyo.paper.event.executor.asm.generated.GeneratedEventExecutor187.execute(Unknown Source) ~[?:?]
+07.09 02:17:31 [Server] INFO at org.bukkit.plugin.EventExecutor.lambda$create$1(EventExecutor.java:69) ~[patched_1.17.1.jar:git-Paper-233]
+07.09 02:17:31 [Server] INFO at co.aikar.timings.TimedEventExecutor.execute(TimedEventExecutor.java:80) ~[patched_1.17.1.jar:git-Paper-233]
+07.09 02:17:31 [Server] INFO at org.bukkit.plugin.RegisteredListener.callEvent(RegisteredListener.java:70) ~[patched_1.17.1.jar:git-Paper-233]
+07.09 02:17:31 [Server] INFO at org.bukkit.plugin.SimplePluginManager.callEvent(SimplePluginManager.java:624) ~[patched_1.17.1.jar:git-Paper-233]
+07.09 02:17:31 [Server] INFO at org.bukkit.craftbukkit.v1_17_R1.event.CraftEventFactory.callPotionSplashEvent(CraftEventFactory.java:788) ~[patched_1.17.1.jar:git-Paper-233]
+07.09 02:17:31 [Server] INFO at net.minecraft.world.entity.projectile.EntityPotion.a(EntityPotion.java:197) ~[patched_1.17.1.jar:git-Paper-233]
+07.09 02:17:31 [Server] INFO at net.minecraft.world.entity.projectile.EntityPotion.a(EntityPotion.java:115) ~[patched_1.17.1.jar:git-Paper-233]
+07.09 02:17:31 [Server] INFO at net.minecraft.world.entity.projectile.IProjectile.preOnHit(IProjectile.java:172) ~[patched_1.17.1.jar:git-Paper-233]
+07.09 02:17:31 [Server] INFO at net.minecraft.world.entity.projectile.EntityProjectile.tick(EntityProjectile.java:80) ~[patched_1.17.1.jar:git-Paper-233]
+07.09 02:17:31 [Server] INFO at net.minecraft.server.level.WorldServer.entityJoinedWorld(WorldServer.java:1114) ~[patched_1.17.1.jar:git-Paper-233]
+07.09 02:17:31 [Server] INFO at net.minecraft.world.level.World.a(World.java:986) ~[patched_1.17.1.jar:git-Paper-233]
+07.09 02:17:31 [Server] INFO at net.minecraft.server.level.WorldServer.lambda$tick$7(WorldServer.java:775) ~[patched_1.17.1.jar:git-Paper-233]
+07.09 02:17:31 [Server] INFO at net.minecraft.world.level.entity.EntityTickList.a(EntityTickList.java:43) ~[patched_1.17.1.jar:git-Paper-233]
+07.09 02:17:31 [Server] INFO at net.minecraft.server.level.WorldServer.doTick(WorldServer.java:756) ~[patched_1.17.1.jar:git-Paper-233]
+07.09 02:17:31 [Server] INFO at net.minecraft.server.MinecraftServer.b(MinecraftServer.java:1619) ~[patched_1.17.1.jar:git-Paper-233]
+07.09 02:17:31 [Server] INFO at net.minecraft.server.dedicated.DedicatedServer.b(DedicatedServer.java:479) ~[patched_1.17.1.jar:git-Paper-233]
+07.09 02:17:31 [Server] INFO at net.minecraft.server.MinecraftServer.a(MinecraftServer.java:1475) ~[patched_1.17.1.jar:git-Paper-233]
+07.09 02:17:31 [Server] INFO at net.minecraft.server.MinecraftServer.x(MinecraftServer.java:1274) ~[patched_1.17.1.jar:git-Paper-233]
+07.09 02:17:31 [Server] INFO at net.minecraft.server.MinecraftServer.lambda$spin$0(MinecraftServer.java:319) ~[patched_1.17.1.jar:git-Paper-233]
+07.09 02:17:31 [Server] INFO at java.lang.Thread.run(Thread.java:831) [?:?]
+07.09 02:17:45 [Server] ERROR Could not pass event PotionSplashEvent to Towny v0.97.1.0
+07.09 02:17:45 [Server] INFO java.lang.NullPointerException: Cannot invoke "org.bukkit.entity.Entity.getLocation()" because "attackingEntity" is null
+07.09 02:17:45 [Server] INFO at com.palmergames.bukkit.towny.utils.CombatUtil.preventDamageCall(CombatUtil.java:116) ~[Towny-0.97.1.0.jar:?]
+07.09 02:17:45 [Server] INFO at com.palmergames.bukkit.towny.utils.CombatUtil.preventDamageCall(CombatUtil.java:95) ~[Towny-0.97.1.0.jar:?]
+07.09 02:17:45 [Server] INFO at com.palmergames.bukkit.towny.listeners.TownyEntityListener.onPotionSplashEvent(TownyEntityListener.java:374) ~[Towny-0.97.1.0.jar:?]
+07.09 02:17:45 [Server] INFO at com.destroystokyo.paper.event.executor.asm.generated.GeneratedEventExecutor187.execute(Unknown Source) ~[?:?]
+07.09 02:17:45 [Server] INFO at org.bukkit.plugin.EventExecutor.lambda$create$1(EventExecutor.java:69) ~[patched_1.17.1.jar:git-Paper-233]
+07.09 02:17:45 [Server] INFO at co.aikar.timings.TimedEventExecutor.execute(TimedEventExecutor.java:80) ~[patched_1.17.1.jar:git-Paper-233]
+07.09 02:17:45 [Server] INFO at org.bukkit.plugin.RegisteredListener.callEvent(RegisteredListener.java:70) ~[patched_1.17.1.jar:git-Paper-233]
+07.09 02:17:45 [Server] INFO at org.bukkit.plugin.SimplePluginManager.callEvent(SimplePluginManager.java:624) ~[patched_1.17.1.jar:git-Paper-233]
+07.09 02:17:45 [Server] INFO at org.bukkit.craftbukkit.v1_17_R1.event.CraftEventFactory.callPotionSplashEvent(CraftEventFactory.java:788) ~[patched_1.17.1.jar:git-Paper-233]
+07.09 02:17:45 [Server] INFO at net.minecraft.world.entity.projectile.EntityPotion.a(EntityPotion.java:197) ~[patched_1.17.1.jar:git-Paper-233]
+07.09 02:17:45 [Server] INFO at net.minecraft.world.entity.projectile.EntityPotion.a(EntityPotion.java:115) ~[patched_1.17.1.jar:git-Paper-233]
+07.09 02:17:45 [Server] INFO at net.minecraft.world.entity.projectile.IProjectile.preOnHit(IProjectile.java:172) ~[patched_1.17.1.jar:git-Paper-233]
+07.09 02:17:45 [Server] INFO at net.minecraft.world.entity.projectile.EntityProjectile.tick(EntityProjectile.java:80) ~[patched_1.17.1.jar:git-Paper-233]
+07.09 02:17:45 [Server] INFO at net.minecraft.server.level.WorldServer.entityJoinedWorld(WorldServer.java:1114) ~[patched_1.17.1.jar:git-Paper-233]
+07.09 02:17:45 [Server] INFO at net.minecraft.world.level.World.a(World.java:986) ~[patched_1.17.1.jar:git-Paper-233]
+07.09 02:17:45 [Server] INFO at net.minecraft.server.level.WorldServer.lambda$tick$7(WorldServer.java:775) ~[patched_1.17.1.jar:git-Paper-233]
+07.09 02:17:45 [Server] INFO at net.minecraft.world.level.entity.EntityTickList.a(EntityTickList.java:43) ~[patched_1.17.1.jar:git-Paper-233]
+07.09 02:17:45 [Server] INFO at net.minecraft.server.level.WorldServer.doTick(WorldServer.java:756) ~[patched_1.17.1.jar:git-Paper-233]
+07.09 02:17:45 [Server] INFO at net.minecraft.server.MinecraftServer.b(MinecraftServer.java:1619) ~[patched_1.17.1.jar:git-Paper-233]
+07.09 02:17:45 [Server] INFO at net.minecraft.server.dedicated.DedicatedServer.b(DedicatedServer.java:479) ~[patched_1.17.1.jar:git-Paper-233]
+07.09 02:17:45 [Server] INFO at net.minecraft.server.MinecraftServer.a(MinecraftServer.java:1475) ~[patched_1.17.1.jar:git-Paper-233]
+07.09 02:17:45 [Server] INFO at net.minecraft.server.MinecraftServer.x(MinecraftServer.java:1274) ~[patched_1.17.1.jar:git-Paper-233]
+07.09 02:17:45 [Server] INFO at net.minecraft.server.MinecraftServer.lambda$spin$0(MinecraftServer.java:319) ~[patched_1.17.1.jar:git-Paper-233]
+07.09 02:17:45 [Server] INFO at java.lang.Thread.run(Thread.java:831) [?:?]

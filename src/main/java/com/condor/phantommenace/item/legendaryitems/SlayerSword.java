@@ -56,6 +56,7 @@ public class SlayerSword extends CustomItem {
 
   static {
     loreList.add("Slayer Sword");
+    loreList.add("Her name is Buffy.");
     loreList.add("");
 
     triggerList.add(EntityDamageEvent.class);

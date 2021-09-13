@@ -22,6 +22,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.metadata.FixedMetadataValue;
+import org.bukkit.ChatColor;
 
 
 import com.condor.phantommenace.item.CustomItem;
@@ -41,6 +42,8 @@ public class CreeperBow extends CustomItem {
 
   static {
     loreList.add("CreeperBane");
+    loreList.add("Duck hates creepers.");
+    loreList.add(ChatColor.UNDERLINE + "Really, really" + ChatColor.RESET + " hates creepers.");
     loreList.add("");
 
     triggerList.add(EntityDamageEvent.class);
