@@ -14,6 +14,7 @@ import org.bukkit.World;
 import org.bukkit.entity.EntityCategory;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Entity;
+import org.bukkit.Sound;
 
 import com.condor.phantommenace.main.PhantomMain;
 
@@ -52,6 +53,8 @@ public class DoSlayerSwordEffect extends BukkitRunnable {
         LivingEntity le = (LivingEntity) e;
         if (le.getCategory() == EntityCategory.UNDEAD) {
           le.setFireTicks(FIRE_DURATION);
+          player.playSound(le.getLocation(), Sound.ENTITY_LIGHTNING_BOLT_IMPACT, 1, 1);
+          player.playSound(le.getLocation(), Sound.ENTITY_LIGHTNING_BOLT_THUNDER, 1, 1);
         }
       }
     }
