@@ -19,6 +19,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.Location;
 import org.bukkit.util.Vector;
 import org.bukkit.inventory.meta.Damageable;
+import org.bukkit.metadata.FixedMetadataValue;
 
 import com.condor.phantommenace.item.CustomItem;
 import com.condor.phantommenace.item.CustomItemType;
@@ -34,6 +35,8 @@ public class SuperPick extends CustomItem {
   private static Random rng = new Random();
 
   private TreeMap<String, BlockFace> blockMap = new TreeMap<>();
+
+  private static final String METADATA_KEY = "isSuperPickAdjacent";
 
   static {
     loreList.add("TAB");
@@ -80,6 +83,12 @@ public class SuperPick extends CustomItem {
       BlockBreakEvent bbe = (BlockBreakEvent) event;
       Player player = bbe.getPlayer();
       Block block = bbe.getBlock();
+      // If it's one of the adjacent blocks, set the drops to none
+      // and stop processing early
+      if (block.hasMetadata(METADATA_KEY)) {
+        bbe.setDropItems(false);
+        return;
+      }
       BlockFace blockFace = blockMap.get(block.getLocation().toString());
       Vector vector = blockFace.getDirection();
       Location blockLoc = block.getLocation();
@@ -126,17 +135,12 @@ public class SuperPick extends CustomItem {
         // for (ItemStack is : drops) {
         //   loc.getWorld().dropItem(loc, is);
         // }
-        loc.getBlock().setType(Material.AIR);
+        Block adjBlock = loc.getBlock();
+        adjBlock.setMetadata(METADATA_KEY, new FixedMetadataValue(PhantomMain.getPlugin(), true));
+        player.breakBlock(adjBlock);
       }
 
       blockMap.remove(block.getLocation().toString());
-      ItemStack tool = player.getItemInHand();
-      ItemMeta toolMeta = tool.getItemMeta();
-      if (toolMeta instanceof Damageable) {
-        Damageable dam = (Damageable) toolMeta;
-        dam.setDamage(dam.getDamage() + numBlocksBroken);
-        tool.setItemMeta(toolMeta);
-      }
     } else {
       PlayerInteractEvent pie = (PlayerInteractEvent) event;
       Block block = pie.getClickedBlock();

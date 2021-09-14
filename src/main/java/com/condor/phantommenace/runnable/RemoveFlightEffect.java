@@ -13,6 +13,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Bukkit;
 
 import com.condor.phantommenace.main.PhantomMain;
+import com.condor.phantommenace.item.legendaryitems.FlightPotion;
 
 public class RemoveFlightEffect extends BukkitRunnable {
 
@@ -47,6 +48,11 @@ public class RemoveFlightEffect extends BukkitRunnable {
       return;
     }
 
+    // If they no longer have the metadata key, cancel early.
+    if (!this.player.hasMetadata(FlightPotion.METADATA_KEY)) {
+      return;
+    }
+
     this.player.sendMessage(ChatColor.RED + "The ground is pulling you down. Now would be a good time to land.");
 
     try {
@@ -57,6 +63,7 @@ public class RemoveFlightEffect extends BukkitRunnable {
 
     this.player.sendMessage(ChatColor.AQUA + "You feel heavier.");
     this.player.setAllowFlight(false);
+    this.player.removeMetadata(FlightPotion.METADATA_KEY, this.plugin);
 
     PotionEffect slowFall = new PotionEffect(PotionEffectType.SLOW_FALLING, SLOW_FALL_DURATION, 0, true, false, false);
 

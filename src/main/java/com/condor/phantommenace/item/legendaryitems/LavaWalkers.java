@@ -76,6 +76,8 @@ public class LavaWalkers extends CustomItem {
       ret = ret && CustomItemType.getTypeFromCustomItem(player.getInventory().getBoots()) == CustomItemType.LAVA_WALKERS;
       // If they're on the ground
       ret = ret && blockUnder.getBlock().getType() != Material.AIR;
+      // If they're not riding in/on something
+      ret = ret && player.getVehicle() == null;
     }
     return ret;
   }

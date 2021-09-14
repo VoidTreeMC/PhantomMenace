@@ -51,6 +51,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import io.papermc.paper.event.block.PlayerShearBlockEvent;
 import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
 
 import com.condor.phantommenace.listener.PHListener;
 import com.condor.phantommenace.main.PhantomMain;
@@ -70,6 +71,7 @@ import com.condor.phantommenace.npc.PHNPC;
 import com.condor.phantommenace.npc.NPCManager;
 import com.condor.phantommenace.event.PhantomEvent;
 import com.condor.phantommenace.phantom.RecentPlayerDeaths;
+import com.condor.phantommenace.item.legendaryitems.FlightPotion;
 
 import com.github.juliarn.npc.NPC;
 import com.github.juliarn.npc.event.PlayerNPCEvent;
@@ -164,13 +166,22 @@ public class EventListener  extends PHListener {
   }
 
   @EventHandler
+  public void onPlayerTeleport(PlayerTeleportEvent event) {
+    Player player = event.getPlayer();
+    if (player.hasMetadata(FlightPotion.METADATA_KEY)) {
+      player.setAllowFlight(true);
+    }
+  }
+
+  @EventHandler
   public void onPlayerDeathEvent(PlayerDeathEvent event) {
+    Player player = event.getEntity();
     if (PhantomEvent.isActive()) {
-      Player player = event.getEntity();
       if (event.getDeathMessage().endsWith("was killed by Potion using magic")) {
         event.setDeathMessage(player.getDisplayName() + " was killed by the Mother of All Phantoms");
       }
     }
+    player.removeMetadata(FlightPotion.METADATA_KEY, PhantomMain.getPlugin());
   }
 
   // @EventHandler

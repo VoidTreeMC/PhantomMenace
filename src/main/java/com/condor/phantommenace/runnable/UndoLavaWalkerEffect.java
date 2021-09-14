@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 
 import com.condor.phantommenace.main.PhantomMain;
 
@@ -33,7 +34,10 @@ public class UndoLavaWalkerEffect extends BukkitRunnable {
 	@Override
 	public void run() {
     for (Location loc : changedBlocks) {
-      loc.getBlock().setType(Material.LAVA);
+      Block block = loc.getBlock();
+      if (block.getType() == Material.OBSIDIAN) {
+        block.setType(Material.LAVA);
+      }
     }
     this.cancel();
 	}

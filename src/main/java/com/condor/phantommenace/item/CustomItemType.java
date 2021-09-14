@@ -54,11 +54,11 @@ public enum CustomItemType {
 
   public static boolean isLegendaryItem(ItemStack customItem) {
     CustomItemType type = getTypeFromCustomItem(customItem);
-    return type != null && type != DEFENDER_TOKEN && type != INSOMNIA_POTION;
+    return isLegendaryItem(type);
   }
 
   public static boolean isLegendaryItem(CustomItemType type) {
-    return type != null && type != DEFENDER_TOKEN && type != INSOMNIA_POTION;
+    return type != null && type != DEFENDER_TOKEN && type != INSOMNIA_POTION && type != CREEPER_FIREWORK && type != FLIGHT_POTION;
   }
 
   public static CustomItemType getTypeFromCustomItem(ItemStack customItem) {

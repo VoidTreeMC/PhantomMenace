@@ -18,6 +18,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.ChatColor;
+import org.bukkit.metadata.FixedMetadataValue;
 
 import com.condor.phantommenace.item.CustomItem;
 import com.condor.phantommenace.item.CustomItemType;
@@ -31,7 +32,10 @@ public class FlightPotion extends CustomItem {
   private static ArrayList<Class> triggerList = new ArrayList<>();
 
   // 20 minutes
-  private static final long DURATION = 20 * 20 * 60;
+  // private static final long DURATION = 20 * 20 * 60;
+  private static final long DURATION = 20 * 10;
+
+  public static final String METADATA_KEY = "affectedByFlightPotion";
 
   static {
     loreList.add("Flight Potion");
@@ -77,6 +81,7 @@ public class FlightPotion extends CustomItem {
     PlayerItemConsumeEvent pice = (PlayerItemConsumeEvent) event;
     Player player = pice.getPlayer();
     player.setAllowFlight(true);
+    player.setMetadata(METADATA_KEY, new FixedMetadataValue(PhantomMain.getPlugin(), true));
     player.sendMessage(ChatColor.AQUA + "The ground loses its grip on you.");
     // player.sendMessage(ChatColor.AQUA + "You are able to fly for " + ChatColor.GOLD + "20" + ChatColor.AQUA + " minutes.");
     (new RemoveFlightEffect(player)).runTaskLaterAsynchronously(PhantomMain.getPlugin(), DURATION);

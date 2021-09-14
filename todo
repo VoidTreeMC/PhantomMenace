@@ -1,22 +1,17 @@
 General Changes
 ===
-Add creeper fireworks and flight potions to the no-forge list
 If a phantom explodes on you, you should get credit for its kills
 Have the tiny phantoms constantly target the MOAP to make it look like a swarm of bees
 
 
 Bugs
 ===
-Make it so lava walkers don't work while mounted on a strider
 Limit creeper fireworks that can go off in a row
 Skipwave doesnt work if it spawns a wave with 0 phantoms
-Flight potions expire when you switch dimensions
-The TAB doesnt do block updates
+Proton died and didn't get any immunity period from the event. There were no exceptions in the console.
 
 Exploits
 ===
-Can use lava walkers to make infinite obsidian
-Can use TAB to grief in Towny or Worldguard
 
 Features
 ===
@@ -32,7 +27,11 @@ Phantoms that heal the MOAP if not killed
 
 DID
 ===
-Added flight potion
+Added creeper fireworks and flight potions to the no-forge list
+Made it so lava walkers don't work while riding in/on something (strider, boat, minecart, etc.)
+Changed the way the TAB works internally so that it acts as if the player had broken all of the blocks. This should ensure compatability with plugins such as CoreProtect, and ensure that regions where the player doesn't have permission to break blocks are respected.
+Patched an exploit that would allow players with lava walkers to generate infinite obsidian
+Fixed a bug that caused flight potions to expire when you switched dimensions
 
 ERROR Could not pass event PotionSplashEvent to Towny v0.97.1.0
 07.09 02:17:31 [Server] INFO java.lang.NullPointerException: Cannot invoke "org.bukkit.entity.Entity.getLocation()" because "attackingEntity" is null
