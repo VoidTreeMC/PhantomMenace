@@ -15,6 +15,7 @@ public class RecentPlayerDeaths {
   private static TreeMap<UUID, Long> idMap = new TreeMap<>();
 
   private static void messagePlayer(UUID uuid, String message) {
+    Bukkit.getLogger().log(Level.INFO, "Sending death immunity-related message to " + uuid + ", : " + message);
     Bukkit.getPlayer(uuid).sendMessage(message);
   }
 

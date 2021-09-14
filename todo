@@ -27,4 +27,4 @@ Phantoms that heal the MOAP if not killed
 
 DID
 ===
-Added the MOAP as the entity that drops the potions, so Towny should stop freaking out about the potions not having a source
+Added debug print statements related to player death and immunity

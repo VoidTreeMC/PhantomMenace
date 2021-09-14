@@ -2,7 +2,9 @@ package com.condor.phantommenace.runnable;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Level;
 
+import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.Location;
@@ -33,6 +35,7 @@ public class RemoveDeathImmunity extends BukkitRunnable {
 
 	@Override
 	public void run() {
+    Bukkit.getLogger().log(Level.INFO, uuid + " removing from death immunity list.");
     RecentPlayerDeaths.removeFromList(uuid, time);
 	}
 }

@@ -177,6 +177,7 @@ public class EventListener  extends PHListener {
   public void onPlayerDeathEvent(PlayerDeathEvent event) {
     Player player = event.getEntity();
     if (PhantomEvent.isActive()) {
+      Bukkit.getLogger().log(Level.INFO, player.getDisplayName() + " has died during the event.");
       if (event.getDeathMessage().endsWith("was killed by Potion using magic")) {
         event.setDeathMessage(player.getDisplayName() + " was killed by the Mother of All Phantoms");
       }
@@ -371,6 +372,7 @@ public class EventListener  extends PHListener {
 
             Player player = (Player) event.getEntity();
             if (!doCancel && (player.getHealth() - event.getFinalDamage()) <= 0) {
+              Bukkit.getLogger().log(Level.INFO, player.getDisplayName() + " died. Adding death immunity.");
               (new ManageDeathImmunity(player.getUniqueId())).runTask(PhantomMain.getPlugin());
             }
           }
