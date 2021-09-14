@@ -55,6 +55,7 @@ public class MOAPBombs extends BukkitRunnable {
 
     Location loc = phantom.getLocation();
     ThrownPotion potion = (ThrownPotion) loc.getWorld().spawnEntity(loc, EntityType.SPLASH_POTION);
+    potion.setShooter(this.phantom);
     ItemStack potionItem = new ItemStack(Material.SPLASH_POTION);
     PotionMeta potionMeta = (PotionMeta) potionItem.getItemMeta();
 	  PotionData potionData = null;
