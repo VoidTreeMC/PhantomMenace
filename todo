@@ -27,4 +27,6 @@ Phantoms that heal the MOAP if not killed
 
 DID
 ===
-Added debug print statements related to player death and immunity
+Changed EnderBlade blink to only activate on shift-right-click
+Added Subdued Enderblade, which lets you teleport in a controlled fashion
+Modified ender blade so it can be leveled up into subdued enderblade

@@ -18,6 +18,7 @@ public class CustomItemManager {
     itemMap.put(CustomItemType.FANCY_PANTS, new FancyPants());
     itemMap.put(CustomItemType.DEFENDER_TOKEN, new DefenderToken());
     itemMap.put(CustomItemType.ENDER_BLADE, new EnderBlade());
+    itemMap.put(CustomItemType.SUBDUED_ENDER_BLADE, new SubduedEnderBlade());
     itemMap.put(CustomItemType.PRIDE_SHEARS, new PrideShears());
     itemMap.put(CustomItemType.CREEPER_BOW, new CreeperBow());
     itemMap.put(CustomItemType.LAVA_WALKERS, new LavaWalkers());

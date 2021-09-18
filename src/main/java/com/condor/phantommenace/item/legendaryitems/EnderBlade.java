@@ -1,6 +1,7 @@
 package com.condor.phantommenace.item.legendaryitems;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.TreeMap;
 import java.util.UUID;
@@ -22,6 +23,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.block.Action;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.LivingEntity;
 
 import com.condor.phantommenace.item.CustomItem;
 import com.condor.phantommenace.item.CustomItemType;
@@ -36,13 +38,14 @@ public class EnderBlade extends CustomItem {
    *       Make it weaker (or not work) in water/rain
    */
 
-
   private static final String NAME = "Ender Blade";
   private static ArrayList<String> loreList = new ArrayList<>();
   private static ArrayList<Class> triggerList = new ArrayList<>();
 
   // 15 second cooldown
   private static final long COOLDOWN_DURATION = 15 * 1000;
+
+  private static final int MAX_KILLS = 10000;
 
   private static TreeMap<UUID, Long> mapOfTimesUsed = new TreeMap<>();
 
@@ -54,9 +57,13 @@ public class EnderBlade extends CustomItem {
     loreList.add("of the tall demons while retreating to");
     loreList.add("VoidTree. Without this sword, all would");
     loreList.add("have been lost.");
+    loreList.add("The wild Enderblade is difficult to control.");
+    loreList.add("Tame it by feeding it souls.");
     loreList.add("");
+    loreList.add("0 / " + MAX_KILLS + " souls killed.");
 
     triggerList.add(PlayerInteractEvent.class);
+    triggerList.add(EntityDamageByEntityEvent.class);
   }
 
   public EnderBlade() {
@@ -82,12 +89,29 @@ public class EnderBlade extends CustomItem {
       PlayerInteractEvent pie = (PlayerInteractEvent) event;
       Player player = pie.getPlayer();
       // If they shift-right-clicked
-      if (pie.getAction() == Action.RIGHT_CLICK_AIR ||
-          pie.getAction() == Action.RIGHT_CLICK_BLOCK &&
+      if ((pie.getAction() == Action.RIGHT_CLICK_AIR ||
+          pie.getAction() == Action.RIGHT_CLICK_BLOCK) &&
           player.isSneaking()) {
         // If they're holding an ender blade
         if (isEnderBlade(player.getItemInHand())) {
           ret = true;
+        }
+      }
+    } else if (event instanceof EntityDamageByEntityEvent) {
+      EntityDamageByEntityEvent edbee = (EntityDamageByEntityEvent) event;
+      Entity oDamagee = edbee.getEntity();
+      Entity oDamager = edbee.getDamager();
+      // If the player kills something with an ender blade
+      if ((oDamagee instanceof LivingEntity) && (oDamager instanceof LivingEntity)) {
+        LivingEntity damager = (LivingEntity) oDamager;
+        LivingEntity damagee = (LivingEntity) oDamagee;
+        if (damagee != null && ((damagee.getHealth() - edbee.getFinalDamage()) <= 0)) {
+          if (damager != null && damager.getType() == EntityType.PLAYER) {
+            Player player = (Player) damager;
+            if (isEnderBlade(player.getItemInHand())) {
+              ret = true;
+            }
+          }
         }
       }
     }
@@ -95,25 +119,70 @@ public class EnderBlade extends CustomItem {
   }
 
   public void execute(Event event) {
-    PlayerInteractEvent pie = (PlayerInteractEvent) event;
-    Player player = pie.getPlayer();
-    long currTime = System.currentTimeMillis();
-    long lastTimeUsed = 0;
-    if (mapOfTimesUsed.containsKey(player.getUniqueId())) {
-      lastTimeUsed = mapOfTimesUsed.get(player.getUniqueId());
-    }
-    // If it's off cooldown
-    if ((currTime - lastTimeUsed) >= COOLDOWN_DURATION) {
-      (new DoEnderBladeTeleport(player)).runTask(PhantomMain.getPlugin());
-      (new DisplayCooldown(player, ChatColor.GOLD + "Blink cooldown", COOLDOWN_DURATION, 1000)).runTaskAsynchronously(PhantomMain.getPlugin());
-      mapOfTimesUsed.put(player.getUniqueId(), currTime);
-    } else {
-      player.sendMessage("The blade vibrates weakly. It must recharge.");
+    if (event instanceof PlayerInteractEvent) {
+      PlayerInteractEvent pie = (PlayerInteractEvent) event;
+      Player player = pie.getPlayer();
+      long currTime = System.currentTimeMillis();
+      long lastTimeUsed = 0;
+      if (mapOfTimesUsed.containsKey(player.getUniqueId())) {
+        lastTimeUsed = mapOfTimesUsed.get(player.getUniqueId());
+      }
+      // If it's off cooldown
+      if ((currTime - lastTimeUsed) >= COOLDOWN_DURATION) {
+        (new DoEnderBladeTeleport(player)).runTask(PhantomMain.getPlugin());
+        (new DisplayCooldown(player, ChatColor.GOLD + "Blink cooldown", COOLDOWN_DURATION, 1000)).runTaskAsynchronously(PhantomMain.getPlugin());
+        mapOfTimesUsed.put(player.getUniqueId(), currTime);
+      } else {
+        player.sendMessage("The blade vibrates weakly. It must recharge.");
+      }
+    } else if (event instanceof EntityDamageByEntityEvent) {
+      EntityDamageByEntityEvent edbee = (EntityDamageByEntityEvent) event;
+      Player player = (Player) edbee.getDamager();
+      ItemStack eBladeItem = player.getItemInHand();
+      int kills = getNumKills(eBladeItem) + 1;
+      setNumKills(eBladeItem, kills);
+      if (kills >= MAX_KILLS) {
+        levelUpBlade(player, eBladeItem);
+      }
     }
   }
 
   public boolean isEnderBlade(ItemStack item) {
     return (item != null) && (item.getType() == Material.NETHERITE_SWORD) &&
      (CustomItemType.getTypeFromCustomItem(item) == CustomItemType.ENDER_BLADE);
+  }
+
+  private void levelUpBlade(Player player, ItemStack blade) {
+    ItemMeta meta = blade.getItemMeta();
+    meta.setLore(SubduedEnderBlade.getBladeLore());
+    meta.setDisplayName("Subdued Ender Blade");
+    blade.setItemMeta(meta);
+    player.sendMessage(ChatColor.GREEN + "You feel a strange shuddering from the ender blade. Afterwards, it rests more comfortably in your hand.");
+  }
+
+  private int getNumKills(ItemStack blade) {
+    int numKills = 0;
+
+    ItemMeta meta = blade.getItemMeta();
+    List<String> lore = meta.getLore();
+    for (String string : lore) {
+      if (string.endsWith(" souls killed.")) {
+        numKills = Integer.parseInt(string.split(" ")[0]);
+      }
+    }
+    return numKills;
+  }
+
+  private void setNumKills(ItemStack blade, int numKills) {
+    ItemMeta meta = blade.getItemMeta();
+    List<String> lore = meta.getLore();
+    for (int i = 0; i < lore.size(); i++) {
+      String string = lore.get(i);
+      if (string.endsWith(" souls killed.")) {
+        lore.set(i, numKills + " / " + MAX_KILLS + " souls killed.");
+      }
+    }
+    meta.setLore(lore);
+    blade.setItemMeta(meta);
   }
 }

@@ -57,6 +57,9 @@ public class GetCustomItemCommand extends CommandControl {
       case "enderblade":
         is = CustomItemManager.getItemByType(CustomItemType.ENDER_BLADE).getInstance();
         break;
+      case "subduedenderblade":
+        is = CustomItemManager.getItemByType(CustomItemType.SUBDUED_ENDER_BLADE).getInstance();
+        break;
       case "prideshears":
         is = CustomItemManager.getItemByType(CustomItemType.PRIDE_SHEARS).getInstance();
         break;

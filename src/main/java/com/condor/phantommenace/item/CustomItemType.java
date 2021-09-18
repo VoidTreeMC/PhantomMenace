@@ -18,7 +18,8 @@ public enum CustomItemType {
   CREEPER_FIREWORK,
   SUPER_PICK,
   SLAYER_SWORD,
-  FLIGHT_POTION;
+  FLIGHT_POTION,
+  SUBDUED_ENDER_BLADE;
 
   private static TreeMap<String, CustomItemType> CUSTOM_ITEM_TYPES;
 
@@ -81,6 +82,8 @@ public enum CustomItemType {
         return DEFENDER_TOKEN;
       case "Ender Blade":
         return ENDER_BLADE;
+      case "Subdued Ender Blade":
+        return SUBDUED_ENDER_BLADE;
       case "Pride Shears":
         return PRIDE_SHEARS;
       case "Creeper Bow":
