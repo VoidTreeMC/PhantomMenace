@@ -32,8 +32,7 @@ public class FlightPotion extends CustomItem {
   private static ArrayList<Class> triggerList = new ArrayList<>();
 
   // 20 minutes
-  // private static final long DURATION = 20 * 20 * 60;
-  private static final long DURATION = 20 * 10;
+  private static final long DURATION = 20 * 20 * 60;
 
   public static final String METADATA_KEY = "affectedByFlightPotion";
 

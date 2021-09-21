@@ -2,21 +2,24 @@ General Changes
 ===
 If a phantom explodes on you, you should get credit for its kills
 Have the tiny phantoms constantly target the MOAP to make it look like a swarm of bees
-
+Make a dedicated file for constants, especially names for items.
+- Maybe ender blade has a 5% chance to teleport your enemy a few blocks into the air so they fall and take damage
 
 Bugs
 ===
 Limit creeper fireworks that can go off in a row
 Skipwave doesnt work if it spawns a wave with 0 phantoms
 Proton died and didn't get any immunity period from the event. There were no exceptions in the console.
+  - This may be fixed? Other people haven't noticed it.
+  - Apparently it came up again at this event and it happened to proton again. I need to do some in-depth testing on this
 
 Exploits
 ===
 
 Features
 ===
+Almond Cake, which is really good food, and it explodes if mobs step on it
 Phantoms that give you levitation
-Make a dedicated file for constants, especially names for items.
 Add behavior for what happens if everyone leaves the arena
 - Wait a delay and then end the event if nobody comes back
 Add behavior that checks if there are any players left in the arena when the phantoms get highlighted
@@ -27,6 +30,5 @@ Phantoms that heal the MOAP if not killed
 
 DID
 ===
-Changed EnderBlade blink to only activate on shift-right-click
-Added Subdued Enderblade, which lets you teleport in a controlled fashion
-Modified ender blade so it can be leveled up into subdued enderblade
+Fixed a bug where debugging code was left in the flight potion code, causing it to last 10 seconds
+Made it so the insomnia potion doesn't drop items

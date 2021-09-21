@@ -270,6 +270,7 @@ public class EventListener  extends PHListener {
       Player player = event.getPlayer();
       player.sendMessage("Your eyelids feel heavy. It feels as though you haven't slept in a very long time.");
       player.setStatistic(Statistic.TIME_SINCE_REST, 1000000);
+      event.setItem(new ItemStack(Material.AIR));
     }
     CustomItemEventManager.parseEvent(event);
   }
