@@ -30,5 +30,4 @@ Phantoms that heal the MOAP if not killed
 
 DID
 ===
-Fixed a bug where debugging code was left in the flight potion code, causing it to last 10 seconds
-Made it so the insomnia potion doesn't drop items
+Added spawn eggs to the phantom vendor shop

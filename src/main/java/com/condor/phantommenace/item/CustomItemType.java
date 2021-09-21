@@ -19,7 +19,10 @@ public enum CustomItemType {
   SUPER_PICK,
   SLAYER_SWORD,
   FLIGHT_POTION,
-  SUBDUED_ENDER_BLADE;
+  SUBDUED_ENDER_BLADE,
+  ZOMBIE_EGG,
+  FOX_EGG,
+  SPIDER_EGG;
 
   private static TreeMap<String, CustomItemType> CUSTOM_ITEM_TYPES;
 

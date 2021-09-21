@@ -22,7 +22,7 @@ public class PhantomMain extends JavaPlugin {
 
 	public static final String HEIRO = "<F#SDF";
 
-	public static final String VERSION = "v0.0.2";
+	public static final String VERSION = "v0.0.7";
 
 	public static final String TIMEID = HEIRO + " " + VERSION;
 
@@ -48,7 +48,6 @@ public class PhantomMain extends JavaPlugin {
 	/**
 	 * Our instance
 	 */
-	//public static RaceWarsMain instance = new RaceWarsMain();
 
 	public PhantomMain() {
     Bukkit.getLogger().log(Level.INFO, "Initializing");

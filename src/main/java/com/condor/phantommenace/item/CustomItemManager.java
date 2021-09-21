@@ -26,6 +26,9 @@ public class CustomItemManager {
     itemMap.put(CustomItemType.SUPER_PICK, new SuperPick());
     itemMap.put(CustomItemType.SLAYER_SWORD, new SlayerSword());
     itemMap.put(CustomItemType.FLIGHT_POTION, new FlightPotion());
+    itemMap.put(CustomItemType.ZOMBIE_EGG, new ZombieSpawnEgg());
+    itemMap.put(CustomItemType.FOX_EGG, new FoxSpawnEgg());
+    itemMap.put(CustomItemType.SPIDER_EGG, new SpiderSpawnEgg());
   }
 
   public static double getPriceScale() {

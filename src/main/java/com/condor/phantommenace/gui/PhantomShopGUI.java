@@ -1,11 +1,18 @@
 package com.condor.phantommenace.gui;
 
+import java.util.ArrayList;
+
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.entity.Player;
 import org.bukkit.Material;
+import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
 
 import dev.triumphteam.gui.guis.Gui;
 import dev.triumphteam.gui.guis.GuiItem;
+import dev.triumphteam.gui.guis.PaginatedGui;
+import dev.triumphteam.gui.builder.item.ItemBuilder;
 
 import com.condor.phantommenace.item.CustomItem;
 import com.condor.phantommenace.item.CustomItemGenerator;
@@ -27,6 +34,9 @@ public class PhantomShopGUI {
   private static CustomItem SUPER_PICK = CustomItemManager.getItemByType(CustomItemType.SUPER_PICK);
   private static CustomItem SLAYER_SWORD = CustomItemManager.getItemByType(CustomItemType.SLAYER_SWORD);
   private static CustomItem FLIGHT_POTION = CustomItemManager.getItemByType(CustomItemType.FLIGHT_POTION);
+  private static CustomItem ZOMBIE_EGG = CustomItemManager.getItemByType(CustomItemType.ZOMBIE_EGG);
+  private static CustomItem FOX_EGG = CustomItemManager.getItemByType(CustomItemType.FOX_EGG);
+  private static CustomItem SPIDER_EGG = CustomItemManager.getItemByType(CustomItemType.SPIDER_EGG);
 
   private static boolean canAfford(Player player, int price) {
     int amt = 0;
@@ -38,7 +48,7 @@ public class PhantomShopGUI {
     return amt >= price;
   }
 
-  private static void handleGenericPurchase(Gui gui, Player player, ItemStack item, int price) {
+  private static void handleGenericPurchase(PaginatedGui gui, Player player, ItemStack item, int price) {
     boolean purchased = false;
 
     if (canAfford(player, price)) {
@@ -70,12 +80,13 @@ public class PhantomShopGUI {
   }
 
   public static void displayShopGUI(Player player) {
-    Gui gui = new Gui(3, "Phantom Shop Menu");
+    // Gui gui = new Gui(3, "Phantom Shop Menu");
+    PaginatedGui gui = Gui.paginated().title(Component.text("Phantom Shop Menu")).rows(4).pageSize(36).create();
   	gui.setDefaultClickAction(event -> {
   		event.setCancelled(true);
   	});
 
-    gui.getFiller().fill(new GuiItem(new ItemStack(Material.GRAY_STAINED_GLASS_PANE)));
+    // gui.getFiller().fill(new GuiItem(new ItemStack(Material.GRAY_STAINED_GLASS_PANE)));
 
     GuiItem insomniaPotionItem = new GuiItem(INSOMNIA_POTION, event -> {
         player.getInventory().addItem(INSOMNIA_POTION);
@@ -119,17 +130,39 @@ public class PhantomShopGUI {
         handleGenericPurchase(gui, player, FLIGHT_POTION.getInstance(), FLIGHT_POTION.getPrice());
   	});
 
-    gui.setItem(1, 5, insomniaPotionItem);
-    gui.setItem(2, 2, creeperFireworkItem);
-    gui.setItem(2, 3, lavaWalkersItem);
-    gui.setItem(2, 4, enderBladeItem);
-    gui.setItem(2, 5, prideShearsItem);
-    gui.setItem(2, 6, fancyPantsItem);
-    gui.setItem(2, 7, creeperBowItem);
-    gui.setItem(2, 8, superPickItem);
-    gui.setItem(3, 4, slayerSwordItem);
-    gui.setItem(3, 6, flightPotionItem);
+    GuiItem zombieSpawnItem = new GuiItem(ZOMBIE_EGG.getInstance(), event -> {
+      handleGenericPurchase(gui, player, ZOMBIE_EGG.getInstance(), ZOMBIE_EGG.getPrice());
+    });
 
+    GuiItem foxSpawnItem = new GuiItem(FOX_EGG.getInstance(), event -> {
+      handleGenericPurchase(gui, player, FOX_EGG.getInstance(), FOX_EGG.getPrice());
+    });
+
+    GuiItem spiderSpawnItem = new GuiItem(SPIDER_EGG.getInstance(), event -> {
+      handleGenericPurchase(gui, player, SPIDER_EGG.getInstance(), SPIDER_EGG.getPrice());
+    });
+
+    gui.addItem(insomniaPotionItem);
+    gui.addItem(creeperFireworkItem);
+    gui.addItem(lavaWalkersItem);
+    gui.addItem(enderBladeItem);
+    gui.addItem(prideShearsItem);
+    gui.addItem(fancyPantsItem);
+    gui.addItem(creeperBowItem);
+    gui.addItem(superPickItem);
+    gui.addItem(slayerSwordItem);
+    gui.addItem(flightPotionItem);
+    gui.addItem(zombieSpawnItem);
+    gui.addItem(foxSpawnItem);
+    gui.addItem(spiderSpawnItem);
+
+
+    // Previous item
+    gui.setItem(4, 4, ItemBuilder.from(Material.LIGHT_BLUE_STAINED_GLASS_PANE).setName("Previous").asGuiItem(event -> gui.previous()));
+    // Page number
+    gui.setItem(4, 5, ItemBuilder.from(Material.COMPASS).setName(ChatColor.GRAY + "Page: " + gui.getCurrentPageNum() + "/" + gui.getPagesNum()).asGuiItem());
+    // Next item
+    gui.setItem(4, 6, ItemBuilder.from(Material.RED_STAINED_GLASS_PANE).setName("Next").asGuiItem(event -> gui.next()));
 
   	gui.open(player);
   }
