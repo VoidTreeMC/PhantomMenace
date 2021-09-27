@@ -29,6 +29,9 @@ public class CustomItemManager {
     itemMap.put(CustomItemType.ZOMBIE_EGG, new ZombieSpawnEgg());
     itemMap.put(CustomItemType.FOX_EGG, new FoxSpawnEgg());
     itemMap.put(CustomItemType.SPIDER_EGG, new SpiderSpawnEgg());
+    itemMap.put(CustomItemType.COPPER_VOUCHER, new CopperVoucher());
+    itemMap.put(CustomItemType.IRON_VOUCHER, new IronVoucher());
+    itemMap.put(CustomItemType.GOLD_VOUCHER, new GoldVoucher());
   }
 
   public static double getPriceScale() {

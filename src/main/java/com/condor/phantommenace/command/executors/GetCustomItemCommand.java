@@ -84,6 +84,15 @@ public class GetCustomItemCommand extends CommandControl {
       case "flightpotion":
         is = CustomItemManager.getItemByType(CustomItemType.FLIGHT_POTION).getInstance();
         break;
+      case "coppervoucher":
+        is = CustomItemManager.getItemByType(CustomItemType.COPPER_VOUCHER).getInstance();
+        break;
+      case "ironvoucher":
+        is = CustomItemManager.getItemByType(CustomItemType.IRON_VOUCHER).getInstance();
+        break;
+      case "goldvoucher":
+        is = CustomItemManager.getItemByType(CustomItemType.GOLD_VOUCHER).getInstance();
+        break;
     }
 
     if (is != null) {

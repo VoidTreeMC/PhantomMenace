@@ -22,7 +22,10 @@ public enum CustomItemType {
   SUBDUED_ENDER_BLADE,
   ZOMBIE_EGG,
   FOX_EGG,
-  SPIDER_EGG;
+  SPIDER_EGG,
+  COPPER_VOUCHER,
+  IRON_VOUCHER,
+  GOLD_VOUCHER;
 
   private static TreeMap<String, CustomItemType> CUSTOM_ITEM_TYPES;
 
@@ -104,6 +107,12 @@ public enum CustomItemType {
         return SLAYER_SWORD;
       case "Flight Potion":
         return FLIGHT_POTION;
+      case "Copper Voucher":
+        return COPPER_VOUCHER;
+      case "Iron Voucher":
+        return IRON_VOUCHER;
+      case "Gold Voucher":
+        return GOLD_VOUCHER;
       default:
         return null;
     }

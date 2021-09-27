@@ -39,3 +39,6 @@ commands:
      usage: /skipwave
      permision: condor.commands.executors.skipwave
      permission-message: You do not have permission to use this command.
+   dessert:
+     description: Gives the player a contributor kit
+     usage: /dessert
