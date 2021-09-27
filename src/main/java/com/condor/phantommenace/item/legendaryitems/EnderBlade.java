@@ -24,6 +24,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.World;
 
 import com.condor.phantommenace.item.CustomItem;
 import com.condor.phantommenace.item.CustomItemType;
@@ -122,6 +123,10 @@ public class EnderBlade extends CustomItem {
     if (event instanceof PlayerInteractEvent) {
       PlayerInteractEvent pie = (PlayerInteractEvent) event;
       Player player = pie.getPlayer();
+      if (player.getLocation().getWorld().getEnvironment() == World.Environment.THE_END) {
+        player.sendMessage("The ender blade's teleport has been temporarily disabled in the end. The subdued ender blade will work as normal.");
+        return;
+      }
       long currTime = System.currentTimeMillis();
       long lastTimeUsed = 0;
       if (mapOfTimesUsed.containsKey(player.getUniqueId())) {

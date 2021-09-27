@@ -4,6 +4,7 @@ If a phantom explodes on you, you should get credit for its kills
 Have the tiny phantoms constantly target the MOAP to make it look like a swarm of bees
 Make a dedicated file for constants, especially names for items.
 - Maybe ender blade has a 5% chance to teleport your enemy a few blocks into the air so they fall and take damage
+Fix it so ender blades can't teleport you into a plot that you dont have destroy permission in
 
 Bugs
 ===
@@ -30,4 +31,5 @@ Phantoms that heal the MOAP if not killed
 
 DID
 ===
-Added spawn eggs to the phantom vendor shop
+Changed names for blacksmith and phantom vendor
+Disabled ender blade's teleport in the end
