@@ -93,6 +93,10 @@ public class GetCustomItemCommand extends CommandControl {
       case "goldvoucher":
         is = CustomItemManager.getItemByType(CustomItemType.GOLD_VOUCHER).getInstance();
         break;
+      case "almondcake":
+      case "almond_cake":
+        is = CustomItemManager.getItemByType(CustomItemType.ALMOND_CAKE).getInstance();
+        break;
     }
 
     if (is != null) {

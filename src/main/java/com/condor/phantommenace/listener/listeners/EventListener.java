@@ -326,6 +326,11 @@ public class EventListener  extends PHListener {
     phnpc.handleInteraction(event);
   }
 
+  @EventHandler
+  public void onTargetEntity(EntityTargetLivingEntityEvent event) {
+    CustomItemEventManager.parseEvent(event);
+  }
+
 	/**
 	 * Called when a {@link Player} right-clicks an {@link Entity} <p>
 	 *

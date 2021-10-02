@@ -1,7 +1,7 @@
 #The �main:� line needs to list the package and class name of the class which is loaded by Spigot when it loads the plugin�s jar file.
 main: com.condor.phantommenace.main.PhantomMain
 name: PhantomMenace
-version: 0.0.7
+version: 0.0.8
 api-version: 1.17
 authors: [Iron-Condor]
 description: PhantomMenace event plugin

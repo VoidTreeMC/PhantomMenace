@@ -25,7 +25,8 @@ public enum CustomItemType {
   SPIDER_EGG,
   COPPER_VOUCHER,
   IRON_VOUCHER,
-  GOLD_VOUCHER;
+  GOLD_VOUCHER,
+  ALMOND_CAKE;
 
   private static TreeMap<String, CustomItemType> CUSTOM_ITEM_TYPES;
 
@@ -113,6 +114,8 @@ public enum CustomItemType {
         return IRON_VOUCHER;
       case "Gold Voucher":
         return GOLD_VOUCHER;
+      case "Almond Cake":
+        return ALMOND_CAKE;
       default:
         return null;
     }

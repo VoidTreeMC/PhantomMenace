@@ -4,6 +4,7 @@ If a phantom explodes on you, you should get credit for its kills
 Have the tiny phantoms constantly target the MOAP to make it look like a swarm of bees
 Make a dedicated file for constants, especially names for items.
 - Maybe ender blade has a 5% chance to teleport your enemy a few blocks into the air so they fall and take damage
+Bossbars for almond cake and flight potion
 
 Bugs
 ===
@@ -15,7 +16,6 @@ Exploits
 
 Features
 ===
-Almond Cake, which is really good food, and it explodes if mobs step on it
 Phantoms that give you levitation
 Add behavior for what happens if everyone leaves the arena
 - Wait a delay and then end the event if nobody comes back
@@ -27,4 +27,4 @@ Phantoms that heal the MOAP if not killed
 
 DID
 ===
-Made it so ender blades can't teleport you to a town block where you dont have destroy permissions
+Added almond cake item
