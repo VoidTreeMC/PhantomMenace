@@ -22,6 +22,12 @@ import org.bukkit.Bukkit;
 import com.condor.phantommenace.main.PhantomMain;
 import com.condor.phantommenace.item.legendaryitems.SubduedEnderBlade;
 
+import com.palmergames.bukkit.towny.utils.PlayerCacheUtil;
+import com.palmergames.bukkit.towny.object.TownBlock;
+import com.palmergames.bukkit.towny.TownyAPI;
+import com.palmergames.bukkit.towny.exceptions.NotRegisteredException;
+import com.palmergames.bukkit.towny.object.TownyPermission;
+
 public class DoSubduedEnderBladeTeleport extends BukkitRunnable {
 
 	//The plugin
@@ -42,12 +48,21 @@ public class DoSubduedEnderBladeTeleport extends BukkitRunnable {
 		this.player = player;
 	}
 
-  public boolean isInvalidLocation(Location loc) {
+  public boolean hasPermsForLoc(Location loc, Player player) {
+    TownBlock tb = TownyAPI.getInstance().getTownBlock(loc);
+    if (tb != null) {
+      return PlayerCacheUtil.getCachePermission(player, loc, loc.getBlock().getType(), TownyPermission.ActionType.DESTROY);
+    } else {
+      return true;
+    }
+  }
+
+  public boolean isValidLocation(Location loc, Player player) {
     Location blockAbove = new Location(loc.getWorld(), loc.getX(), loc.getY() + 1, loc.getZ());
     Location blockBelow = new Location(loc.getWorld(), loc.getX(), loc.getY() - 1, loc.getZ());
     boolean hasRoomForPlayer = loc.getBlock().getType() == Material.AIR && blockAbove.getBlock().getType() == Material.AIR;
     // boolean isOnGround = blockBelow.getBlock().getType() != Material.AIR && blockBelow.getBlock().getType() != Material.LAVA;
-    return (!hasRoomForPlayer/* || !isOnGround*/);
+    return hasRoomForPlayer && hasPermsForLoc(loc, player);
   }
 
   /**
@@ -66,7 +81,7 @@ public class DoSubduedEnderBladeTeleport extends BukkitRunnable {
       Vector newVec = playerDirection.clone().multiply(blocksAway);
       Location potential = playerLoc.clone().add(newVec.clone());
 
-      foundValidLocation = !isInvalidLocation(potential);
+      foundValidLocation = isValidLocation(potential, player);
 
       // If we've found a valid location
       if (foundValidLocation) {

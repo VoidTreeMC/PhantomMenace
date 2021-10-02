@@ -4,15 +4,11 @@ If a phantom explodes on you, you should get credit for its kills
 Have the tiny phantoms constantly target the MOAP to make it look like a swarm of bees
 Make a dedicated file for constants, especially names for items.
 - Maybe ender blade has a 5% chance to teleport your enemy a few blocks into the air so they fall and take damage
-Fix it so ender blades can't teleport you into a plot that you dont have destroy permission in
 
 Bugs
 ===
 Limit creeper fireworks that can go off in a row
 Skipwave doesnt work if it spawns a wave with 0 phantoms
-Proton died and didn't get any immunity period from the event. There were no exceptions in the console.
-  - This may be fixed? Other people haven't noticed it.
-  - Apparently it came up again at this event and it happened to proton again. I need to do some in-depth testing on this
 
 Exploits
 ===
@@ -31,5 +27,4 @@ Phantoms that heal the MOAP if not killed
 
 DID
 ===
-Changed names for blacksmith and phantom vendor
-Disabled ender blade's teleport in the end
+Made it so ender blades can't teleport you to a town block where you dont have destroy permissions

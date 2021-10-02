@@ -19,6 +19,12 @@ import org.bukkit.util.Vector;
 
 import com.condor.phantommenace.main.PhantomMain;
 
+import com.palmergames.bukkit.towny.utils.PlayerCacheUtil;
+import com.palmergames.bukkit.towny.object.TownBlock;
+import com.palmergames.bukkit.towny.TownyAPI;
+import com.palmergames.bukkit.towny.exceptions.NotRegisteredException;
+import com.palmergames.bukkit.towny.object.TownyPermission;
+
 public class DoEnderBladeTeleport extends BukkitRunnable {
 
 	//The plugin
@@ -45,12 +51,21 @@ public class DoEnderBladeTeleport extends BukkitRunnable {
 		this.player = player;
 	}
 
-  public boolean isInvalidLocation(Location loc) {
+  public boolean hasPermsForLoc(Location loc, Player player) {
+    TownBlock tb = TownyAPI.getInstance().getTownBlock(loc);
+    if (tb != null) {
+      return PlayerCacheUtil.getCachePermission(player, loc, loc.getBlock().getType(), TownyPermission.ActionType.DESTROY);
+    } else {
+      return true;
+    }
+  }
+
+  public boolean isValidLocation(Location loc) {
     Location blockAbove = new Location(loc.getWorld(), loc.getX(), loc.getY() + 1, loc.getZ());
     Location blockBelow = new Location(loc.getWorld(), loc.getX(), loc.getY() - 1, loc.getZ());
     boolean hasRoomForPlayer = loc.getBlock().getType() == Material.AIR && blockAbove.getBlock().getType() == Material.AIR;
     boolean isOnGround = blockBelow.getBlock().getType() != Material.AIR && blockBelow.getBlock().getType() != Material.LAVA;
-    return (!hasRoomForPlayer || !isOnGround);
+    return hasRoomForPlayer && isOnGround && hasPermsForLoc(loc, player);
   }
 
   /**
@@ -70,14 +85,14 @@ public class DoEnderBladeTeleport extends BukkitRunnable {
 
       // If the block isn't empty, try the block below it.
       // Repeat until an empty space is found
-      while (isInvalidLocation(potential)) {
+      while (!isValidLocation(potential)) {
         potential.setY(potential.getY() - 1);
         if (potential.getY() < 2) {
           break;
         }
       }
 
-      foundValidLocation = !isInvalidLocation(potential);
+      foundValidLocation = isValidLocation(potential);
 
       // If we've found a valid location
       if (foundValidLocation) {
