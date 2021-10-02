@@ -34,6 +34,7 @@ public class PhantomShopGUI {
   private static CustomItem SUPER_PICK = CustomItemManager.getItemByType(CustomItemType.SUPER_PICK);
   private static CustomItem SLAYER_SWORD = CustomItemManager.getItemByType(CustomItemType.SLAYER_SWORD);
   private static CustomItem FLIGHT_POTION = CustomItemManager.getItemByType(CustomItemType.FLIGHT_POTION);
+  private static CustomItem ALMOND_CAKE = CustomItemManager.getItemByType(CustomItemType.ALMOND_CAKE);
   private static CustomItem ZOMBIE_EGG = CustomItemManager.getItemByType(CustomItemType.ZOMBIE_EGG);
   private static CustomItem FOX_EGG = CustomItemManager.getItemByType(CustomItemType.FOX_EGG);
   private static CustomItem SPIDER_EGG = CustomItemManager.getItemByType(CustomItemType.SPIDER_EGG);
@@ -142,6 +143,10 @@ public class PhantomShopGUI {
       handleGenericPurchase(gui, player, SPIDER_EGG.getInstance(), SPIDER_EGG.getPrice());
     });
 
+    GuiItem almondCakeItem = new GuiItem(ALMOND_CAKE.getInstance(), event -> {
+      handleGenericPurchase(gui, player, ALMOND_CAKE.getInstance(), ALMOND_CAKE.getPrice());
+    });
+
     gui.addItem(insomniaPotionItem);
     gui.addItem(creeperFireworkItem);
     gui.addItem(lavaWalkersItem);
@@ -152,6 +157,7 @@ public class PhantomShopGUI {
     gui.addItem(superPickItem);
     gui.addItem(slayerSwordItem);
     gui.addItem(flightPotionItem);
+    gui.addItem(almondCakeItem);
     gui.addItem(zombieSpawnItem);
     gui.addItem(foxSpawnItem);
     gui.addItem(spiderSpawnItem);

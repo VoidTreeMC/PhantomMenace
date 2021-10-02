@@ -69,7 +69,8 @@ public class AlmondCake extends CustomItem {
   }
 
   public AlmondCake() {
-    super(NAME, loreList, triggerList, CustomItemType.ALMOND_CAKE, 0);
+    super(NAME, loreList, triggerList, CustomItemType.ALMOND_CAKE, 5);
+    loreList.add(this.getPrice() + " VoidCoins");
   }
 
   public ItemStack getInstance() {
