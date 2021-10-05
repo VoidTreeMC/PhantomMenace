@@ -29,8 +29,8 @@ public class SubdeckPirate extends PHNPC {
   private static final double X = 2719;
   private static final double Y = 60;
   private static final double Z = -6709;
-  private static final float PITCH = -82.6f;
-  private static final float YAW = 1.4f;
+  private static final float PITCH = -87.0f;
+  private static final float YAW = 1.2f;
   private static final Location loc = new Location(WORLD, X, Y, Z, PITCH, YAW);
 
   public SubdeckPirate() {

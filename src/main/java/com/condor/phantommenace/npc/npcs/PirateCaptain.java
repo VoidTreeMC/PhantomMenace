@@ -28,7 +28,7 @@ public class PirateCaptain extends PHNPC {
   private static final World WORLD = PhantomMain.getPlugin().getServer().getWorld("lobby");
   private static final double X = 2740;
   private static final double Y = 64;
-  private static final double Z = -6711;
+  private static final double Z = -6711.5;
   private static final float PITCH = -140f;
   private static final float YAW = -1.8f;
   private static final Location loc = new Location(WORLD, X, Y, Z, PITCH, YAW);
