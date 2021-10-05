@@ -33,6 +33,18 @@ public class NPCManager {
 
     BartenderRaccoon bartenderRaccoon = new BartenderRaccoon();
     phnpcMap.put(bartenderRaccoon.getUniqueId(), bartenderRaccoon);
+
+    CrowPirate crowPirate = new CrowPirate();
+    phnpcMap.put(crowPirate.getUniqueId(), crowPirate);
+
+    PirateCaptain pirateCaptain = new PirateCaptain();
+    phnpcMap.put(pirateCaptain.getUniqueId(), pirateCaptain);
+
+    PiratePrisoner piratePrisoner = new PiratePrisoner();
+    phnpcMap.put(piratePrisoner.getUniqueId(), piratePrisoner);
+
+    SubdeckPirate subdeckPirate = new SubdeckPirate();
+    phnpcMap.put(subdeckPirate.getUniqueId(), subdeckPirate);
   }
 
   private static NPCPool npcPool;
@@ -64,12 +76,14 @@ public class NPCManager {
    * @param location       The location the NPC will be spawned at
    */
   public static NPC appendNPC(Location location, Profile profile) {
+    PHNPC target = phnpcMap.get(profile.getUniqueId());
     boolean isVendor = (phnpcMap.get(profile.getUniqueId()) instanceof PhantomVendor);
+    boolean lookAtPlayer = !((target instanceof SubdeckPirate) || (target instanceof PirateCaptain));
     // building the NPC
     NPC npc = NPC.builder()
       .profile(profile)
       .location(location)
-      .lookAtPlayer(true)
+      .lookAtPlayer(lookAtPlayer)
       .imitatePlayer(isVendor)
       // appending it to the NPC pool
       .build(npcPool);
