@@ -31,6 +31,9 @@ public class DessertCommand extends CommandControl {
     possibleKits.add("copper");
     possibleKits.add("iron");
     possibleKits.add("gold");
+    possibleKits.add("cow");
+    possibleKits.add("fish");
+    possibleKits.add("bee");
 
     for (String kit : possibleKits) {
       if (sender.hasPermission("essentials.kits." + kit)) {

@@ -185,44 +185,6 @@ public class EventListener  extends PHListener {
     player.removeMetadata(FlightPotion.METADATA_KEY, PhantomMain.getPlugin());
   }
 
-  // @EventHandler
-  // public void onPrepareAnvilEvent(PrepareAnvilEvent event) {
-  //   PrepareAnvilEvent pae = (PrepareAnvilEvent) event;
-  //   ItemStack[] contents = pae.getInventory().getContents();
-  //   if (pae.getViewers().size() > 0) {
-  //     Player player = (Player) pae.getViewers().get(0);
-  //     for (ItemStack item : contents) {
-  //       if (item != null) {
-  //         CustomItemType type = CustomItemType.getTypeFromCustomItem(item);
-  //         if (type != null) {
-  //           // If it's not enchantable, cancel the event
-  //           if (!CustomItemManager.getItemByType(type).isEnchantable()) {
-  //             player.getInventory().addItem(item);
-  //             pae.getInventory().removeItem(item);
-  //             player.closeInventory();
-  //             player.sendMessage("You cannot add enchantments or rename this item.");
-  //           }
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
-  //
-  // @EventHandler
-  // public void onPrepareItemEnchantEvent(PrepareItemEnchantEvent event) {
-  //   PrepareItemEnchantEvent piee = (PrepareItemEnchantEvent) event;
-  //   ItemStack item = piee.getItem();
-  //   if (item != null) {
-  //     CustomItemType type = CustomItemType.getTypeFromCustomItem(item);
-  //     if (type != null) {
-  //       // If it's not enchantable, cancel the event
-  //       if (!CustomItemManager.getItemByType(type).isEnchantable()) {
-  //         piee.setCancelled(true);
-  //       }
-  //     }
-  //   }
-  // }
-
   @EventHandler
   public void onPlayerMoveEvent(PlayerMoveEvent event) {
     CustomItemEventManager.parseEvent(event);

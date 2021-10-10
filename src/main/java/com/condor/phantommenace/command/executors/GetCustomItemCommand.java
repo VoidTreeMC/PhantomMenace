@@ -93,6 +93,15 @@ public class GetCustomItemCommand extends CommandControl {
       case "goldvoucher":
         is = CustomItemManager.getItemByType(CustomItemType.GOLD_VOUCHER).getInstance();
         break;
+      case "cowvoucher":
+        is = CustomItemManager.getItemByType(CustomItemType.COW_VOUCHER).getInstance();
+        break;
+      case "fishvoucher":
+        is = CustomItemManager.getItemByType(CustomItemType.FISH_VOUCHER).getInstance();
+        break;
+      case "beevoucher":
+        is = CustomItemManager.getItemByType(CustomItemType.BEE_VOUCHER).getInstance();
+        break;
       case "almondcake":
       case "almond_cake":
         is = CustomItemManager.getItemByType(CustomItemType.ALMOND_CAKE).getInstance();

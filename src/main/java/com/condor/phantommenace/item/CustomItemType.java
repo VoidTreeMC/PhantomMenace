@@ -26,6 +26,9 @@ public enum CustomItemType {
   COPPER_VOUCHER,
   IRON_VOUCHER,
   GOLD_VOUCHER,
+  COW_VOUCHER,
+  FISH_VOUCHER,
+  BEE_VOUCHER,
   ALMOND_CAKE;
 
   private static TreeMap<String, CustomItemType> CUSTOM_ITEM_TYPES;
@@ -114,6 +117,12 @@ public enum CustomItemType {
         return IRON_VOUCHER;
       case "Gold Voucher":
         return GOLD_VOUCHER;
+      case "Cow Voucher":
+        return COW_VOUCHER;
+      case "Fish Voucher":
+        return FISH_VOUCHER;
+      case "Bee Voucher":
+        return BEE_VOUCHER;
       case "Almond Cake":
         return ALMOND_CAKE;
       default:
