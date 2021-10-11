@@ -3,6 +3,8 @@ package com.condor.phantommenace.item.legendaryitems;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.List;
+import java.util.TreeMap;
+import java.util.UUID;
 
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -43,12 +45,18 @@ public class CreeperFirework extends CustomItem {
 
   private static Random rng = new Random();
 
+  private static TreeMap<UUID, ArrayList<Long>> usageMap = new TreeMap<>();
+
+  private static final int MAX_ROCKETS = 10;
+  private static final long PERIOD = 1000 * 10;
+
   static {
     loreList.add("Creeper Firework");
     loreList.add("Not recommended for use over water");
     loreList.add("Or indoors");
     loreList.add("");
 
+    triggerList.add(PlayerInteractEvent.class);
     triggerList.add(FireworkExplodeEvent.class);
   }
 
@@ -87,6 +95,15 @@ public class CreeperFirework extends CustomItem {
           ret = lore.get(0).equals("Creeper Firework");
         }
       }
+    } else if (event instanceof PlayerInteractEvent) {
+      PlayerInteractEvent pie = (PlayerInteractEvent) event;
+      Player player = pie.getPlayer();
+      if (pie.hasItem() && isCreeperFirework(pie.getItem())) {
+        if (!canShootFirework(player)) {
+          player.sendMessage("You have used too many creeper fireworks lately. Take a break!");
+          pie.setUseItemInHand(Event.Result.DENY);
+        }
+      }
     }
     return ret;
   }
@@ -100,5 +117,34 @@ public class CreeperFirework extends CustomItem {
   public boolean isCreeperFirework(ItemStack item) {
     return (item != null) && (item.getType() == Material.FIREWORK_ROCKET) &&
      (CustomItemType.getTypeFromCustomItem(item) == CustomItemType.CREEPER_FIREWORK);
+  }
+
+  public boolean canShootFirework(Player player) {
+    boolean ret = false;
+
+    UUID playerUUID = player.getUniqueId();
+    ArrayList<Long> playerUsage = usageMap.get(playerUUID);
+    if (playerUsage == null) {
+      ret = true;
+      ArrayList<Long> arrList = new ArrayList<>();
+      arrList.add(System.currentTimeMillis());
+      usageMap.put(playerUUID, arrList);
+    } else if (playerUsage.size() == MAX_ROCKETS) {
+      long currTime = System.currentTimeMillis();
+      long lastTimeUsed = playerUsage.get(MAX_ROCKETS - 1);
+      if ((currTime - lastTimeUsed) >= PERIOD) {
+        playerUsage.remove(0);
+        playerUsage.add(currTime);
+        ret = true;
+      } else {
+        ret = false;
+      }
+    } else {
+      playerUsage.add(System.currentTimeMillis());
+      usageMap.put(playerUUID, playerUsage);
+      ret = true;
+    }
+
+    return ret;
   }
 }

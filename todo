@@ -26,5 +26,4 @@ Phantoms that heal the MOAP if not killed
 
 DID
 ===
-Removed some legacy code in EventListener
-Added cow, fish, and bee kits
+Limited how many creeper rockets can go off in sequence
