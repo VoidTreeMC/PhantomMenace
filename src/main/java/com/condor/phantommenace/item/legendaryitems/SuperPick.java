@@ -127,6 +127,9 @@ public class SuperPick extends CustomItem {
       short numBlocksBroken = 1;
 
       for (Location loc : blocksToRemove) {
+        if (loc.getBlock().getType() == Material.BEDROCK) {
+          continue;
+        }
         if (loc.getBlock().getType() != Material.AIR) {
           numBlocksBroken++;
         }
