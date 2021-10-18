@@ -36,6 +36,7 @@ public class CustomItemManager {
     itemMap.put(CustomItemType.FISH_VOUCHER, new FishVoucher());
     itemMap.put(CustomItemType.BEE_VOUCHER, new BeeVoucher());
     itemMap.put(CustomItemType.ALMOND_CAKE, new AlmondCake());
+    itemMap.put(CustomItemType.BEDROCK_BREAKER, new BedrockBreaker());
   }
 
   public static double getPriceScale() {

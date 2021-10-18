@@ -106,6 +106,9 @@ public class GetCustomItemCommand extends CommandControl {
       case "almond_cake":
         is = CustomItemManager.getItemByType(CustomItemType.ALMOND_CAKE).getInstance();
         break;
+      case "bedrockbreaker":
+        is = CustomItemManager.getItemByType(CustomItemType.BEDROCK_BREAKER).getInstance();
+        break;
     }
 
     if (is != null) {

@@ -6,6 +6,8 @@ import java.util.TreeMap;
 import org.bukkit.metadata.MetadataValue;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.ChatColor;
+
 
 public enum CustomItemType {
   INSOMNIA_POTION,
@@ -29,7 +31,8 @@ public enum CustomItemType {
   COW_VOUCHER,
   FISH_VOUCHER,
   BEE_VOUCHER,
-  ALMOND_CAKE;
+  ALMOND_CAKE,
+  BEDROCK_BREAKER;
 
   private static TreeMap<String, CustomItemType> CUSTOM_ITEM_TYPES;
 
@@ -125,6 +128,8 @@ public enum CustomItemType {
         return BEE_VOUCHER;
       case "Almond Cake":
         return ALMOND_CAKE;
+      case "Trans (Dimensional) Pick":
+        return BEDROCK_BREAKER;
       default:
         return null;
     }
