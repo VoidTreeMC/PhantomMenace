@@ -25,6 +25,8 @@ public enum CustomItemType {
   ZOMBIE_EGG,
   FOX_EGG,
   SPIDER_EGG,
+  SLIME_EGG,
+  ZOMBIE_PIGLIN_EGG,
   COPPER_VOUCHER,
   IRON_VOUCHER,
   GOLD_VOUCHER,
@@ -72,7 +74,27 @@ public enum CustomItemType {
   }
 
   public static boolean isLegendaryItem(CustomItemType type) {
-    return type != null && type != DEFENDER_TOKEN && type != INSOMNIA_POTION && type != CREEPER_FIREWORK && type != FLIGHT_POTION;
+    switch (type) {
+      case DEFENDER_TOKEN:
+      case INSOMNIA_POTION:
+      case CREEPER_FIREWORK:
+      case FLIGHT_POTION:
+      case ALMOND_CAKE:
+      case ZOMBIE_EGG:
+      case FOX_EGG:
+      case SPIDER_EGG:
+      case SLIME_EGG:
+      case ZOMBIE_PIGLIN_EGG:
+      case COPPER_VOUCHER:
+      case IRON_VOUCHER:
+      case GOLD_VOUCHER:
+      case COW_VOUCHER:
+      case FISH_VOUCHER:
+      case BEE_VOUCHER:
+        return false;
+      default:
+        return true;
+    }
   }
 
   public static CustomItemType getTypeFromCustomItem(ItemStack customItem) {

@@ -49,7 +49,7 @@ public class BedrockBreaker extends CustomItem {
   static {
     loreList.add("Trans (Dimensional) Pick");
     loreList.add("No walls. Only windows.");
-    loreList.add("Right-click a piece of bedrock to transform it.");
+    loreList.add("Right-click a piece of bedrock to transform it into glass.");
     loreList.add("");
     loreList.add(MAX_USES + " / " + MAX_USES + " uses remaining.");
     triggerList.add(PlayerInteractEvent.class);

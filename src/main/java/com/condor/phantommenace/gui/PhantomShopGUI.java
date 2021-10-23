@@ -35,9 +35,12 @@ public class PhantomShopGUI {
   private static CustomItem SLAYER_SWORD = CustomItemManager.getItemByType(CustomItemType.SLAYER_SWORD);
   private static CustomItem FLIGHT_POTION = CustomItemManager.getItemByType(CustomItemType.FLIGHT_POTION);
   private static CustomItem ALMOND_CAKE = CustomItemManager.getItemByType(CustomItemType.ALMOND_CAKE);
+  private static CustomItem BEDROCK_BREAKER = CustomItemManager.getItemByType(CustomItemType.BEDROCK_BREAKER);
   private static CustomItem ZOMBIE_EGG = CustomItemManager.getItemByType(CustomItemType.ZOMBIE_EGG);
   private static CustomItem FOX_EGG = CustomItemManager.getItemByType(CustomItemType.FOX_EGG);
   private static CustomItem SPIDER_EGG = CustomItemManager.getItemByType(CustomItemType.SPIDER_EGG);
+  private static CustomItem SLIME_EGG = CustomItemManager.getItemByType(CustomItemType.SLIME_EGG);
+  private static CustomItem ZOMBIE_PIGLIN_EGG = CustomItemManager.getItemByType(CustomItemType.ZOMBIE_PIGLIN_EGG);
 
   private static boolean canAfford(Player player, int price) {
     int amt = 0;
@@ -143,8 +146,20 @@ public class PhantomShopGUI {
       handleGenericPurchase(gui, player, SPIDER_EGG.getInstance(), SPIDER_EGG.getPrice());
     });
 
+    GuiItem zombiePiglinSpawnItem = new GuiItem(ZOMBIE_PIGLIN_EGG.getInstance(), event -> {
+      handleGenericPurchase(gui, player, ZOMBIE_PIGLIN_EGG.getInstance(), ZOMBIE_PIGLIN_EGG.getPrice());
+    });
+
+    GuiItem slimeSpawnItem = new GuiItem(SLIME_EGG.getInstance(), event -> {
+      handleGenericPurchase(gui, player, SLIME_EGG.getInstance(), SLIME_EGG.getPrice());
+    });
+
     GuiItem almondCakeItem = new GuiItem(ALMOND_CAKE.getInstance(), event -> {
       handleGenericPurchase(gui, player, ALMOND_CAKE.getInstance(), ALMOND_CAKE.getPrice());
+    });
+
+    GuiItem bedrockBreakerItem = new GuiItem(BEDROCK_BREAKER.getInstance(), event -> {
+      handleGenericPurchase(gui, player, BEDROCK_BREAKER.getInstance(), BEDROCK_BREAKER.getPrice());
     });
 
     gui.addItem(insomniaPotionItem);
@@ -158,9 +173,12 @@ public class PhantomShopGUI {
     gui.addItem(slayerSwordItem);
     gui.addItem(flightPotionItem);
     gui.addItem(almondCakeItem);
+    gui.addItem(bedrockBreakerItem);
     gui.addItem(zombieSpawnItem);
     gui.addItem(foxSpawnItem);
     gui.addItem(spiderSpawnItem);
+    gui.addItem(zombiePiglinSpawnItem);
+    gui.addItem(slimeSpawnItem);
 
 
     // Previous item
