@@ -100,7 +100,7 @@ public class FlightPotion extends CustomItem {
       player.sendMessage(ChatColor.AQUA + "The ground loses its grip on you.");
     }
     // Bukkit.getLogger().info("Wear off time: " + wearOffTime);
-    (new RemoveFlightEffect(player, wearOffTime)).runTaskLaterAsynchronously(PhantomMain.getPlugin(), DURATION_TICKS);
+    (new RemoveFlightEffect(player, wearOffTime)).runTaskLaterAsynchronously(PhantomMain.getPlugin(), (wearOffTime - currTime) / 1000 * 20);
     userMap.put(player.getUniqueId(), wearOffTime);
   }
 

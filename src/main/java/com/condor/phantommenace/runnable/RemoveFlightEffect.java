@@ -61,21 +61,6 @@ public class RemoveFlightEffect extends BukkitRunnable {
       return;
     }
 
-    /*
-     * I checked the math in FlightPotion like 12 times and I really don't understand
-     * why this block of code is necessary, but it is. You're welcome to try and figure
-     * it out, but it merits saying
-     * Here be dragons.
-     */
-    if (System.currentTimeMillis() < this.finishTime) {
-      long diff = this.finishTime - System.currentTimeMillis();
-      try {
-        Thread.sleep(diff);
-      } catch (InterruptedException e) {
-        // Do nothing
-      }
-    }
-
     // Bukkit.getLogger().info("Sending message at: " + System.currentTimeMillis());
     this.player.sendMessage(ChatColor.RED + "The ground is pulling you down. Now would be a good time to land.");
 
