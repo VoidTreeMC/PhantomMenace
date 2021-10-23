@@ -70,6 +70,10 @@ public class RemoveFlightEffect extends BukkitRunnable {
       // Do nothing
     }
 
+    if (FlightPotion.isOutdated(this.player.getUniqueId(), this.finishTime)) {
+      return;
+    }
+
     // Bukkit.getLogger().info("Sending message at: " + System.currentTimeMillis());
     this.player.sendMessage(ChatColor.AQUA + "You feel heavier.");
     this.player.setAllowFlight(false);
