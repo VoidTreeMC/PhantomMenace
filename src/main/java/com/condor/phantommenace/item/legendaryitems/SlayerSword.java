@@ -28,6 +28,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.ChatColor;
+import org.bukkit.inventory.EquipmentSlot;
 
 import com.condor.phantommenace.item.CustomItem;
 import com.condor.phantommenace.item.CustomItemType;
@@ -93,7 +94,7 @@ public class SlayerSword extends CustomItem {
       // If they right-clicked and are crouching
       if ((pie.getAction() == Action.RIGHT_CLICK_AIR ||
           pie.getAction() == Action.RIGHT_CLICK_BLOCK) &&
-          player.isSneaking()) {
+          player.isSneaking() && pie.getHand() == EquipmentSlot.HAND) {
         // If they're holding a slayer sword
         if (isSlayerSword(player.getItemInHand())) {
           ret = true;

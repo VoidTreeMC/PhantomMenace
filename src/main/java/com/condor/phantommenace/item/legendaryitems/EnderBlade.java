@@ -25,6 +25,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.World;
+import org.bukkit.inventory.EquipmentSlot;
 
 import com.condor.phantommenace.item.CustomItem;
 import com.condor.phantommenace.item.CustomItemType;
@@ -92,7 +93,7 @@ public class EnderBlade extends CustomItem {
       // If they shift-right-clicked
       if ((pie.getAction() == Action.RIGHT_CLICK_AIR ||
           pie.getAction() == Action.RIGHT_CLICK_BLOCK) &&
-          player.isSneaking()) {
+          player.isSneaking() && pie.getHand() == EquipmentSlot.HAND) {
         // If they're holding an ender blade
         if (isEnderBlade(player.getItemInHand())) {
           ret = true;
