@@ -25,6 +25,9 @@ public class RemoveFlightEffect extends BukkitRunnable {
   // The entity whose flight is to be eabled
   Player player;
 
+  // The time that the player drank the potion
+  long finishTime;
+
   private static final int SLOW_FALL_DURATION = 20 * 30;
 
   /**
@@ -32,8 +35,9 @@ public class RemoveFlightEffect extends BukkitRunnable {
    * IMPORTANT: MUST BE RUN ASYNCHRONOUSLY
    * @param player  The player whose flight ability is to be removed
    */
-	public RemoveFlightEffect(Player player) {
+	public RemoveFlightEffect(Player player, long finishTime) {
 		this.plugin = PhantomMain.getPlugin();
+    this.finishTime = finishTime;
 		this.player = player;
 	}
 
@@ -53,6 +57,26 @@ public class RemoveFlightEffect extends BukkitRunnable {
       return;
     }
 
+    if (FlightPotion.isOutdated(this.player.getUniqueId(), this.finishTime)) {
+      return;
+    }
+
+    /*
+     * I checked the math in FlightPotion like 12 times and I really don't understand
+     * why this block of code is necessary, but it is. You're welcome to try and figure
+     * it out, but it merits saying
+     * Here be dragons.
+     */
+    if (System.currentTimeMillis() < this.finishTime) {
+      long diff = this.finishTime - System.currentTimeMillis();
+      try {
+        Thread.sleep(diff);
+      } catch (InterruptedException e) {
+        // Do nothing
+      }
+    }
+
+    // Bukkit.getLogger().info("Sending message at: " + System.currentTimeMillis());
     this.player.sendMessage(ChatColor.RED + "The ground is pulling you down. Now would be a good time to land.");
 
     try {
@@ -61,9 +85,11 @@ public class RemoveFlightEffect extends BukkitRunnable {
       // Do nothing
     }
 
+    // Bukkit.getLogger().info("Sending message at: " + System.currentTimeMillis());
     this.player.sendMessage(ChatColor.AQUA + "You feel heavier.");
     this.player.setAllowFlight(false);
     this.player.removeMetadata(FlightPotion.METADATA_KEY, this.plugin);
+    FlightPotion.removeTimestamp(player.getUniqueId(), finishTime);
 
     PotionEffect slowFall = new PotionEffect(PotionEffectType.SLOW_FALLING, SLOW_FALL_DURATION, 0, true, false, false);
 

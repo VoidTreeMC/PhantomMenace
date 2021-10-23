@@ -2,6 +2,8 @@ package com.condor.phantommenace.item.legendaryitems;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.TreeMap;
+import java.util.UUID;
 
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -19,6 +21,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.ChatColor;
 import org.bukkit.metadata.FixedMetadataValue;
+import org.bukkit.Bukkit;
 
 import com.condor.phantommenace.item.CustomItem;
 import com.condor.phantommenace.item.CustomItemType;
@@ -32,9 +35,13 @@ public class FlightPotion extends CustomItem {
   private static ArrayList<Class> triggerList = new ArrayList<>();
 
   // 20 minutes
-  private static final long DURATION = 20 * 20 * 60;
+  private static final long DURATION_TICKS = 20 * 20 * 60;
+  private static final long DURATION_MS = DURATION_TICKS / 20 * 1000;
 
   public static final String METADATA_KEY = "affectedByFlightPotion";
+
+  // Keeps track of when the flight potion should wear off for each user
+  private static TreeMap<UUID, Long> userMap = new TreeMap<>();
 
   static {
     loreList.add("Flight Potion");
@@ -81,8 +88,37 @@ public class FlightPotion extends CustomItem {
     Player player = pice.getPlayer();
     player.setAllowFlight(true);
     player.setMetadata(METADATA_KEY, new FixedMetadataValue(PhantomMain.getPlugin(), true));
-    player.sendMessage(ChatColor.AQUA + "The ground loses its grip on you.");
-    // player.sendMessage(ChatColor.AQUA + "You are able to fly for " + ChatColor.GOLD + "20" + ChatColor.AQUA + " minutes.");
-    (new RemoveFlightEffect(player)).runTaskLaterAsynchronously(PhantomMain.getPlugin(), DURATION);
+    long currTime = System.currentTimeMillis();
+    // Bukkit.getLogger().info("Drank at " + currTime);
+    long wearOffTime = currTime + DURATION_MS;
+    // Bukkit.getLogger().info("Defaulting wear-off time to " + wearOffTime);
+    if (userMap.containsKey(player.getUniqueId())) {
+      wearOffTime = userMap.get(player.getUniqueId()) + DURATION_MS;
+      player.sendMessage(ChatColor.AQUA + "Your flight period has been extended.");
+      // Bukkit.getLogger().info("Bumping it up to " + wearOffTime + " ( " + userMap.get(player.getUniqueId()) + " + " + DURATION_MS + " )");
+    } else {
+      player.sendMessage(ChatColor.AQUA + "The ground loses its grip on you.");
+    }
+    // Bukkit.getLogger().info("Wear off time: " + wearOffTime);
+    (new RemoveFlightEffect(player, wearOffTime)).runTaskLaterAsynchronously(PhantomMain.getPlugin(), DURATION_TICKS);
+    userMap.put(player.getUniqueId(), wearOffTime);
+  }
+
+  public static boolean isOutdated(UUID uuid, long time /* no see */) {
+    // Bukkit.getLogger().info("Am I outdated? My time: " + time);
+    if (!userMap.containsKey(uuid)) {
+      return false;
+    } else {
+      long lastTime = userMap.get(uuid);
+      // Bukkit.getLogger().info("Up to date wear-off time: " + lastTime);
+      // Bukkit.getLogger().info("Returning: " + (lastTime > time));
+      return lastTime > time;
+    }
+  }
+
+  public static void removeTimestamp(UUID uuid, long time /* no see */) {
+    if (!isOutdated(uuid, time)) {
+      userMap.remove(uuid);
+    }
   }
 }
