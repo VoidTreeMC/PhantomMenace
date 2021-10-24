@@ -124,15 +124,16 @@ public class EventListener  extends PHListener {
           // If it's not enchantable, cancel the event
           if (!CustomItemManager.getItemByType(type).isEnchantable()) {
             event.setCancelled(true);
+            doCancel = true;
           }
         }
       }
     }
 
-    if (!(event.isShiftClick()) && event.getSlotType() != SlotType.CRAFTING) {
-      event.setCancelled(false);
-    }
-    if (event.isCancelled()) {
+    // if (!(event.isShiftClick()) && event.getSlotType() != SlotType.CRAFTING) {
+    //   event.setCancelled(false);
+    // }
+    if (doCancel) {
       if (player != null) {
         player.sendMessage("This item cannot be used in an anvil, grindstone, or enchanting table.");
       }

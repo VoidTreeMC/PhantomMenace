@@ -101,7 +101,7 @@ public class CreeperBow extends CustomItem {
       (new DoDisableTargetAI(entity, 5)).runTaskLater(PhantomMain.getPlugin(), 13);
     } else {
       EntityDeathEvent ede = (EntityDeathEvent) event;
-      int amt = rng.nextInt(3) + 1;
+      int amt = rng.nextInt(3) + 2;
       ede.getDrops().add(new ItemStack(Material.GUNPOWDER, amt));
     }
   }
