@@ -9,6 +9,7 @@ Bugs
 ===
 Limit creeper fireworks that can go off in a row
 Skipwave doesnt work if it spawns a wave with 0 phantoms
+Flight potions expire if you switch dimension. Make sure to test with /home as well as with portals
 
 Exploits
 ===
@@ -16,6 +17,7 @@ Exploits
 Features
 ===
 Phantoms that give you levitation
+If mobs deal a certain amount of damage to you while flying with a flight potion, it turns the filght effect off for a few seconds and gives you slow fall
 Add behavior for what happens if everyone leaves the arena
 - Wait a delay and then end the event if nobody comes back
 Add behavior that checks if there are any players left in the arena when the phantoms get highlighted
