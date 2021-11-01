@@ -48,6 +48,8 @@ public class FlightPotion extends CustomItem {
   private static TreeMap<UUID, Long> userMap = new TreeMap<>();
   // Keeps track of how much damage the user has taken since their last reset
   private static TreeMap<UUID, Double> damageMap = new TreeMap<>();
+  // Keeps track of the last time the player was damaged
+  private static TreeMap<UUID, Long> damageTimeMap = new TreeMap<>();
 
   static {
     loreList.add("Flight Potion");
@@ -123,25 +125,32 @@ public class FlightPotion extends CustomItem {
       if (damageMap.containsKey(player.getUniqueId())) {
         finalDam = damageMap.get(player.getUniqueId());
       }
+      double before = finalDam;
       finalDam += edbee.getFinalDamage();
-      if (finalDam >= MAX_DMG) {
-        finalDam = 0;
-        over = true;
-      }
+      over = finalDam >= MAX_DMG;
       damageMap.put(player.getUniqueId(), finalDam);
-      // If they've gone over the max amount of damage they can take
-      if (over) {
+      damageTimeMap.put(player.getUniqueId(), System.currentTimeMillis());
+      Bukkit.getLogger().info("Before: " + before + " FinalDam: " + finalDam);
+      if (over && before < MAX_DMG) {
         (new RemoveFlightEffect(player, System.currentTimeMillis(), false)).runTaskAsynchronously(PhantomMain.getPlugin());
+      }
+      if (before >= MAX_DMG || over) {
         Bukkit.getScheduler().runTaskLater(PhantomMain.getPlugin(), new Runnable() {
     			@Override
     			public void run() {
-            if (isAffectedByFlightPotion(player)) {
+            if (isAffectedByFlightPotion(player) && cooldownOver(player.getUniqueId())) {
               player.setAllowFlight(true);
+              damageMap.put(player.getUniqueId(), 0d);
             }
     	    }
-        }, COOLDOWN_TIME);
+        }, COOLDOWN_TIME + 5);
       }
     }
+  }
+
+  private static boolean cooldownOver(UUID uuid) {
+    Bukkit.getLogger().info("Time passed since last hit: " + ((System.currentTimeMillis() - damageTimeMap.get(uuid)) / 1000));
+    return (System.currentTimeMillis() - damageTimeMap.get(uuid)) >= (COOLDOWN_TIME_IN_SECONDS * 1000);
   }
 
   /**
