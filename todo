@@ -17,7 +17,6 @@ Exploits
 Features
 ===
 Phantoms that give you levitation
-If mobs deal a certain amount of damage to you while flying with a flight potion, it turns the filght effect off for a few seconds and gives you slow fall
 Add behavior for what happens if everyone leaves the arena
 - Wait a delay and then end the event if nobody comes back
 Add behavior that checks if there are any players left in the arena when the phantoms get highlighted
@@ -28,4 +27,4 @@ Phantoms that heal the MOAP if not killed
 
 DID
 ===
-Added bedrock breaker
+If mobs deal a certain amount of damage to you while flying with a flight potion, it turns the flight effect off for a few seconds and gives you slow fall
