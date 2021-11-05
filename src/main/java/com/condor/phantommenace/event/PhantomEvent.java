@@ -76,13 +76,13 @@ public class PhantomEvent extends BukkitRunnable {
 
   static {
     waveList.add(new VanillaWave());
-    waveList.add(new FlamingAndExpWave());
-    waveList.add(new AllFlamingWave());
-    waveList.add(new InvisibleAndFlamingWave());
-    waveList.add(new InvisibleAndMountedWave());
-    waveList.add(new EnderAndInvisibleWave());
-    waveList.add(new AllPhantomsWave());
-    waveList.add(new MOAPWave());
+    // waveList.add(new FlamingAndExpWave());
+    // waveList.add(new AllFlamingWave());
+    // waveList.add(new InvisibleAndFlamingWave());
+    // waveList.add(new InvisibleAndMountedWave());
+    // waveList.add(new EnderAndInvisibleWave());
+    // waveList.add(new AllPhantomsWave());
+    // waveList.add(new MOAPWave());
     for (int i = 0; i < waveList.size(); i++) {
       waveKillMapList.add(new TreeMap<UUID, Integer>());
     }
@@ -297,6 +297,9 @@ public class PhantomEvent extends BukkitRunnable {
 
     for (int i = 0; i < Math.min(5, numParticipants); i++) {
       Player awardRecipient = Bukkit.getPlayer(((Map.Entry<UUID, Integer>) sorted[i]).getKey());
+      if (awardRecipient == null) {
+        continue;
+      }
       double moneyAmt = moneyAwards.get(i);
       ArrayList<ItemStack> itemsToAward = itemAwards.get(i);
       String position = "";

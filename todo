@@ -23,8 +23,9 @@ Add behavior that checks if there are any players left in the arena when the pha
 Have the tiny phantoms constantly target the MOAP to make it look like a swarm of bees
 Phantoms that heal the MOAP if not killed
 	- Use invisible mounted guardians that target the MOAP
+Phantoms that disable all potion effects when they hit you, including flight potions
 
 
 DID
 ===
-If mobs deal a certain amount of damage to you while flying with a flight potion, it turns the flight effect off for a few seconds and gives you slow fall
+Fixed a bug that occurred when a top-5 player logged off before rewards were dispensed

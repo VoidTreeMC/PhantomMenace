@@ -126,7 +126,7 @@ public class FlightPotion extends CustomItem {
         finalDam = damageMap.get(player.getUniqueId());
       }
       double before = finalDam;
-      finalDam += edbee.getFinalDamage();
+      finalDam += edbee.getDamage();
       over = finalDam >= MAX_DMG;
       damageMap.put(player.getUniqueId(), finalDam);
       damageTimeMap.put(player.getUniqueId(), System.currentTimeMillis());
