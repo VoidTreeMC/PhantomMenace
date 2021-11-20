@@ -11,7 +11,7 @@ public class AllFlamingWave extends Wave {
   private static TreeMap<PhantomType, Integer> map = new TreeMap<>();
 
   static {
-    map.put(PhantomType.FLAMING_PHANTOM, 7);
+    map.put(PhantomType.FLAMING_PHANTOM, 9);
     map.put(PhantomType.KAMIKAZE_PHANTOM, 1);
   }
 

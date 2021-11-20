@@ -11,7 +11,7 @@ public class VanillaWave extends Wave {
   private static TreeMap<PhantomType, Integer> map = new TreeMap<>();
 
   static {
-    map.put(PhantomType.VANILLA, 5);
+    map.put(PhantomType.VANILLA, 10);
   }
 
   public VanillaWave() {

@@ -125,7 +125,7 @@ public class BlacksmithGUI {
     Gui gui = new Gui(5, "Legendary Forge");
   	gui.setDefaultClickAction(event -> {
       ItemStack currItem = event.getCurrentItem();
-      if (!CustomItemType.isLegendaryItem(currItem)) {
+      if (currItem == null || !CustomItemType.isLegendaryItem(currItem)) {
         // If they're not clicking on air with their legendary item
         if ((event.getCurrentItem() != null && event.getCurrentItem().getType() != Material.AIR) ||
              !CustomItemType.isLegendaryItem(event.getCursor())) {

@@ -70,7 +70,7 @@ public enum CustomItemType {
 
   public static boolean isLegendaryItem(ItemStack customItem) {
     CustomItemType type = getTypeFromCustomItem(customItem);
-    return isLegendaryItem(type);
+    return (type != null) && isLegendaryItem(type);
   }
 
   public static boolean isLegendaryItem(CustomItemType type) {

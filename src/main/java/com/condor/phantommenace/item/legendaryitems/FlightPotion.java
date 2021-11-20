@@ -40,7 +40,7 @@ public class FlightPotion extends CustomItem {
   public static final long COOLDOWN_TIME_IN_SECONDS = 10;
   public static final long COOLDOWN_TIME = 20 * COOLDOWN_TIME_IN_SECONDS;
   // The maximum amount of damage a player can take before their flight potion goes on cooldown
-  private static final int MAX_DMG = 20;
+  private static final int MAX_DMG = 10;
 
   public static final String METADATA_KEY = "affectedByFlightPotion";
 
