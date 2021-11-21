@@ -40,6 +40,7 @@ public class PhantomShopGUI {
   private static CustomItem FOX_EGG = CustomItemManager.getItemByType(CustomItemType.FOX_EGG);
   private static CustomItem SPIDER_EGG = CustomItemManager.getItemByType(CustomItemType.SPIDER_EGG);
   private static CustomItem SLIME_EGG = CustomItemManager.getItemByType(CustomItemType.SLIME_EGG);
+  private static CustomItem COW_EGG = CustomItemManager.getItemByType(CustomItemType.COW_EGG);
   private static CustomItem ZOMBIE_PIGLIN_EGG = CustomItemManager.getItemByType(CustomItemType.ZOMBIE_PIGLIN_EGG);
 
   private static boolean canAfford(Player player, int price) {
@@ -154,6 +155,10 @@ public class PhantomShopGUI {
       handleGenericPurchase(gui, player, SLIME_EGG.getInstance(), SLIME_EGG.getPrice());
     });
 
+    GuiItem cowSpawnItem = new GuiItem(COW_EGG.getInstance(), event -> {
+      handleGenericPurchase(gui, player, COW_EGG.getInstance(), COW_EGG.getPrice());
+    });
+
     GuiItem almondCakeItem = new GuiItem(ALMOND_CAKE.getInstance(), event -> {
       handleGenericPurchase(gui, player, ALMOND_CAKE.getInstance(), ALMOND_CAKE.getPrice());
     });
@@ -179,6 +184,7 @@ public class PhantomShopGUI {
     gui.addItem(spiderSpawnItem);
     gui.addItem(zombiePiglinSpawnItem);
     gui.addItem(slimeSpawnItem);
+    gui.addItem(cowSpawnItem);
 
 
     // Previous item

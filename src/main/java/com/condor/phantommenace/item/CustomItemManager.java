@@ -31,6 +31,7 @@ public class CustomItemManager {
     itemMap.put(CustomItemType.SPIDER_EGG, new SpiderSpawnEgg());
     itemMap.put(CustomItemType.SLIME_EGG, new SlimeSpawnEgg());
     itemMap.put(CustomItemType.ZOMBIE_PIGLIN_EGG, new ZombiePiglinSpawnEgg());
+    itemMap.put(CustomItemType.COW_EGG, new CowSpawnEgg());
     itemMap.put(CustomItemType.COPPER_VOUCHER, new CopperVoucher());
     itemMap.put(CustomItemType.IRON_VOUCHER, new IronVoucher());
     itemMap.put(CustomItemType.GOLD_VOUCHER, new GoldVoucher());

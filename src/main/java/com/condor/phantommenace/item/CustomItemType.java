@@ -27,6 +27,7 @@ public enum CustomItemType {
   SPIDER_EGG,
   SLIME_EGG,
   ZOMBIE_PIGLIN_EGG,
+  COW_EGG,
   COPPER_VOUCHER,
   IRON_VOUCHER,
   GOLD_VOUCHER,
@@ -84,6 +85,7 @@ public enum CustomItemType {
       case FOX_EGG:
       case SPIDER_EGG:
       case SLIME_EGG:
+      case COW_EGG:
       case ZOMBIE_PIGLIN_EGG:
       case COPPER_VOUCHER:
       case IRON_VOUCHER:
