@@ -28,4 +28,4 @@ Phantoms that disable all potion effects when they hit you, including flight pot
 
 DID
 ===
-Fixed a bug that occurred when a top-5 player logged off before rewards were dispensed
+Fixed a bug with phantom kills being counted incorrectly (caused by flame/fire damage)

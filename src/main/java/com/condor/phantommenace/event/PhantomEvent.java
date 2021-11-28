@@ -57,6 +57,7 @@ public class PhantomEvent extends BukkitRunnable {
 
 
   public static final String EVENT_METADATA_KEY = "isAnEventPhantom";
+  public static final String LAST_HIT_METADATA_KEY = "lastHitBy";
 
   private static final String BOSS_BAR_TEXT = "Defend " + ChatColor.RED + "Void" + ChatColor.GRAY + "Tree" + ChatColor.RESET + " from the Phantoms! Wave ";
   // 10 seconds between waves
@@ -163,7 +164,7 @@ public class PhantomEvent extends BukkitRunnable {
     for (Entity entity : loc.getWorld().getEntities()) {
       if (entity.getType() == EntityType.PHANTOM) {
         if (entity.hasMetadata(EVENT_METADATA_KEY)) {
-          PhantomEvent.manageKill(((Phantom) entity), null);
+          PhantomEvent.manageKill(((Phantom) entity));
           entity.remove();
         }
       }
@@ -196,8 +197,15 @@ public class PhantomEvent extends BukkitRunnable {
     }
   }
 
-  public static void manageKill(Phantom phantom, Player player) {
+  public static void manageKill(Phantom phantom) {
+    Bukkit.getLogger().info("Managing kill");
+    Player player = null;
+    if (phantom.hasMetadata(LAST_HIT_METADATA_KEY)) {
+      Bukkit.getLogger().info("Assigning player from metadata key");
+      player = Bukkit.getPlayer(UUID.fromString(phantom.getMetadata(LAST_HIT_METADATA_KEY).get(0).asString()));
+    }
     if (phantom.hasMetadata(EVENT_METADATA_KEY) && player != null) {
+      Bukkit.getLogger().info("Has event metadata key, has player");
       UUID playerUUID = player.getUniqueId();
       // Add the kill to the player's kills this wave
       int numPlayerKilledThisWave = (waveKillMapList.get(getWaveIndex() - 1).get(playerUUID) == null) ? 0 : waveKillMapList.get(getWaveIndex() - 1).get(playerUUID);
@@ -206,10 +214,8 @@ public class PhantomEvent extends BukkitRunnable {
       int numPlayerKilledThisEvent = (totalPhantomKillMap.get(playerUUID) == null) ? 0 : totalPhantomKillMap.get(playerUUID);
       totalPhantomKillMap.put(playerUUID, numPlayerKilledThisEvent + 1);
       // player.sendMessage("You have killed " + waveKillMapList.get(getWaveIndex() - 1).get(player.getUniqueId()) + " phantoms this wave.");
-    // We only want to increment the number on EntityDeathEvent, not on EntityDamageByEntityEvent (avoid double register)
-    } else if (phantom.hasMetadata(EVENT_METADATA_KEY)) {
-      numKilledThisWave++;
     }
+    numKilledThisWave++;
 
     if (PhantomType.getTypeFromPhantom(phantom) == PhantomType.MOTHER_OF_ALL_PHANTOMS) {
       if (player != null) {

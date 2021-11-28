@@ -15,8 +15,10 @@ import org.bukkit.entity.EntityCategory;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Entity;
 import org.bukkit.Sound;
+import org.bukkit.metadata.FixedMetadataValue;
 
 import com.condor.phantommenace.main.PhantomMain;
+import com.condor.phantommenace.event.PhantomEvent;
 
 public class DoSlayerSwordEffect extends BukkitRunnable {
 
@@ -55,6 +57,7 @@ public class DoSlayerSwordEffect extends BukkitRunnable {
           le.setFireTicks(FIRE_DURATION);
           player.playSound(le.getLocation(), Sound.ENTITY_LIGHTNING_BOLT_IMPACT, 1, 1);
           player.playSound(le.getLocation(), Sound.ENTITY_LIGHTNING_BOLT_THUNDER, 1, 1);
+          le.setMetadata(PhantomEvent.LAST_HIT_METADATA_KEY, new FixedMetadataValue(PhantomMain.getPlugin(), player.getUniqueId().toString()));
         }
       }
     }

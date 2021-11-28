@@ -52,6 +52,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import io.papermc.paper.event.block.PlayerShearBlockEvent;
 import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.metadata.FixedMetadataValue;
 
 import com.condor.phantommenace.listener.PHListener;
 import com.condor.phantommenace.main.PhantomMain;
@@ -216,7 +217,7 @@ public class EventListener  extends PHListener {
     if (event.getEntity().getType() == EntityType.PHANTOM) {
       LivingEntity entity = event.getEntity();
       if (entity.hasMetadata(PhantomEvent.EVENT_METADATA_KEY)) {
-        PhantomEvent.manageKill(((Phantom) entity), null);
+        PhantomEvent.manageKill(((Phantom) entity));
       }
       PhantomDropHandler.classifyAndDividePDE(event);
     }
@@ -472,17 +473,15 @@ public class EventListener  extends PHListener {
         if (isDead && isPlayer) {
           PhantomDropHandler.classifyAndAwardXP(edbee, player);
           PhantomDropHandler.classifyAndAwardTokens(edbee, player);
-
-          // If there's an event going on
-          if (PhantomEvent.isActive()) {
-            PhantomEvent.manageKill(phantom, player);
-          }
         }
 
         if (player != null) {
+          // Remove the player's immunity if they have any
           if (RecentPlayerDeaths.isPlayerOnList(player.getUniqueId())) {
             RecentPlayerDeaths.removeFromList(player.getUniqueId());
           }
+          // Update the phantom's metadata tag to show who last hit it
+          phantom.setMetadata(PhantomEvent.LAST_HIT_METADATA_KEY, new FixedMetadataValue(PhantomMain.getPlugin(), player.getUniqueId().toString()));
         }
       }
     }
