@@ -8,7 +8,6 @@ Bossbars for almond cake and flight potion
 Bugs
 ===
 Limit creeper fireworks that can go off in a row
-Skipwave doesnt work if it spawns a wave with 0 phantoms
 Flight potions expire if you switch dimension. Make sure to test with /home as well as with portals
 
 Exploits
@@ -28,4 +27,5 @@ Phantoms that disable all potion effects when they hit you, including flight pot
 
 DID
 ===
-Fixed a bug with phantom kills being counted incorrectly (caused by flame/fire damage)
+Fixed a bug with /skipwave not working if a wave with 0 phantoms is spawned
+Updated plugin to 1.18 and did some naive testing to see what works and doesn't

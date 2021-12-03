@@ -161,13 +161,21 @@ public class PhantomEvent extends BukkitRunnable {
 
   public void skipWave() {
     int num = getWaveIndex();
+    int numDespawned = 0;
     for (Entity entity : loc.getWorld().getEntities()) {
       if (entity.getType() == EntityType.PHANTOM) {
         if (entity.hasMetadata(EVENT_METADATA_KEY)) {
           PhantomEvent.manageKill(((Phantom) entity));
           entity.remove();
+          numDespawned++;
         }
       }
+    }
+    if (numDespawned == 0) {
+      bossBar.setProgress(0);
+      (new PhantomEvent(getWaveIndex())).runTaskLater(PhantomMain.getPlugin(), TIME_BETWEEN_WAVES);
+      Bukkit.broadcastMessage(ChatColor.YELLOW + "Wave " + ChatColor.GOLD + getWaveIndex() + ChatColor.YELLOW + " completed!");
+      printTopFive(false);
     }
   }
 
@@ -198,14 +206,11 @@ public class PhantomEvent extends BukkitRunnable {
   }
 
   public static void manageKill(Phantom phantom) {
-    Bukkit.getLogger().info("Managing kill");
     Player player = null;
     if (phantom.hasMetadata(LAST_HIT_METADATA_KEY)) {
-      Bukkit.getLogger().info("Assigning player from metadata key");
       player = Bukkit.getPlayer(UUID.fromString(phantom.getMetadata(LAST_HIT_METADATA_KEY).get(0).asString()));
     }
     if (phantom.hasMetadata(EVENT_METADATA_KEY) && player != null) {
-      Bukkit.getLogger().info("Has event metadata key, has player");
       UUID playerUUID = player.getUniqueId();
       // Add the kill to the player's kills this wave
       int numPlayerKilledThisWave = (waveKillMapList.get(getWaveIndex() - 1).get(playerUUID) == null) ? 0 : waveKillMapList.get(getWaveIndex() - 1).get(playerUUID);

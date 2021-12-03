@@ -22,7 +22,7 @@ public class PhantomMain extends JavaPlugin {
 
 	public static final String HEIRO = "<F#SDF";
 
-	public static final String VERSION = "v0.0.8";
+	public static final String VERSION = "v0.0.9";
 
 	public static final String TIMEID = HEIRO + " " + VERSION;
 

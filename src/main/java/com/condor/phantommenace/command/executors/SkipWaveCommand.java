@@ -9,10 +9,12 @@ import com.condor.phantommenace.command.CommandControl;
 import com.condor.phantommenace.command.SubCommand;
 import com.condor.phantommenace.phantom.PhantomStatus;
 import com.condor.phantommenace.main.PhantomMain;
+import com.condor.phantommenace.event.PhantomEvent;
 
 public class SkipWaveCommand extends CommandControl {
 
   static final String MSG = "Skipping wave.";
+  static final String NOT_ACTIVE = "There is no phantom event active.";
 
 	public SkipWaveCommand(String name) {
 		super(name,0);
@@ -26,8 +28,12 @@ public class SkipWaveCommand extends CommandControl {
       return FailureCode.PERMISSION_DENIED;
     }
 
-    PhantomMain.getPlugin().getPhantomEvent().skipWave();
-    sender.sendMessage(MSG);
+    if (PhantomEvent.isActive()) {
+      PhantomMain.getPlugin().getPhantomEvent().skipWave();
+      sender.sendMessage(MSG);
+    } else {
+      sender.sendMessage(NOT_ACTIVE);
+    }
 
 
 		return FailureCode.SUCCESS;
