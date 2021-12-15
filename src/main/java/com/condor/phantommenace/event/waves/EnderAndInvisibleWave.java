@@ -1,6 +1,6 @@
 package com.condor.phantommenace.event.waves;
 
-import java.util.TreeMap;
+import java.util.HashMap;
 import java.lang.Integer;
 
 import com.condor.phantommenace.event.Wave;
@@ -8,7 +8,7 @@ import com.condor.phantommenace.phantom.PhantomType;
 
 public class EnderAndInvisibleWave extends Wave {
 
-  private static TreeMap<PhantomType, Integer> map = new TreeMap<>();
+  private static HashMap<PhantomType, Integer> map = new HashMap<>();
 
   static {
     map.put(PhantomType.INVISIBLE_PHANTOM, 4);

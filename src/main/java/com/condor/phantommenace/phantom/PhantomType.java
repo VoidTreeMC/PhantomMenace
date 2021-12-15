@@ -1,7 +1,7 @@
 package com.condor.phantommenace.phantom;
 
 import java.util.List;
-import java.util.TreeMap;
+import java.util.HashMap;
 
 import org.bukkit.entity.Phantom;
 import org.bukkit.metadata.MetadataValue;
@@ -16,19 +16,19 @@ public enum PhantomType {
   MOTHER_OF_ALL_PHANTOMS,
   KAMIKAZE_PHANTOM;
 
-  private static TreeMap<String, PhantomType> PHANTOM_TYPES;
+  private static HashMap<String, PhantomType> PHANTOM_TYPES;
 
   /**
 	 * Gets the tree map of phantom types.
 	 * If it is not yet constructed, it constructs it
-	 * @return A TreeMap that maps strings to evidence types
+	 * @return A HashMap that maps strings to evidence types
 	 */
-  public static final TreeMap<String, PhantomType> phantomTypes() {
+  public static final HashMap<String, PhantomType> phantomTypes() {
 		if (PHANTOM_TYPES != null) {
 			return PHANTOM_TYPES;
 		}
 
-		PHANTOM_TYPES = new TreeMap<>();
+		PHANTOM_TYPES = new HashMap<>();
 
 		for (PhantomType c : PhantomType.values()) {
 			PHANTOM_TYPES.put(c.name(), c);

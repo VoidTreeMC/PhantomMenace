@@ -1,7 +1,7 @@
 package com.condor.phantommenace.event;
 
 import java.util.ArrayList;
-import java.util.TreeMap;
+import java.util.HashMap;
 import java.lang.Integer;
 import java.util.UUID;
 import java.util.SortedSet;
@@ -44,15 +44,15 @@ import com.condor.phantommenace.phantom.PhantomType;
 import net.milkbowl.vault.economy.Economy;
 
 public class PhantomEvent extends BukkitRunnable {
-  private static TreeMap<UUID, Integer> totalPhantomKillMap = new TreeMap<>();
-  private static ArrayList<TreeMap<UUID, Integer>> waveKillMapList = new ArrayList<>();
+  private static HashMap<UUID, Integer> totalPhantomKillMap = new HashMap<>();
+  private static ArrayList<HashMap<UUID, Integer>> waveKillMapList = new ArrayList<>();
   private static ArrayList<Wave> waveList = new ArrayList<>();
-  private static final World WORLD = PhantomMain.getPlugin().getServer().getWorld("lobby");
+  private static final World WORLD = PhantomMain.getPlugin().getServer().getWorld("survival");
   private static ArrayList<ArrayList<ItemStack>> itemAwards = new ArrayList<>();
   private static ArrayList<Double> moneyAwards = new ArrayList<>();
-  private static final double X = 3931.5;
-  private static final double Y = 130;
-  private static final double Z = 108.5;
+  private static final double X = 1529.5;
+  private static final double Y = 115;
+  private static final double Z = -2831.5;
   private static final Location loc = new Location(WORLD, X, Y, Z);
 
 
@@ -85,7 +85,7 @@ public class PhantomEvent extends BukkitRunnable {
     waveList.add(new AllPhantomsWave());
     waveList.add(new MOAPWave());
     for (int i = 0; i < waveList.size(); i++) {
-      waveKillMapList.add(new TreeMap<UUID, Integer>());
+      waveKillMapList.add(new HashMap<UUID, Integer>());
     }
 
     ArrayList<ItemStack> firstPlaceItems = new ArrayList<>();
@@ -132,11 +132,11 @@ public class PhantomEvent extends BukkitRunnable {
       bossBar.addPlayer(p);
     }
     timeBeforeSetting = loc.getWorld().getTime();
-    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "region flag phantomarena -w lobby mob-spawning allow");
+    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "region flag phantomarena -w survival mob-spawning allow");
     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "gamerule doDaylightCycle false");
     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "time set night");
     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "gamerule doWeatherCycle false");
-    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "weather lobby sun");
+    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "weather survival sun");
     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "announcer togglebroadcasts");
   }
 
@@ -147,13 +147,13 @@ public class PhantomEvent extends BukkitRunnable {
     totalPhantomKillMap.clear();
     waveKillMapList.clear();
     for (int i = 0; i < waveList.size(); i++) {
-      waveKillMapList.add(new TreeMap<UUID, Integer>());
+      waveKillMapList.add(new HashMap<UUID, Integer>());
     }
     numKilledThisWave = 0;
     totalThisWave = 0;
     PhantomMain.getPlugin().phantomEvent = new PhantomEvent(0);
     (new SetTimeInWorld(loc.getWorld(), timeBeforeSetting)).runTaskLater(PhantomMain.getPlugin(), 10 * 20);
-    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "region flag phantomarena -w lobby mob-spawning deny");
+    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "region flag phantomarena -w survival mob-spawning deny");
     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "gamerule doDaylightCycle true");
     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "gamerule doWeatherCycle true");
     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "announcer togglebroadcasts");
@@ -253,7 +253,7 @@ public class PhantomEvent extends BukkitRunnable {
     }
   }
 
-  // From https://stackoverflow.com/questions/2864840/treemap-sort-by-value
+  // From https://stackoverflow.com/questions/2864840/HashMap-sort-by-value
   private static <K,V extends Comparable<? super V>> SortedSet<Map.Entry<K,V>> entriesSortedByValues(Map<K,V> map) {
         SortedSet<Map.Entry<K,V>> sortedEntries = new TreeSet<Map.Entry<K,V>>(
             new Comparator<Map.Entry<K,V>>() {

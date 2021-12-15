@@ -25,12 +25,12 @@ public class PirateCaptain extends PHNPC {
   private static final String TEXTURE_SIGNATURE = "W1WNWJ+vSlkJ3WUElMRq/zmqaq2EBgiZpPvMIjKlryN1zoZ20Vn6HZjAcff4Lbp/5hx+JURehjADmnIHnperCOEqUMHsglSeSf1dXKmNvrmG3cn5ROwvzOvX2JwA9WOIjxtMWsn9LerzzYP9xynXu4QftDop9TUYdLh/u8L/FpafMD3NodiYYePTCsx+gfrbf0EacjkGQP2nC1vAVGYmVHXOIR2Ge0psXhoBYqoP96qClVUMja0nyj+J2L68cNqiw4O5Y6UpcBhYKEnVo3iOa1gB6DLFKqlq51Z/SBREVvtkVmQ0mWp46OJZKrVwt833Bye/lAts3KdPP1xFyBPKe3468bJNVP60CF1M5MY4DyeaLYwRhDKEJ5CIqAuW8xzsu9t0fz1gJlXra8S3FZje+R6QEHBPTauO4JyHHp5gSu5Czt6GMJ+nqBfL2/t2cKZukIGpVdWDb3IVh+kdBTK3bYNVZtaG4p56SBu4bZs5cSuBDaA61ELY0tQSAPHPzmNyYXGAe8xt5T9kWG36wuVSJId9aYSfZUdeZ2dodPgb2kljnuQn6qoBoOd4fxCHwNI5IK+C+fwPmkw6lEFCCwlbFdtH592i0YATmQ1nWcsoZ68DFJDipEO2vuAVzk6pB1JRSYTdxxpkDfNVNnhbT/0oqEv1nVcZMN39Z//eLppu/Hc=";
   private static final String NAME = "Captain Ember";
   private static final UUID UNIQUE_ID = UUID.fromString("bc72acc3-7beb-45a0-b68c-070729c4cd51");
-  private static final World WORLD = PhantomMain.getPlugin().getServer().getWorld("lobby");
-  private static final double X = 2740;
+  private static final World WORLD = PhantomMain.getPlugin().getServer().getWorld("survival");
+  private static final double X = 1589.502;
   private static final double Y = 64;
-  private static final double Z = -6711.5;
-  private static final float PITCH = -145.4f;
-  private static final float YAW = -2.3f;
+  private static final double Z = -2933.729;
+  private static final float PITCH = -51.2f;
+  private static final float YAW = -1.6f;
   private static final Location loc = new Location(WORLD, X, Y, Z, PITCH, YAW);
 
   public PirateCaptain() {

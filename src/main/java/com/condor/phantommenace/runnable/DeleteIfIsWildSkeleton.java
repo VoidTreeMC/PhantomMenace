@@ -21,10 +21,10 @@ public class DeleteIfIsWildSkeleton extends BukkitRunnable {
   // The skeleton to evaluate
   LivingEntity entity;
 
-  final static int MIN_Z = 86;
-  final static int MAX_Z = 130;
-  final static int MIN_X = 3877;
-  final static int MAX_X = 3976;
+  final static int MIN_Z = -2900;
+  final static int MAX_Z = -2784;
+  final static int MIN_X = 1503;
+  final static int MAX_X = 1555;
 
 	public DeleteIfIsWildSkeleton(LivingEntity entity) {
 		this.plugin = PhantomMain.getPlugin();

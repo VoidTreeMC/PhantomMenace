@@ -2,7 +2,7 @@ package com.condor.phantommenace.item.legendaryitems;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.TreeMap;
+import java.util.HashMap;
 import java.util.UUID;
 import java.util.List;
 
@@ -46,7 +46,7 @@ public class SubduedEnderBlade extends CustomItem {
   // 15 second cooldown
   private static final long COOLDOWN_DURATION = 15 * 1000;
 
-  private static TreeMap<UUID, Long> mapOfTimesUsed = new TreeMap<>();
+  private static HashMap<UUID, Long> mapOfTimesUsed = new HashMap<>();
 
   private static Random rng = new Random();
 

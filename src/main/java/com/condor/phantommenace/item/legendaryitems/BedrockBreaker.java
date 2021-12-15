@@ -3,7 +3,7 @@ package com.condor.phantommenace.item.legendaryitems;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.List;
-import java.util.TreeMap;
+import java.util.HashMap;
 import java.util.UUID;
 
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -44,7 +44,7 @@ public class BedrockBreaker extends CustomItem {
   private static final int MAX_USES = 30;
   private static final long COOLDOWN_DURATION = 125;
 
-  private static TreeMap<UUID, Long> mapOfTimesUsed = new TreeMap<>();
+  private static HashMap<UUID, Long> mapOfTimesUsed = new HashMap<>();
 
   static {
     loreList.add("Trans (Dimensional) Pick");

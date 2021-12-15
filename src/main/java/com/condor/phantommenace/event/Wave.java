@@ -3,7 +3,7 @@ package com.condor.phantommenace.event;
 import java.util.ArrayList;
 import java.util.Map.Entry;
 import java.util.Collections;
-import java.util.TreeMap;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.Collection;
 
@@ -30,9 +30,9 @@ public abstract class Wave {
   final static int ARENA_MIN_X = 3877;
   final static int ARENA_MAX_X = 3976;
 
-  protected TreeMap<PhantomType, Integer> waveMap;
+  protected HashMap<PhantomType, Integer> waveMap;
 
-  public Wave(TreeMap<PhantomType, Integer> map) {
+  public Wave(HashMap<PhantomType, Integer> map) {
     this.waveMap = map;
   }
 

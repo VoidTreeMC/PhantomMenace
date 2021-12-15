@@ -1,6 +1,6 @@
 package com.condor.phantommenace.phantom;
 
-import java.util.TreeMap;
+import java.util.HashMap;
 import java.util.UUID;
 import java.util.logging.Level;
 
@@ -12,7 +12,7 @@ public class RecentPlayerDeaths {
   private static final String IMMUNE_MESSAGE = ChatColor.YELLOW + "You have died. You are immune to event damage for " + ChatColor.GOLD + "1 minute" + ChatColor.YELLOW + "." + ChatColor.GOLD + " If you attack during this time, " + ChatColor.UNDERLINE + "your immunity will expire.";
   private static final String EXPIRED = ChatColor.GOLD + "" + ChatColor.UNDERLINE + "Your immunity has expired. You can take damage from the event once again.";
 
-  private static TreeMap<UUID, Long> idMap = new TreeMap<>();
+  private static HashMap<UUID, Long> idMap = new HashMap<>();
 
   private static void messagePlayer(UUID uuid, String message) {
     Bukkit.getLogger().log(Level.INFO, "Sending death immunity-related message to " + uuid + ", : " + message);

@@ -8,7 +8,7 @@ import org.bukkit.Location;
 
 import com.condor.phantommenace.main.PhantomMain;
 import com.condor.phantommenace.npc.npcs.*;
-import java.util.TreeMap;
+import java.util.HashMap;
 import java.util.Map.Entry;
 
 import com.github.juliarn.npc.NPC;
@@ -18,7 +18,7 @@ import com.github.juliarn.npc.profile.Profile.Property;
 
 public class NPCManager {
 
-  private static TreeMap<UUID, PHNPC> phnpcMap = new TreeMap<>();
+  private static HashMap<UUID, PHNPC> phnpcMap = new HashMap<>();
 
   // Add new NPCs here
   static {

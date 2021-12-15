@@ -25,12 +25,12 @@ public class CrowPirate extends PHNPC {
   private static final String TEXTURE_SIGNATURE = "hbtvww9vWfzoL8pVi2medQnvC7JhGUC0beFbEwNl48WKLpw02DyCDzaV/pdVnrLRvyHkBRK2Bu0ohlksEm2JTVJQGe9EWiGsq/XZg30r9+tEhSllUdHgWdbhaIa4wfk/THyBMhWkRwi521M3ViPhSQIQiW5S9zhUrV3ZJC2aAmM8HVTIToYxMY2/DCkWSNACIOOX9t1YOZR+nikgVcxIk8wmIYcsiduQWX18E9dTaUH7CVRpMvWJ8kQcRyiQnq4q8cWJB7Y8si6APYPIYd2pULwi8TdsjG5tMebBXpL1F3YJQ0TdAvr1QxkKc6AQxIhnceRvGM82doSoZnWrnyfO16vqJWcqYzja3GGMGWOaC9wmQdjFLXBIqY/YLfKfHP7OpuFHc7SlWhSDrv5oCxVmZJ8BZWhBwx9ycDdM7e/BixgsH4HyN7CUMnYjdSr3UaZOA5sp8rjQFDafPDXmEyeZtXwfzgvJzGXKBduimTZEuh8IhvoGO7pgBXha7gy4weD8M30l59d9uCBdC/5esX3u8rP9kqzyvTAPFT/JFYdD/FvHUG5T56XtGKL6VWCvGaR+uFa5UEBGdI8RGfm7JvZErt4/1HBqwdou+ydjI8TrbqqgiLiJi5OEbAsoj2y/y3xsQ8G22fsImEJ59SPmoJKkC/TE6y1bKmx+XSnEHViXQbw=";
   private static final String NAME = "Poppy";
   private static final UUID UNIQUE_ID = UUID.fromString("bc72acc3-7feb-45a0-b68c-070729c4cd51");
-  private static final World WORLD = PhantomMain.getPlugin().getServer().getWorld("lobby");
-  private static final double X = 2736;
+  private static final World WORLD = PhantomMain.getPlugin().getServer().getWorld("survival");
+  private static final double X = 1587.685;
   private static final double Y = 79;
-  private static final double Z = -6708;
-  private static final float PITCH = -150f;
-  private static final float YAW = 1.1f;
+  private static final double Z = -2940.391;
+  private static final float PITCH = -44.9f;
+  private static final float YAW = 4.5f;
   private static final Location loc = new Location(WORLD, X, Y, Z, PITCH, YAW);
 
   public CrowPirate() {

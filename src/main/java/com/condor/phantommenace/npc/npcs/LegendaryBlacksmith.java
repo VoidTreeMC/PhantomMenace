@@ -26,10 +26,10 @@ public class LegendaryBlacksmith extends PHNPC {
   private static final String TEXTURE_SIGNATURE = "M3cf5wInFSxkZxyKJUDOpJYP9t0/F5c6y+S1r9GhQYGJe08u52vEoFhcnkOFW1wfUpSRiLxHhDKg6RYVBJU36c/JmWl7cLZjKO31N4D9UTA6EnEzJHgJdDRPH/2zjlhF5pdd5g+ZBlhbmx7Uz0vEYrFiG1ms4pUcvu70YQsPL5V+jW3ID+SwhmSO0yjpD0t30Ynd+u4m8QLBfPdz4kJ9gH3EdU86v7f57ml7DYqk2rJypWC0v203yXVEx9eQcDW2rc2DsJpz6nliFvrcwLCZ1aLKeWy/4oeKvJeczSknHs1kI+nfJgLXJIQ4xa/QGVdD4jq4y25BmHbKnLzFghUXx79eoqPc3q79drbLvAiPsIn+ZuEvbkAfavVB5qQPUvIJtw6L/dALgH3FlKjXEuYz0nwlMxTxGCtK2lC55WGNpUm3OY1BF+SqGSHUwzdpfHMUZ3ghitqKDp+71EfdIfDvSbit9ifYFzrF8y2ejI6KKEct3muc2cxQhtFE1X179Ej5XSD0TuUja7I57nwv9pQ9IanbpBo8DY7jcn/evvfJ0BbYKG9CFzcUw7kBlTrR3oGtAJOekfj2444RxWcY3X8hSquRUoaXfbUThC6I+huyLDz8G5HYTwl+kye55qSmkjqnh+GKY2pAeFuReD7f7mLl0FkCAVk9o+GpAtyw2ch/A38=";
   private static final String NAME = "Zenobius";
   private static final UUID UNIQUE_ID = UUID.fromString("bc72acc3-7feb-45a0-b78c-060729c4cc03");
-  private static final World WORLD = PhantomMain.getPlugin().getServer().getWorld("lobby");
-  private static final double X = 3842.5;
-  private static final double Y = 80;
-  private static final double Z = 242.5;
+  private static final World WORLD = PhantomMain.getPlugin().getServer().getWorld("survival");
+  private static final double X = 1563.983;
+  private static final double Y = 76;
+  private static final double Z = -2865;
   private static final Location loc = new Location(WORLD, X, Y, Z);
 
   public LegendaryBlacksmith() {

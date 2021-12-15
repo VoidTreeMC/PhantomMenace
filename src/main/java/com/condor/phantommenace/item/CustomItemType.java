@@ -1,7 +1,7 @@
 package com.condor.phantommenace.item;
 
 import java.util.List;
-import java.util.TreeMap;
+import java.util.HashMap;
 
 import org.bukkit.metadata.MetadataValue;
 import org.bukkit.inventory.ItemStack;
@@ -37,19 +37,19 @@ public enum CustomItemType {
   ALMOND_CAKE,
   BEDROCK_BREAKER;
 
-  private static TreeMap<String, CustomItemType> CUSTOM_ITEM_TYPES;
+  private static HashMap<String, CustomItemType> CUSTOM_ITEM_TYPES;
 
   /**
 	 * Gets the tree map of customItem types.
 	 * If it is not yet constructed, it constructs it
-	 * @return A TreeMap that maps strings to evidence types
+	 * @return A HashMap that maps strings to evidence types
 	 */
-  public static final TreeMap<String, CustomItemType> customItemTypes() {
+  public static final HashMap<String, CustomItemType> customItemTypes() {
 		if (CUSTOM_ITEM_TYPES != null) {
 			return CUSTOM_ITEM_TYPES;
 		}
 
-		CUSTOM_ITEM_TYPES = new TreeMap<>();
+		CUSTOM_ITEM_TYPES = new HashMap<>();
 
 		for (CustomItemType c : CustomItemType.values()) {
 			CUSTOM_ITEM_TYPES.put(c.name(), c);

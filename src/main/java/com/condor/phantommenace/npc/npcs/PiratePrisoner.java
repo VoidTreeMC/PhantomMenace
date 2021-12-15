@@ -25,12 +25,12 @@ public class PiratePrisoner extends PHNPC {
   private static final String TEXTURE_SIGNATURE = "X8ktmkC3GqfhngawAz65RpY71YWJqJq6r56CufOndOmawIdZuApYfd8o9h3rJlBUvjUtr73FJ4VEjRGYxTyt5yYfOSShbj/jdpDMDuOZDNt7qGiDesYW/UyaRRqe8Ca9hhdUeNgAUexRNWU2lwfHlgdwD0vMuckE2MSzJNaTqaUHdcjcabJD4vtYKITQL2U/qT+FhXbSb32FguPd+UvCzw3AJKw1tnSgcHo53rVAoWYYVbtcLgiu6luB01d6wYy2VdkBObqtqReWCKy2khN2n/JBgnQovUsEzJXLGLE+FGBSI+pC1UfSMU62P8O4aFyOCvytGxaQMUnPY9cQAZZXMHWUsTHuAkvVdFeWDBa+v/ulCCU0IHCDXlsiZ16WijqeiCe63/77VRP4ioV2Y25OewDHcMHlmM+b+HrE88gxBdLOqujLk+eR69z1u+8hd4LH7juJ19uWljs2LOpJroUKKtRVb7eq4yW5BSCY6ttYnBfqssFsvEUwMZTxVUqmoEWPW/JT8ApPhk441gsYafQxsOlRpa4pN+NP317mETj0nQDuULoc/OdUtuwb+heLE3Ypz2SFR7z82G7+/ExUTdCTw9dpPAjT346KSkb1n7iM3SMqD+Hp7sK7AhIYKOTQYnwvoJMHD9gfYHnePUfBsdIz6vqN00V2dvAn5qGwJtvUtTI=";
   private static final String NAME = "Vesper";
   private static final UUID UNIQUE_ID = UUID.fromString("bc12bcd3-8feb-45a0-b68c-070729c4cd51");
-  private static final World WORLD = PhantomMain.getPlugin().getServer().getWorld("lobby");
-  private static final double X = 2732;
+  private static final World WORLD = PhantomMain.getPlugin().getServer().getWorld("survival");
+  private static final double X = 1586.587;
   private static final double Y = 60;
-  private static final double Z = -6708;
-  private static final float PITCH = 92.7f;
-  private static final float YAW = 0.1f;
+  private static final double Z = -2943.716;
+  private static final float PITCH = 179.2f;
+  private static final float YAW = -0.3f;
   private static final Location loc = new Location(WORLD, X, Y, Z, PITCH, YAW);
 
   public PiratePrisoner() {

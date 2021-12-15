@@ -25,12 +25,12 @@ public class SubdeckPirate extends PHNPC {
   private static final String TEXTURE_SIGNATURE = "S5C/+rtaI9JTSGYkmHLbzNRTtLDAC+1kZ7QkutQS1VVSHEOpFOvJWB9b1y606Zf4oALJ3KIObxU9UfpI/1bjWkIVlFv+bcM2kAZF3DqrDpbiZzqDH3gHxdH7TH7YEApiZryUkyONeNXpSQ1gKL7Z6okQdBJFENfZqI1wO6Ti+KnHV2fzyIjqAPDWjB7hca+9LP903+OP0ieXc2EE6FcVvHjRK5ORNS1WrfpMY9fEWbwegpNF4iHSArghS2ryR58pBOSjMLpff6vWvQY+tFD7H+CwXCW9k6qZLacjpi0Wgdb+dsf/hL335zIRXX36Ebw2EHaU7Ncu5g2ztJixmdycV5vcCXwq2ubGo/4GTLmX6vGHg1mWs5mZEKv44ra1slvWLeaxWyRWZgIpyZYcmBJoDPfOZnAWGJ/SZO2BabgCOgme2uwWJ4rM3O53bhGFtOfJ5aSTvPpE1UtKmAvoTtuU3sZC54HndljtBKCTm1AKBqutyAtKTvpDTYkJw6q6u/LTa8peYl7Y38HCkk8qS2XeFIFDqLMQQAi6tSaZCQ4R/0vZ6+QidbdqZbKtFabk9juAXJtBOH0jguK0Syu5QxaY7vS34fYayCZXwE+isNgs75s8zJ5HPpG4KJrHHja3w4z/up/7e+RqW0wcY/uN7kH1jE32kOU1/Js9a7/n7omACZU=";
   private static final String NAME = "Morgan";
   private static final UUID UNIQUE_ID = UUID.fromString("bc12acc3-7feb-45a0-b68c-070729c4cd51");
-  private static final World WORLD = PhantomMain.getPlugin().getServer().getWorld("lobby");
-  private static final double X = 2719;
+  private static final World WORLD = PhantomMain.getPlugin().getServer().getWorld("survival");
+  private static final double X = 1586;
   private static final double Y = 60;
-  private static final double Z = -6709;
-  private static final float PITCH = -87.0f;
-  private static final float YAW = 1.2f;
+  private static final double Z = -2956.855;
+  private static final float PITCH = 1.6f;
+  private static final float YAW = 1.1f;
   private static final Location loc = new Location(WORLD, X, Y, Z, PITCH, YAW);
 
   public SubdeckPirate() {

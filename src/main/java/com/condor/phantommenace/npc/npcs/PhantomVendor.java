@@ -23,10 +23,10 @@ public class PhantomVendor extends PHNPC {
   private static final String TEXTURE_SIGNATURE = "rgxwLer5BUA/kR+M6LyAvQHGCM4BAW9HCTvq67J3EqYX7QC71Qhwvj6al9l2hJyST0x1BW3n9ldB6snX35p7vKhMl+eL4EPc80fUYnKFkh+rZVRx48zr8mcrdOBmgEsYi0UQjBr9wueJPNiLrPiscUwXLWX2uBXgN10Kx9G9oP5aGqZw82vyMcZ5qibNU+cSpAdee6WCz9gabHfcwwmQKuG2YqBx5nnt7mSppzmCg6F8bZnjJx0BKP++HzwGC+gTOYQM9m4foDvmSaFwsj5EWMnQTwUPnyduBBg1iw635Zp3ImOx3f7rlju2EVi6D5WvVcTSXOmPNoiMWr8ZCknLXdUDrXGpLHGVmLdbV7Vj30vFQJAZPOxlLiy2WhEUtfb6zfBlcar8R3iMtuPkf5Qcxi29R2pqzQNZAcROwViBTxi1jLNbk9g6+StOi8+VU4siy2goL89E50S0431c7OyolneXybUsdXD8ZOU5xpcCphOwpTj2kWktWAwUULJgLbZYeITwxii1FMzOBlBMN8JhubD8dUp+keOQ5q6KpIJ2r2pvXA9WP6QjdyATEamilLucd/LxDRqJVe8vYMJk8DvFaaWICvlHP7yJjY5uHVqkbMLZV8pPnfGXQT1OuDBiGeESmNKoWHTbEnIyHBpegl1oDH3j2ejLkfB+OwVm36x3BOs=";
   private static final String NAME = "Winter";
   private static final UUID UNIQUE_ID = UUID.fromString("bc72acc3-7feb-45a0-b68c-060729c4cc02");
-  private static final World WORLD = PhantomMain.getPlugin().getServer().getWorld("lobby");
-  private static final double X = 3882.5;
-  private static final double Y = 116;
-  private static final double Z = 129.5;
+  private static final World WORLD = PhantomMain.getPlugin().getServer().getWorld("survival");
+  private static final double X = 1508.571;
+  private static final double Y = 102;
+  private static final double Z = -2880.382;
   private static final Location loc = new Location(WORLD, X, Y, Z);
 
   public PhantomVendor() {

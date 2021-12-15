@@ -1,6 +1,6 @@
 package com.condor.phantommenace.item;
 
-import java.util.TreeMap;
+import java.util.HashMap;
 
 import org.bukkit.event.Event;
 
@@ -8,7 +8,7 @@ import com.condor.phantommenace.item.legendaryitems.*;
 import com.condor.phantommenace.item.simpleitems.*;
 
 public class CustomItemManager {
-  private static TreeMap<CustomItemType, CustomItem> itemMap = new TreeMap<>();
+  private static HashMap<CustomItemType, CustomItem> itemMap = new HashMap<>();
 
   private static final double priceScale = 1;
 
@@ -46,7 +46,7 @@ public class CustomItemManager {
     return priceScale;
   }
 
-  public static TreeMap<CustomItemType, CustomItem> getMap() {
+  public static HashMap<CustomItemType, CustomItem> getMap() {
     return itemMap;
   }
 

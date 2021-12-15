@@ -1,7 +1,7 @@
 package com.condor.phantommenace.item.legendaryitems;
 
 import java.util.ArrayList;
-import java.util.TreeMap;
+import java.util.HashMap;
 import java.util.Random;
 import java.util.Collection;
 
@@ -34,7 +34,7 @@ public class SuperPick extends CustomItem {
 
   private static Random rng = new Random();
 
-  private TreeMap<String, BlockFace> blockMap = new TreeMap<>();
+  private HashMap<String, BlockFace> blockMap = new HashMap<>();
 
   private static final String METADATA_KEY = "isSuperPickAdjacent";
 

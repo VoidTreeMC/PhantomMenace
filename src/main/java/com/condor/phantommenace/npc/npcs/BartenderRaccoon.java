@@ -25,12 +25,12 @@ public class BartenderRaccoon extends PHNPC {
   private static final String TEXTURE_SIGNATURE = "vZ37JkzJlrsfEThPaTVX/2XHTmcaewwM5zW2e8TAsFIXSPCjZ/0FXkYUZlB8jJ1dyEF2dKtSpWtoYduborrcDaKKrVM1Lrd6x6KI6Eove1ixMsw4eFzlYlGyBt6Gnwu+9LXHOxzoLrPfvXeM8N9QlbyzwzUrDWy+Bq7ikFhpd4VF3B9ePBql/UjXzY4LSLp7745PjfIM1YaX5/2kuxTvMrBlMj4+Rm2Jo0Ue3NgEj8MYrEBrPWHTnHcO2gRsYIWcxBK+CT5d5W+QKOiDgp4wxv7gyOOfu0r9ZSH64KqNcf3xLDDIdERNQoe0lTT4AaJD7r2d9h1PdPuCn2anyQJu1X3u+3+LjAK6yjoU48XLC0xIz96PSvz7dSA7qakBVqWopm9piszwk1zNIB1+F1WdhZzQOrD7PTIcCv4Xh/Vn9tKjbQ1XplletFFCta79SdCpf+IeVHIVLnd+5uIy37ET4qCJRQ907L0ZvKh/FdBzKhhPDvS7iRpMyRsyOMzbxB8ReUPDAXR1owplsR77ooQESJtAn3aZNwWk9D+Ng70fNMUq20K/J7+IXksA3C2NHcXjDY0ACX2CPMTccIaxQKWD/dE0ZAfOH6QxI7Qt4qSgT9PRcYv7YlxYFtRNLJc2vxEO0D6Y8CiBMGS2Ds38paCm/A8UC5wEnONtk1vtRNXOTzg=";
   private static final String NAME = "Sykstus";
   private static final UUID UNIQUE_ID = UUID.fromString("bc72acc3-7feb-45a0-b68c-060729c4cd51");
-  private static final World WORLD = PhantomMain.getPlugin().getServer().getWorld("lobby");
-  private static final double X = 2788.7;
-  private static final double Y = 71;
-  private static final double Z = -6901.5;
-  private static final float PITCH = -90f;
-  private static final float YAW = 1.5f;
+  private static final World WORLD = PhantomMain.getPlugin().getServer().getWorld("survival");
+  private static final double X = 1818.3;
+  private static final double Y = 84;
+  private static final double Z = -2986.652;
+  private static final float PITCH = 91.3f;
+  private static final float YAW = 3.6f;
   private static final Location loc = new Location(WORLD, X, Y, Z, PITCH, YAW);
 
   public BartenderRaccoon() {

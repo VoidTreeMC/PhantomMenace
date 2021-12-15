@@ -3,7 +3,7 @@ package com.condor.phantommenace.item.legendaryitems;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.List;
-import java.util.TreeMap;
+import java.util.HashMap;
 import java.util.UUID;
 
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -45,7 +45,7 @@ public class CreeperFirework extends CustomItem {
 
   private static Random rng = new Random();
 
-  private static TreeMap<UUID, ArrayList<Long>> usageMap = new TreeMap<>();
+  private static HashMap<UUID, ArrayList<Long>> usageMap = new HashMap<>();
 
   private static final int MAX_ROCKETS = 10;
   private static final long PERIOD = 1000 * 10;

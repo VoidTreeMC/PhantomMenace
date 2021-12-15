@@ -2,7 +2,7 @@ package com.condor.phantommenace.item.legendaryitems;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.TreeMap;
+import java.util.HashMap;
 import java.util.UUID;
 
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -45,11 +45,11 @@ public class FlightPotion extends CustomItem {
   public static final String METADATA_KEY = "affectedByFlightPotion";
 
   // Keeps track of when the flight potion should wear off for each user
-  private static TreeMap<UUID, Long> userMap = new TreeMap<>();
+  private static HashMap<UUID, Long> userMap = new HashMap<>();
   // Keeps track of how much damage the user has taken since their last reset
-  private static TreeMap<UUID, Double> damageMap = new TreeMap<>();
+  private static HashMap<UUID, Double> damageMap = new HashMap<>();
   // Keeps track of the last time the player was damaged
-  private static TreeMap<UUID, Long> damageTimeMap = new TreeMap<>();
+  private static HashMap<UUID, Long> damageTimeMap = new HashMap<>();
 
   static {
     loreList.add("Flight Potion");

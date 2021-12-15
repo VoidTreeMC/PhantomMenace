@@ -1,6 +1,6 @@
 package com.condor.phantommenace.phantom;
 
-import java.util.TreeMap;
+import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -36,8 +36,8 @@ public class PhantomDropTable {
   private static ArrayList<Object[]> kamikazePhantomDrops = new ArrayList<>();
   private static ArrayList<Object[]> moapPhantomDrops = new ArrayList<>();
 
-  private static TreeMap<PhantomType, ArrayList<Object[]>> dropMap = new TreeMap<>();
-  private static TreeMap<PhantomType, Integer> xpMap = new TreeMap<>();
+  private static HashMap<PhantomType, ArrayList<Object[]>> dropMap = new HashMap<>();
+  private static HashMap<PhantomType, Integer> xpMap = new HashMap<>();
 
   static {
     // Initialize drop lists here

@@ -3,7 +3,7 @@ package com.condor.phantommenace.item.legendaryitems;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.TreeMap;
+import java.util.HashMap;
 import java.util.UUID;
 
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -43,7 +43,7 @@ public class IronVoucher extends CustomItem {
   private static ArrayList<String> loreList = new ArrayList<>();
   private static ArrayList<Class> triggerList = new ArrayList<>();
 
-  private static TreeMap<UUID, Long> mapOfTimesUsed = new TreeMap<>();
+  private static HashMap<UUID, Long> mapOfTimesUsed = new HashMap<>();
 
   private static Random rng = new Random();
 
