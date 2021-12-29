@@ -11,7 +11,7 @@ public class VanillaWave extends Wave {
   private static HashMap<PhantomType, Integer> map = new HashMap<>();
 
   static {
-    map.put(PhantomType.VANILLA, 10);
+    map.put(PhantomType.VANILLA, 5);
   }
 
   public VanillaWave() {

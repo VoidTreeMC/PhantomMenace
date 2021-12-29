@@ -45,6 +45,9 @@ public class NPCManager {
 
     SubdeckPirate subdeckPirate = new SubdeckPirate();
     phnpcMap.put(subdeckPirate.getUniqueId(), subdeckPirate);
+
+    FoxVendor foxVendor = new FoxVendor();
+    phnpcMap.put(foxVendor.getUniqueId(), foxVendor);
   }
 
   private static NPCPool npcPool;

@@ -53,6 +53,8 @@ import io.papermc.paper.event.block.PlayerShearBlockEvent;
 import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.metadata.FixedMetadataValue;
+import io.papermc.paper.event.entity.EntityMoveEvent;
+import com.destroystokyo.paper.event.player.PlayerPostRespawnEvent;
 
 import com.condor.phantommenace.listener.PHListener;
 import com.condor.phantommenace.main.PhantomMain;
@@ -93,6 +95,20 @@ import com.comphenix.protocol.wrappers.EnumWrappers;
 public class EventListener  extends PHListener {
 
   private static final Random rng = new Random();
+
+  @EventHandler
+  public void onEntityMoveEvent(EntityMoveEvent event) {
+    if (event.getEntityType() == EntityType.PHANTOM) {
+      LivingEntity entity = event.getEntity();
+      if (entity.hasMetadata(PhantomEvent.EVENT_METADATA_KEY)) {
+        Location fromLoc = event.getFrom();
+        Location toLoc = event.getTo();
+        if (PhantomEvent.isInPhantomArena(fromLoc) && !PhantomEvent.isInPhantomArena(toLoc)) {
+          event.setTo(PhantomEvent.getLocation());
+        }
+      }
+    }
+  }
 
   @EventHandler
   public void onFireworkExplodeEvent(FireworkExplodeEvent event) {
@@ -185,6 +201,27 @@ public class EventListener  extends PHListener {
       }
     }
     player.removeMetadata(FlightPotion.METADATA_KEY, PhantomMain.getPlugin());
+  }
+
+  @EventHandler(priority=EventPriority.HIGH)
+  public void onPlayerRespawnEvent(PlayerRespawnEvent event) {
+    Player player = event.getPlayer();
+    if (PhantomEvent.isActive()) {
+      if (player.hasMetadata(RecentPlayerDeaths.DIED_DURING_EVENT_METADATA)) {
+        event.setRespawnLocation(RecentPlayerDeaths.PHANTOM_EVENT_RESPAWN_LOCATION);
+        player.removeMetadata(RecentPlayerDeaths.DIED_DURING_EVENT_METADATA, PhantomMain.getPlugin());
+      }
+    }
+  }
+
+  @EventHandler(priority=EventPriority.HIGH)
+  public void onPlayerPostRespawnEvent(PlayerPostRespawnEvent event) {
+    Player player = event.getPlayer();
+    if (PhantomEvent.isActive()) {
+      if (player.hasMetadata(RecentPlayerDeaths.DIED_DURING_EVENT_METADATA)) {
+        player.removeMetadata(RecentPlayerDeaths.DIED_DURING_EVENT_METADATA, PhantomMain.getPlugin());
+      }
+    }
   }
 
   @EventHandler
@@ -344,6 +381,7 @@ public class EventListener  extends PHListener {
             if (!doCancel && (player.getHealth() - event.getFinalDamage()) <= 0) {
               Bukkit.getLogger().log(Level.INFO, player.getDisplayName() + " died. Adding death immunity.");
               (new ManageDeathImmunity(player.getUniqueId())).runTask(PhantomMain.getPlugin());
+              player.setMetadata(RecentPlayerDeaths.DIED_DURING_EVENT_METADATA, new FixedMetadataValue(PhantomMain.getPlugin(), true));
             }
           }
         }
@@ -369,6 +407,7 @@ public class EventListener  extends PHListener {
           Player player = (Player) event.getEntity();
           if (!doCancel && (player.getHealth() - event.getFinalDamage()) <= 0) {
             (new ManageDeathImmunity(player.getUniqueId())).runTask(PhantomMain.getPlugin());
+            player.setMetadata(RecentPlayerDeaths.DIED_DURING_EVENT_METADATA, new FixedMetadataValue(PhantomMain.getPlugin(), true));
           }
 
           if (doCancel) {
@@ -419,6 +458,7 @@ public class EventListener  extends PHListener {
               Player player = (Player) event.getEntity();
               if (!doCancel && (player.getHealth() - event.getFinalDamage()) <= 0) {
                 (new ManageDeathImmunity(player.getUniqueId())).runTask(PhantomMain.getPlugin());
+                player.setMetadata(RecentPlayerDeaths.DIED_DURING_EVENT_METADATA, new FixedMetadataValue(PhantomMain.getPlugin(), true));
               }
             }
           }

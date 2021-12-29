@@ -55,7 +55,6 @@ public class PhantomEvent extends BukkitRunnable {
   private static final double Z = -2831.5;
   private static final Location loc = new Location(WORLD, X, Y, Z);
 
-
   public static final String EVENT_METADATA_KEY = "isAnEventPhantom";
   public static final String LAST_HIT_METADATA_KEY = "lastHitBy";
 
@@ -74,6 +73,13 @@ public class PhantomEvent extends BukkitRunnable {
   public static BossBar moapBar = null;
 
   private static long timeBeforeSetting = 0;
+
+  private final static int ARENA_MIN_Z = -2885;
+  private final static int ARENA_MAX_Z = -2784;
+  private final static int ARENA_MIN_X = 1503;
+  private final static int ARENA_MAX_X = 1555;
+  private final static int ARENA_MIN_Y = 103;
+  private final static int ARENA_MAX_Y = 137;
 
   static {
     waveList.add(new VanillaWave());
@@ -377,5 +383,18 @@ public class PhantomEvent extends BukkitRunnable {
 
   public static Location getLocation() {
     return loc;
+  }
+
+  public static boolean isInPhantomArena(Location theLoc) {
+    double locX = theLoc.getX();
+    double locY = theLoc.getY();
+    double locZ = theLoc.getZ();
+    boolean ret = true;
+
+    ret = ret && locX >= ARENA_MIN_X && locX <= ARENA_MAX_X;
+    ret = ret && locY >= ARENA_MIN_Y && locY <= ARENA_MAX_Y;
+    ret = ret && locZ >= ARENA_MIN_Z && locZ <= ARENA_MAX_Z;
+
+    return ret;
   }
 }

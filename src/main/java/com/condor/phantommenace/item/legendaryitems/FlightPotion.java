@@ -34,8 +34,8 @@ public class FlightPotion extends CustomItem {
   private static ArrayList<String> loreList = new ArrayList<>();
   private static ArrayList<Class> triggerList = new ArrayList<>();
 
-  // 20 minutes
-  private static final long DURATION_TICKS = 20 * 20 * 60;
+  // 10 minutes
+  private static final long DURATION_TICKS = 20 * 10 * 60;
   private static final long DURATION_MS = DURATION_TICKS / 20 * 1000;
   public static final long COOLDOWN_TIME_IN_SECONDS = 10;
   public static final long COOLDOWN_TIME = 20 * COOLDOWN_TIME_IN_SECONDS;

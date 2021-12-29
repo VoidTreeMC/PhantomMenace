@@ -25,10 +25,10 @@ public abstract class Wave {
   private static final int MAX_PHANTOMS = 200;
   private static final int PHANTOMS_PER_PLAYER = 10;
 
-  final static int ARENA_MIN_Z = 86;
-  final static int ARENA_MAX_Z = 130;
-  final static int ARENA_MIN_X = 3877;
-  final static int ARENA_MAX_X = 3976;
+  final static int ARENA_MIN_Z = -2885;
+  final static int ARENA_MAX_Z = -2784;
+  final static int ARENA_MIN_X = 1503;
+  final static int ARENA_MAX_X = 1555;
 
   protected HashMap<PhantomType, Integer> waveMap;
 
