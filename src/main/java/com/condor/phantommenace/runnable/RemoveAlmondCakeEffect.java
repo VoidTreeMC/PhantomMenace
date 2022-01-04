@@ -52,7 +52,7 @@ public class RemoveAlmondCakeEffect extends BukkitRunnable {
     this.player.sendMessage(ChatColor.RED + "Your sugar rush will wear off soon. Get to safety!");
 
     try {
-      Thread.sleep(1000 * 10);
+      Thread.sleep(1000 * 20);
     } catch (InterruptedException e) {
       // Do nothing
     }

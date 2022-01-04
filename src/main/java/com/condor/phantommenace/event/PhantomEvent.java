@@ -40,6 +40,7 @@ import com.condor.phantommenace.item.CustomItemType;
 import com.condor.phantommenace.runnable.DoFireworkShow;
 import com.condor.phantommenace.runnable.SetTimeInWorld;
 import com.condor.phantommenace.phantom.PhantomType;
+import com.condor.phantommenace.runnable.EndEventRunnable;
 
 import net.milkbowl.vault.economy.Economy;
 
@@ -72,7 +73,7 @@ public class PhantomEvent extends BukkitRunnable {
   private static BossBar bossBar = null;
   public static BossBar moapBar = null;
 
-  private static long timeBeforeSetting = 0;
+  // private static long timeBeforeSetting = 0;
 
   private final static int ARENA_MIN_Z = -2885;
   private final static int ARENA_MAX_Z = -2784;
@@ -80,6 +81,9 @@ public class PhantomEvent extends BukkitRunnable {
   private final static int ARENA_MAX_X = 1555;
   private final static int ARENA_MIN_Y = 103;
   private final static int ARENA_MAX_Y = 137;
+
+  // 25 minutes
+  private static final long EVENT_MAX_DURATION = 20 * 60 * 25;
 
   static {
     waveList.add(new VanillaWave());
@@ -137,12 +141,12 @@ public class PhantomEvent extends BukkitRunnable {
     for (Player p : Bukkit.getOnlinePlayers()) {
       bossBar.addPlayer(p);
     }
-    timeBeforeSetting = loc.getWorld().getTime();
+    // timeBeforeSetting = loc.getWorld().getTime();
     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "region flag phantomarena -w survival mob-spawning allow");
-    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "gamerule doDaylightCycle false");
-    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "time set night");
-    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "gamerule doWeatherCycle false");
-    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "weather survival sun");
+    // Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "gamerule doDaylightCycle false");
+    // Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "time set night");
+    // Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "gamerule doWeatherCycle false");
+    // Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "weather survival sun");
     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "announcer togglebroadcasts");
   }
 
@@ -158,10 +162,10 @@ public class PhantomEvent extends BukkitRunnable {
     numKilledThisWave = 0;
     totalThisWave = 0;
     PhantomMain.getPlugin().phantomEvent = new PhantomEvent(0);
-    (new SetTimeInWorld(loc.getWorld(), timeBeforeSetting)).runTaskLater(PhantomMain.getPlugin(), 10 * 20);
+    // (new SetTimeInWorld(loc.getWorld(), timeBeforeSetting)).runTaskLater(PhantomMain.getPlugin(), 10 * 20);
     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "region flag phantomarena -w survival mob-spawning deny");
-    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "gamerule doDaylightCycle true");
-    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "gamerule doWeatherCycle true");
+    // Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "gamerule doDaylightCycle true");
+    // Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "gamerule doWeatherCycle true");
     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "announcer togglebroadcasts");
   }
 
@@ -196,19 +200,35 @@ public class PhantomEvent extends BukkitRunnable {
       bossBar.setProgress(1);
       bossBar.setTitle(BOSS_BAR_TEXT + (waveIndex));
     } else {
-      // Event is now over! Reset the wave index and do event-ended stuff
-      waveIndex = 0;
-      isActive = false;
-      // Remove bossbar from all palyers
-      bossBar.removeAll();
-      // Give message
+      endEvent(false);
+    }
+    // Start a runnable to end the event if it goes on for too long
+    (new EndEventRunnable()).runTaskLater(PhantomMain.getPlugin(), EVENT_MAX_DURATION);
+  }
+
+  public static void endEvent(boolean endedEarly) {
+    // Event is now over! Reset the wave index and do event-ended stuff
+    PhantomMain.getPlugin().getPhantomEvent().waveIndex = 0;
+    isActive = false;
+    // Remove bossbar from all palyers
+    bossBar.removeAll();
+    PhantomStatus.setEnabled(false);
+    // Give message
+    if (endedEarly) {
+      Bukkit.broadcastMessage(ChatColor.YELLOW + "The phantoms have been sent home early! Thank you for defending" + ChatColor.RED + " Void" + ChatColor.GRAY + "Tree");
+    } else {
       Bukkit.broadcastMessage(ChatColor.YELLOW + "The phantoms have been vanquished! Thank you for defending" + ChatColor.RED + " Void" + ChatColor.GRAY + "Tree");
-      PhantomStatus.setEnabled(false);
       printTopFive(true);
       awardTopFive();
       (new DoFireworkShow(loc)).runTask(PhantomMain.getPlugin());
-      reset();
     }
+    for (Entity entity : WORLD.getEntities()) {
+      // If it's an event phantom
+      if (entity.getType() == EntityType.PHANTOM && entity.hasMetadata(EVENT_METADATA_KEY)) {
+        entity.remove();
+      }
+    }
+    reset();
   }
 
   public static void manageKill(Phantom phantom) {

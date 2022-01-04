@@ -35,7 +35,8 @@ public enum CustomItemType {
   FISH_VOUCHER,
   BEE_VOUCHER,
   ALMOND_CAKE,
-  BEDROCK_BREAKER;
+  BEDROCK_BREAKER,
+  REPLANTER_HOE;
 
   private static HashMap<String, CustomItemType> CUSTOM_ITEM_TYPES;
 
@@ -154,6 +155,8 @@ public enum CustomItemType {
         return ALMOND_CAKE;
       case "Trans (Dimensional) Pick":
         return BEDROCK_BREAKER;
+      case "Wand of Regeneration":
+        return REPLANTER_HOE;
       default:
         return null;
     }

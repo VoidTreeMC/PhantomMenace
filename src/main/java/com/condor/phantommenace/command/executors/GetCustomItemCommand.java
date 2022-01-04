@@ -109,6 +109,10 @@ public class GetCustomItemCommand extends CommandControl {
       case "bedrockbreaker":
         is = CustomItemManager.getItemByType(CustomItemType.BEDROCK_BREAKER).getInstance();
         break;
+      case "replanterhoe":
+      case "wandofregeneration":
+        is = CustomItemManager.getItemByType(CustomItemType.REPLANTER_HOE).getInstance();
+        break;
     }
 
     if (is != null) {

@@ -72,10 +72,13 @@ public class BlacksmithGUI {
     ItemMeta bookMeta = INSTRUCTION_BOOK.getItemMeta();
     bookMeta.setDisplayName("Instructions");
     ArrayList<String> bookLore = new ArrayList<>();
-    bookLore.add("Place one legendary item into each of the");
-    bookLore.add("two slots above, then click the red button below.");
-    bookLore.add("The two items will be destroyed and");
-    bookLore.add("used to create a new legendary item.");
+    bookLore.add("Place one legendary item");
+    bookLore.add("into each of the");
+    bookLore.add("two slots above, then");
+    bookLore.add("click the red button below.");
+    bookLore.add("The two items will be destroyed");
+    bookLore.add("and used to create a");
+    bookLore.add("new legendary item.");
     bookMeta.setLore(bookLore);
     INSTRUCTION_BOOK.setItemMeta(bookMeta);
   }

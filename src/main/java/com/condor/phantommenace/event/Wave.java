@@ -126,7 +126,7 @@ public abstract class Wave {
     // order with some time between each phantom as defined by
     // TIME_BETWEEN_PHANTOMS
     for (PhantomType phantom : waveList) {
-      (new SpawnPhantomAtLocation(phantom, loc)).runTaskLater(PhantomMain.getPlugin(), delay);
+      (new SpawnPhantomAtLocation(phantom, loc, true)).runTaskLater(PhantomMain.getPlugin(), delay);
       delay += TIME_BETWEEN_PHANTOMS;
     }
   }

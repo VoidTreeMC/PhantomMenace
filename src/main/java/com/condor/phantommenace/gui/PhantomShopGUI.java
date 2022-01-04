@@ -42,6 +42,7 @@ public class PhantomShopGUI {
   private static CustomItem SLIME_EGG = CustomItemManager.getItemByType(CustomItemType.SLIME_EGG);
   private static CustomItem COW_EGG = CustomItemManager.getItemByType(CustomItemType.COW_EGG);
   private static CustomItem ZOMBIE_PIGLIN_EGG = CustomItemManager.getItemByType(CustomItemType.ZOMBIE_PIGLIN_EGG);
+  private static CustomItem REPLANTER_HOE = CustomItemManager.getItemByType(CustomItemType.REPLANTER_HOE);
 
   private static boolean canAfford(Player player, int price) {
     int amt = 0;
@@ -167,6 +168,10 @@ public class PhantomShopGUI {
       handleGenericPurchase(gui, player, BEDROCK_BREAKER.getInstance(), BEDROCK_BREAKER.getPrice());
     });
 
+    GuiItem replanterHoeItem = new GuiItem(REPLANTER_HOE.getInstance(), event -> {
+      handleGenericPurchase(gui, player, REPLANTER_HOE.getInstance(), REPLANTER_HOE.getPrice());
+    });
+
     gui.addItem(insomniaPotionItem);
     gui.addItem(creeperFireworkItem);
     gui.addItem(lavaWalkersItem);
@@ -179,6 +184,7 @@ public class PhantomShopGUI {
     gui.addItem(flightPotionItem);
     gui.addItem(almondCakeItem);
     gui.addItem(bedrockBreakerItem);
+    gui.addItem(replanterHoeItem);
     gui.addItem(zombieSpawnItem);
     gui.addItem(foxSpawnItem);
     gui.addItem(spiderSpawnItem);

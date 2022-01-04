@@ -7,18 +7,15 @@ Bossbars for almond cake and flight potion
 
 Bugs
 ===
-Limit creeper fireworks that can go off in a row
 Flight potions expire if you switch dimension. Make sure to test with /home as well as with portals
 
 Exploits
 ===
+Spectator area people can shoot into the arena, use slayer sword
 
 Features
 ===
 Phantoms that give you levitation
-Add behavior for what happens if everyone leaves the arena
-- Wait a delay and then end the event if nobody comes back
-Add behavior that checks if there are any players left in the arena when the phantoms get highlighted
 Have the tiny phantoms constantly target the MOAP to make it look like a swarm of bees
 Phantoms that heal the MOAP if not killed
 	- Use invisible mounted guardians that target the MOAP
@@ -27,8 +24,10 @@ Phantoms that disable all potion effects when they hit you, including flight pot
 
 DID
 ===
-Made it so players that die during the phantom event respawn outside the arena
-Made it so event phantoms can't move past the bounding box at the arena
-Changed flight potion duration from 20 minutes to 10 minutes
-Decreased wave difficulty
-Added new NPC
+Added a few more seconds to almond cake timeouts
+Added Wand of Regeneration
+Fixed an issue with bed respawning taking priority over the phantom event respawning
+Disabled weather/time of day changes during the event
+Added /endevent command
+Added an automatic timeout for the phantom event, so that if it lasts for longer than 25 minutes it is ended automatically
+Fixed a bug with the blacksmith's instructions text going off the screen

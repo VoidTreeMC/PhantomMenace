@@ -40,6 +40,7 @@ public class CustomItemManager {
     itemMap.put(CustomItemType.BEE_VOUCHER, new BeeVoucher());
     itemMap.put(CustomItemType.ALMOND_CAKE, new AlmondCake());
     itemMap.put(CustomItemType.BEDROCK_BREAKER, new BedrockBreaker());
+    itemMap.put(CustomItemType.REPLANTER_HOE, new ReplanterHoe());
   }
 
   public static double getPriceScale() {

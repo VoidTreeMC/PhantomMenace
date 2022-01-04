@@ -53,6 +53,7 @@ import io.papermc.paper.event.block.PlayerShearBlockEvent;
 import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.metadata.FixedMetadataValue;
+import org.bukkit.event.block.BlockDropItemEvent;
 import io.papermc.paper.event.entity.EntityMoveEvent;
 import com.destroystokyo.paper.event.player.PlayerPostRespawnEvent;
 
@@ -95,6 +96,11 @@ import com.comphenix.protocol.wrappers.EnumWrappers;
 public class EventListener  extends PHListener {
 
   private static final Random rng = new Random();
+
+  @EventHandler
+  public void onBlockDropItemEvent(BlockDropItemEvent event) {
+    CustomItemEventManager.parseEvent(event);
+  }
 
   @EventHandler
   public void onEntityMoveEvent(EntityMoveEvent event) {
@@ -203,7 +209,7 @@ public class EventListener  extends PHListener {
     player.removeMetadata(FlightPotion.METADATA_KEY, PhantomMain.getPlugin());
   }
 
-  @EventHandler(priority=EventPriority.HIGH)
+  @EventHandler(priority=EventPriority.HIGHEST)
   public void onPlayerRespawnEvent(PlayerRespawnEvent event) {
     Player player = event.getPlayer();
     if (PhantomEvent.isActive()) {

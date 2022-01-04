@@ -33,10 +33,14 @@ public class SpawnPhantomAtLocation extends BukkitRunnable {
   // The location at which to spawn the entities
   Location loc;
 
-	public SpawnPhantomAtLocation(PhantomType phantomType, Location loc) {
+  // If the phantom should only be spawned while the event is active
+  boolean eventPhantom;
+
+	public SpawnPhantomAtLocation(PhantomType phantomType, Location loc, boolean eventPhantom) {
 		this.plugin = PhantomMain.getPlugin();
     this.phantomType = phantomType;
 		this.loc = loc;
+    this.eventPhantom = eventPhantom;
 	}
 
 	/**
@@ -45,6 +49,10 @@ public class SpawnPhantomAtLocation extends BukkitRunnable {
 	 */
 	@Override
 	public void run() {
+    // If this phantom is an event phantom, and the event is not currently active, cancel the spawn
+    if (eventPhantom && !PhantomEvent.isActive()) {
+      return;
+    }
     Phantom phantom = PhantomGenerator.summonPhantom(phantomType, loc, true);
     phantom.setMetadata(PhantomEvent.EVENT_METADATA_KEY, new FixedMetadataValue(PhantomMain.getPlugin(), true));
     phantom.setRemoveWhenFarAway(false);
