@@ -8,6 +8,9 @@ Bossbars for almond cake and flight potion
 Bugs
 ===
 Flight potions expire if you switch dimension. Make sure to test with /home as well as with portals
+People that die of fire during the phantom event still drop their items
+  - Add players name and time of damage to a uuid-long hashmap, then do the same thing you did with FlightPotion
+People killed by kamikaze phantoms during the event sometimes drop items
 
 Exploits
 ===
@@ -24,10 +27,7 @@ Phantoms that disable all potion effects when they hit you, including flight pot
 
 DID
 ===
-Added a few more seconds to almond cake timeouts
-Added Wand of Regeneration
-Fixed an issue with bed respawning taking priority over the phantom event respawning
-Disabled weather/time of day changes during the event
-Added /endevent command
-Added an automatic timeout for the phantom event, so that if it lasts for longer than 25 minutes it is ended automatically
-Fixed a bug with the blacksmith's instructions text going off the screen
+Hotswapped death immunity system to make it so players that die to event phantoms during the event don't drop their items
+Fixed a bug where players would die during the event to a phantom, and it would not register as an event-related death
+Added diamond and netherite tier contributor kits
+Fixed a mistake in the iron contributor kit

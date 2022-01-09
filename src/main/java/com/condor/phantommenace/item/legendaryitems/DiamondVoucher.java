@@ -37,9 +37,9 @@ import com.condor.phantommenace.main.PhantomMain;
 import com.condor.phantommenace.runnable.DisplayCooldown;
 import com.condor.phantommenace.item.CustomItemManager;
 
-public class IronVoucher extends CustomItem {
+public class DiamondVoucher extends CustomItem {
 
-  private static final String NAME = "Iron Voucher";
+  private static final String NAME = "Diamond Voucher";
   private static ArrayList<String> loreList = new ArrayList<>();
   private static ArrayList<Class> triggerList = new ArrayList<>();
 
@@ -48,7 +48,7 @@ public class IronVoucher extends CustomItem {
   private static Random rng = new Random();
 
   static {
-    loreList.add("Iron Voucher");
+    loreList.add("Diamond Voucher");
     loreList.add("Right-click with this to receive");
     loreList.add("your reward.");
     loreList.add("");
@@ -56,8 +56,8 @@ public class IronVoucher extends CustomItem {
     triggerList.add(PlayerInteractEvent.class);
   }
 
-  public IronVoucher() {
-    super(NAME, loreList, triggerList, CustomItemType.IRON_VOUCHER, 0);
+  public DiamondVoucher() {
+    super(NAME, loreList, triggerList, CustomItemType.DIAMOND_VOUCHER, 0);
   }
 
   public ItemStack getInstance() {
@@ -78,8 +78,8 @@ public class IronVoucher extends CustomItem {
       // If they right-clicked
       if ((pie.getAction() == Action.RIGHT_CLICK_AIR ||
           pie.getAction() == Action.RIGHT_CLICK_BLOCK)) {
-        // If they're holding an iron voucher
-        if (isIronVoucher(player.getItemInHand())) {
+        // If they're holding a diamond voucher
+        if (isDiamondVoucher(player.getItemInHand())) {
           ret = true;
         }
       }
@@ -96,54 +96,57 @@ public class IronVoucher extends CustomItem {
     }
   }
 
-  public boolean isIronVoucher(ItemStack item) {
+  public boolean isDiamondVoucher(ItemStack item) {
     return (item != null) && (item.getType() == Material.PAPER) &&
-     (CustomItemType.getTypeFromCustomItem(item) == CustomItemType.IRON_VOUCHER);
+     (CustomItemType.getTypeFromCustomItem(item) == CustomItemType.DIAMOND_VOUCHER);
   }
 
   private ItemStack getShulker(Player player) {
-    ItemStack is = new ItemStack(Material.WHITE_SHULKER_BOX);
+    ItemStack is = new ItemStack(Material.CYAN_SHULKER_BOX);
     BlockStateMeta meta = (BlockStateMeta) is.getItemMeta();
-    meta.setDisplayName("Iron Contributor");
+    meta.setDisplayName("Diamond Contributor");
     ShulkerBox box = (ShulkerBox) meta.getBlockState();
     Inventory inventory = box.getInventory();
-    ItemStack elevenVoidCoins = CustomItemManager.getItemByType(CustomItemType.DEFENDER_TOKEN).getInstance();
-    elevenVoidCoins.setAmount(11);
-    ItemStack sixtyFourIron = new ItemStack(Material.IRON_INGOT, 64);
-    ItemStack flightPotion = CustomItemManager.getItemByType(CustomItemType.FLIGHT_POTION).getInstance();
+    ItemStack sixtyFourVoidCoins = CustomItemManager.getItemByType(CustomItemType.DEFENDER_TOKEN).getInstance();
+    sixtyFourVoidCoins.setAmount(64);
+    ItemStack sixteenDiamond = new ItemStack(Material.DIAMOND, 16);
+    ItemStack sixtyFourSlimeBlocks = new ItemStack(Material.SLIME_BLOCK, 64);
+    ItemStack sixtyFourIronBlocks = new ItemStack(Material.IRON_BLOCK, 64);
+    ItemStack wandOfRegeneration = CustomItemManager.getItemByType(CustomItemType.REPLANTER_HOE).getInstance();
+    ItemStack creeperbane = CustomItemManager.getItemByType(CustomItemType.CREEPER_BOW).getInstance();
     ItemStack thankYouBook = new ItemStack(Material.WRITTEN_BOOK);
     BookMeta bookMeta = (BookMeta) thankYouBook.getItemMeta();
     bookMeta.setTitle("Thank you!");
     bookMeta.setAuthor(ChatColor.RED + "Void" + ChatColor.GRAY + "Tree");
     bookMeta.addPage("Thank you for contributing to " + ChatColor.RED + "Void" + ChatColor.GRAY + "Tree" + ChatColor.RESET + ", " + player.getDisplayName());
     thankYouBook.setItemMeta(bookMeta);
-    inventory.setItem(0, elevenVoidCoins);
-    inventory.setItem(1, sixtyFourIron);
-    inventory.setItem(2, elevenVoidCoins);
-    inventory.setItem(3, sixtyFourIron);
-    inventory.setItem(4, elevenVoidCoins);
-    inventory.setItem(5, sixtyFourIron);
-    inventory.setItem(6, elevenVoidCoins);
-    inventory.setItem(7, sixtyFourIron);
-    inventory.setItem(8, elevenVoidCoins);
-    inventory.setItem(9, sixtyFourIron);
-    inventory.setItem(10, elevenVoidCoins);
-    inventory.setItem(11, sixtyFourIron);
-    inventory.setItem(12, flightPotion);
+    inventory.setItem(0, sixteenDiamond);
+    inventory.setItem(1, wandOfRegeneration);
+    inventory.setItem(2, sixteenDiamond);
+    inventory.setItem(3, sixtyFourSlimeBlocks);
+    inventory.setItem(4, sixteenDiamond);
+    inventory.setItem(5, sixtyFourSlimeBlocks);
+    inventory.setItem(6, sixteenDiamond);
+    inventory.setItem(7, sixtyFourIronBlocks);
+    inventory.setItem(8, sixteenDiamond);
+    inventory.setItem(9, sixtyFourVoidCoins);
+    inventory.setItem(10, sixteenDiamond);
+    inventory.setItem(11, sixtyFourVoidCoins);
+    inventory.setItem(12, sixteenDiamond);
     inventory.setItem(13, thankYouBook);
-    inventory.setItem(14, flightPotion);
-    inventory.setItem(15, sixtyFourIron);
-    inventory.setItem(16, elevenVoidCoins);
-    inventory.setItem(17, sixtyFourIron);
-    inventory.setItem(18, elevenVoidCoins);
-    inventory.setItem(19, sixtyFourIron);
-    inventory.setItem(20, elevenVoidCoins);
-    inventory.setItem(21, sixtyFourIron);
-    inventory.setItem(22, elevenVoidCoins);
-    inventory.setItem(23, sixtyFourIron);
-    inventory.setItem(24, elevenVoidCoins);
-    inventory.setItem(25, sixtyFourIron);
-    inventory.setItem(26, elevenVoidCoins);
+    inventory.setItem(14, sixteenDiamond);
+    inventory.setItem(15, sixtyFourVoidCoins);
+    inventory.setItem(16, sixteenDiamond);
+    inventory.setItem(17, sixtyFourVoidCoins);
+    inventory.setItem(18, sixteenDiamond);
+    inventory.setItem(19, sixtyFourIronBlocks);
+    inventory.setItem(20, sixteenDiamond);
+    inventory.setItem(21, sixtyFourSlimeBlocks);
+    inventory.setItem(22, sixteenDiamond);
+    inventory.setItem(23, sixtyFourSlimeBlocks);
+    inventory.setItem(24, sixteenDiamond);
+    inventory.setItem(25, creeperbane);
+    inventory.setItem(26, sixteenDiamond);
     meta.setBlockState(box);
     is.setItemMeta(meta);
     return is;

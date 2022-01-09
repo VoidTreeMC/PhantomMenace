@@ -7,6 +7,7 @@ import org.bukkit.entity.Skeleton;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.metadata.FixedMetadataValue;
+import org.bukkit.ChatColor;
 
 import com.condor.phantommenace.main.PhantomMain;
 import com.condor.phantommenace.runnable.TogglePhantomInvisibilityRunnable;
@@ -85,6 +86,7 @@ public class PhantomGenerator {
     phantom.setSize(30);
     phantom.setMaxHealth(600);
     phantom.setHealth(600);
+    phantom.setCustomName(ChatColor.RED + "Mother of All Phantoms" + ChatColor.RESET);
     PotionEffect speedFour = new PotionEffect(PotionEffectType.SPEED, 1000000, 3, true, false, false);
     phantom.addPotionEffect(speedFour);
     phantom.setMetadata(PhantomType.PHANTOM_TYPE_METADATA_KEY, new FixedMetadataValue(PhantomMain.getPlugin(), PhantomType.MOTHER_OF_ALL_PHANTOMS.toString()));

@@ -31,6 +31,8 @@ public enum CustomItemType {
   COPPER_VOUCHER,
   IRON_VOUCHER,
   GOLD_VOUCHER,
+  DIAMOND_VOUCHER,
+  NETHERITE_VOUCHER,
   COW_VOUCHER,
   FISH_VOUCHER,
   BEE_VOUCHER,
@@ -91,6 +93,8 @@ public enum CustomItemType {
       case COPPER_VOUCHER:
       case IRON_VOUCHER:
       case GOLD_VOUCHER:
+      case DIAMOND_VOUCHER:
+      case NETHERITE_VOUCHER:
       case COW_VOUCHER:
       case FISH_VOUCHER:
       case BEE_VOUCHER:
@@ -145,6 +149,10 @@ public enum CustomItemType {
         return IRON_VOUCHER;
       case "Gold Voucher":
         return GOLD_VOUCHER;
+      case "Diamond Voucher":
+        return DIAMOND_VOUCHER;
+      case "Netherite Voucher":
+        return NETHERITE_VOUCHER;
       case "Cow Voucher":
         return COW_VOUCHER;
       case "Fish Voucher":

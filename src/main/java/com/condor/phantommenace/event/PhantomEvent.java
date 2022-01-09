@@ -85,6 +85,8 @@ public class PhantomEvent extends BukkitRunnable {
   // 25 minutes
   private static final long EVENT_MAX_DURATION = 20 * 60 * 25;
 
+  public static final int EXTRA_PHANTOM_DAMAGE = 4;
+
   static {
     waveList.add(new VanillaWave());
     waveList.add(new FlamingAndExpWave());

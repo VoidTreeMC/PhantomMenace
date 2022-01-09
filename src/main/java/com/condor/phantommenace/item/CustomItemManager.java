@@ -35,6 +35,8 @@ public class CustomItemManager {
     itemMap.put(CustomItemType.COPPER_VOUCHER, new CopperVoucher());
     itemMap.put(CustomItemType.IRON_VOUCHER, new IronVoucher());
     itemMap.put(CustomItemType.GOLD_VOUCHER, new GoldVoucher());
+    itemMap.put(CustomItemType.DIAMOND_VOUCHER, new DiamondVoucher());
+    itemMap.put(CustomItemType.NETHERITE_VOUCHER, new NetheriteVoucher());
     itemMap.put(CustomItemType.COW_VOUCHER, new CowVoucher());
     itemMap.put(CustomItemType.FISH_VOUCHER, new FishVoucher());
     itemMap.put(CustomItemType.BEE_VOUCHER, new BeeVoucher());

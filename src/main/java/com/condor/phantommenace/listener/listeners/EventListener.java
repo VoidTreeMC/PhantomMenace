@@ -202,6 +202,12 @@ public class EventListener  extends PHListener {
     Player player = event.getEntity();
     if (PhantomEvent.isActive()) {
       Bukkit.getLogger().log(Level.INFO, player.getDisplayName() + " has died during the event.");
+      if (player.hasMetadata(RecentPlayerDeaths.DIED_DURING_EVENT_METADATA)) {
+        event.setKeepInventory(true);
+        event.setKeepLevel(true);
+        event.setShouldDropExperience(false);
+        event.getDrops().clear();
+      }
       if (event.getDeathMessage().endsWith("was killed by Potion using magic")) {
         event.setDeathMessage(player.getDisplayName() + " was killed by the Mother of All Phantoms");
       }
@@ -386,7 +392,7 @@ public class EventListener  extends PHListener {
             Player player = (Player) event.getEntity();
             if (!doCancel && (player.getHealth() - event.getFinalDamage()) <= 0) {
               Bukkit.getLogger().log(Level.INFO, player.getDisplayName() + " died. Adding death immunity.");
-              (new ManageDeathImmunity(player.getUniqueId())).runTask(PhantomMain.getPlugin());
+              // (new ManageDeathImmunity(playerUUID)).runTask(PhantomMain.getPlugin());
               player.setMetadata(RecentPlayerDeaths.DIED_DURING_EVENT_METADATA, new FixedMetadataValue(PhantomMain.getPlugin(), true));
             }
           }
@@ -411,9 +417,19 @@ public class EventListener  extends PHListener {
           }
 
           Player player = (Player) event.getEntity();
-          if (!doCancel && (player.getHealth() - event.getFinalDamage()) <= 0) {
-            (new ManageDeathImmunity(player.getUniqueId())).runTask(PhantomMain.getPlugin());
-            player.setMetadata(RecentPlayerDeaths.DIED_DURING_EVENT_METADATA, new FixedMetadataValue(PhantomMain.getPlugin(), true));
+          if (!doCancel) {
+            if (damager.getType() == EntityType.PHANTOM) {
+              Phantom phantom = (Phantom) damager;
+              PhantomType phantomType = PhantomType.getTypeFromPhantom(phantom);
+              if (phantomType == PhantomType.MOTHER_OF_ALL_PHANTOMS) {
+                edbee.setDamage(20);
+              } else {
+                edbee.setDamage(edbee.getDamage() + PhantomEvent.EXTRA_PHANTOM_DAMAGE);
+              }
+            }
+            if ((player.getHealth() - edbee.getFinalDamage()) <= 0) {
+              player.setMetadata(RecentPlayerDeaths.DIED_DURING_EVENT_METADATA, new FixedMetadataValue(PhantomMain.getPlugin(), true));
+            }
           }
 
           if (doCancel) {
@@ -424,13 +440,9 @@ public class EventListener  extends PHListener {
           Phantom phantom = (Phantom) damager;
           // If it's a flaming phantom
           PhantomType phantomType = PhantomType.getTypeFromPhantom(phantom);
-          // Add 2 hearts of extra damage to phantom attacks
-          edbee.setDamage(edbee.getDamage() + 4);
           if (phantomType == PhantomType.FLAMING_PHANTOM) {
             final int THREE_SECONDS = 20 * 3;
             entity.setFireTicks(THREE_SECONDS);
-          } else if (phantomType == PhantomType.MOTHER_OF_ALL_PHANTOMS) {
-            edbee.setDamage(20);
           }
 
           if (edbee.getEntity() != null && damager != null) {
@@ -463,7 +475,7 @@ public class EventListener  extends PHListener {
 
               Player player = (Player) event.getEntity();
               if (!doCancel && (player.getHealth() - event.getFinalDamage()) <= 0) {
-                (new ManageDeathImmunity(player.getUniqueId())).runTask(PhantomMain.getPlugin());
+                // (new ManageDeathImmunity(player.getUniqueId())).runTask(PhantomMain.getPlugin());
                 player.setMetadata(RecentPlayerDeaths.DIED_DURING_EVENT_METADATA, new FixedMetadataValue(PhantomMain.getPlugin(), true));
               }
             }
