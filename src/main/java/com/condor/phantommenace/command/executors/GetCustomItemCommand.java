@@ -119,6 +119,9 @@ public class GetCustomItemCommand extends CommandControl {
       case "wandofregeneration":
         is = CustomItemManager.getItemByType(CustomItemType.REPLANTER_HOE).getInstance();
         break;
+      // case "foliageaxe":
+      //   is = CustomItemManager.getItemByType(CustomItemType.FOLIAGE_AXE).getInstance();
+      //   break;
     }
 
     if (is != null) {

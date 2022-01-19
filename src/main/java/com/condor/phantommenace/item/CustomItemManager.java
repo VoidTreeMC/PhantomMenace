@@ -43,6 +43,7 @@ public class CustomItemManager {
     itemMap.put(CustomItemType.ALMOND_CAKE, new AlmondCake());
     itemMap.put(CustomItemType.BEDROCK_BREAKER, new BedrockBreaker());
     itemMap.put(CustomItemType.REPLANTER_HOE, new ReplanterHoe());
+    // itemMap.put(CustomItemType.FOLIAGE_AXE, new FoliageAxe());
   }
 
   public static double getPriceScale() {

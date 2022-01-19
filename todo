@@ -27,7 +27,5 @@ Phantoms that disable all potion effects when they hit you, including flight pot
 
 DID
 ===
-Hotswapped death immunity system to make it so players that die to event phantoms during the event don't drop their items
-Fixed a bug where players would die during the event to a phantom, and it would not register as an event-related death
-Added diamond and netherite tier contributor kits
-Fixed a mistake in the iron contributor kit
+Added WIP code for a foliage axe
+Increased difficulty of phantom events

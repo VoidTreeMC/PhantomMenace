@@ -11,8 +11,8 @@ public class EnderAndInvisibleWave extends Wave {
   private static HashMap<PhantomType, Integer> map = new HashMap<>();
 
   static {
-    map.put(PhantomType.INVISIBLE_PHANTOM, 3);
-    map.put(PhantomType.ENDER_PHANTOM, 3);
+    map.put(PhantomType.INVISIBLE_PHANTOM, 4);
+    map.put(PhantomType.ENDER_PHANTOM, 5);
     map.put(PhantomType.KAMIKAZE_PHANTOM, 1);
   }
 
