@@ -11,6 +11,7 @@ Flight potions expire if you switch dimension. Make sure to test with /home as w
 People that die of fire during the phantom event still drop their items
   - Add players name and time of damage to a uuid-long hashmap, then do the same thing you did with FlightPotion
 People killed by kamikaze phantoms during the event sometimes drop items
+Investigate TAB on containers
 
 Exploits
 ===
@@ -27,5 +28,7 @@ Phantoms that disable all potion effects when they hit you, including flight pot
 
 DID
 ===
-Added WIP code for a foliage axe
-Increased difficulty of phantom events
+Made phantom spawning happen in a radius around the spawning point instead of at a fixed location
+Probably fixed a bug with the TAB. Difficult to tell due to spurious nature
+Added 2 new kits to /desserts
+Fixed an issue with text wrapping on the bedrock breaking pickaxe

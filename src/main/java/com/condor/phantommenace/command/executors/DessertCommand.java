@@ -31,6 +31,8 @@ public class DessertCommand extends CommandControl {
     possibleKits.add("copper");
     possibleKits.add("iron");
     possibleKits.add("gold");
+    possibleKits.add("diamond");
+    possibleKits.add("netherite");
     possibleKits.add("cow");
     possibleKits.add("fish");
     possibleKits.add("bee");

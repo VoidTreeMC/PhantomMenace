@@ -87,6 +87,7 @@ public class SuperPick extends CustomItem {
       // and stop processing early
       if (block.hasMetadata(METADATA_KEY)) {
         bbe.setDropItems(false);
+        block.removeMetadata(METADATA_KEY, PhantomMain.getPlugin());
         return;
       }
       BlockFace blockFace = blockMap.get(block.getLocation().toString());

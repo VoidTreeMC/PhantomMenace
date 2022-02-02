@@ -1,5 +1,6 @@
 package com.condor.phantommenace.event;
 
+import java.util.Random;
 import java.util.ArrayList;
 import java.util.Map.Entry;
 import java.util.Collections;
@@ -29,6 +30,9 @@ public abstract class Wave {
   final static int ARENA_MAX_Z = -2784;
   final static int ARENA_MIN_X = 1503;
   final static int ARENA_MAX_X = 1555;
+
+  private static final Random rng = new Random();
+  private static final int MAX_DISTANCE = 10;
 
   protected HashMap<PhantomType, Integer> waveMap;
 
@@ -126,8 +130,14 @@ public abstract class Wave {
     // order with some time between each phantom as defined by
     // TIME_BETWEEN_PHANTOMS
     for (PhantomType phantom : waveList) {
-      (new SpawnPhantomAtLocation(phantom, loc, true)).runTaskLater(PhantomMain.getPlugin(), delay);
+      (new SpawnPhantomAtLocation(phantom, getRandomSpotNearLoc(loc), true)).runTaskLater(PhantomMain.getPlugin(), delay);
       delay += TIME_BETWEEN_PHANTOMS;
     }
+  }
+
+  private static Location getRandomSpotNearLoc(Location loc) {
+    int xDelta = rng.nextInt(MAX_DISTANCE * 2) - MAX_DISTANCE;
+    int zDelta = rng.nextInt(MAX_DISTANCE * 2) - MAX_DISTANCE;
+    return new Location(loc.getWorld(), loc.getX() + xDelta, loc.getY(), loc.getZ() + zDelta);
   }
 }
