@@ -81,6 +81,12 @@ public class SummonPhantomCommand extends CommandControl {
           type = PhantomType.KAMIKAZE_PHANTOM;
           sender.sendMessage(SUMMON_MSG);
           break;
+        case "healer":
+        case "healerphantom":
+        case "healer_phantom":
+          type = PhantomType.HEALER_PHANTOM;
+          sender.sendMessage(SUMMON_MSG);
+          break;
         default:
           sender.sendMessage(UNKNOWN_TYPE_MSG);
           break;

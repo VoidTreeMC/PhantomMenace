@@ -14,7 +14,8 @@ public enum PhantomType {
   MOUNTED_PHANTOM,
   ENDER_PHANTOM,
   MOTHER_OF_ALL_PHANTOMS,
-  KAMIKAZE_PHANTOM;
+  KAMIKAZE_PHANTOM,
+  HEALER_PHANTOM;
 
   private static HashMap<String, PhantomType> PHANTOM_TYPES;
 

@@ -46,18 +46,24 @@ public abstract class Wave {
 
     for (Player player : onlinePlayers) {
       // Bukkit.getLogger().log(Level.INFO, "Evaluating player: " + player.getName());
-      double x = player.getLocation().getX();
-      double z = player.getLocation().getZ();
-      // Bukkit.getLogger().log(Level.INFO, "Less than max X: " + (x <= ARENA_MAX_X));
-      // Bukkit.getLogger().log(Level.INFO, "Less than max Z: " + (z <= ARENA_MAX_Z));
-      // Bukkit.getLogger().log(Level.INFO, "Greater than min X: " + (x >= ARENA_MIN_X));
-      // Bukkit.getLogger().log(Level.INFO, "Greater than min Z: " + (z >= ARENA_MIN_Z));
-      if (x <= ARENA_MAX_X && x >= ARENA_MIN_X && z <= ARENA_MAX_Z && z >= ARENA_MIN_Z) {
-        ret++;
+      if (player != null) {
+        double x = player.getLocation().getX();
+        double z = player.getLocation().getZ();
+        // Bukkit.getLogger().log(Level.INFO, "Less than max X: " + (x <= ARENA_MAX_X));
+        // Bukkit.getLogger().log(Level.INFO, "Less than max Z: " + (z <= ARENA_MAX_Z));
+        // Bukkit.getLogger().log(Level.INFO, "Greater than min X: " + (x >= ARENA_MIN_X));
+        // Bukkit.getLogger().log(Level.INFO, "Greater than min Z: " + (z >= ARENA_MIN_Z));
+        if (isInArena(x, z)) {
+          ret++;
+        }
       }
     }
 
     return ret;
+  }
+
+  public static boolean isInArena(double x, double z) {
+    return (x <= ARENA_MAX_X && x >= ARENA_MIN_X && z <= ARENA_MAX_Z && z >= ARENA_MIN_Z);
   }
 
   /**

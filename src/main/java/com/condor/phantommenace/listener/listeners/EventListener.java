@@ -39,6 +39,7 @@ import org.bukkit.Sound;
 import org.bukkit.event.player.PlayerShearEntityEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.enchantment.PrepareItemEnchantEvent;
+import org.bukkit.entity.Guardian;
 import org.bukkit.event.inventory.PrepareAnvilEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.event.inventory.InventoryEvent;
@@ -76,6 +77,8 @@ import com.condor.phantommenace.npc.NPCManager;
 import com.condor.phantommenace.event.PhantomEvent;
 import com.condor.phantommenace.phantom.RecentPlayerDeaths;
 import com.condor.phantommenace.item.legendaryitems.FlightPotion;
+import com.condor.phantommenace.runnable.RemoveOnFireMetadata;
+import com.condor.phantommenace.event.Wave;
 
 import com.github.juliarn.npc.NPC;
 import com.github.juliarn.npc.event.PlayerNPCEvent;
@@ -200,9 +203,18 @@ public class EventListener  extends PHListener {
   @EventHandler
   public void onPlayerDeathEvent(PlayerDeathEvent event) {
     Player player = event.getEntity();
+    boolean isEventRelated = false;
+    Location playerLoc = player.getLocation();
+    double playerX = playerLoc.getX();
+    double playerZ = playerLoc.getZ();
     if (PhantomEvent.isActive()) {
+      if (Wave.isInArena(playerX, playerZ)) {
+        isEventRelated = true;
+      }
       Bukkit.getLogger().log(Level.INFO, player.getDisplayName() + " has died during the event.");
-      if (player.hasMetadata(RecentPlayerDeaths.DIED_DURING_EVENT_METADATA)) {
+      isEventRelated = isEventRelated || player.hasMetadata(RecentPlayerDeaths.DIED_DURING_EVENT_METADATA);
+      isEventRelated = isEventRelated || player.hasMetadata(RecentPlayerDeaths.ON_FIRE_EVENT_METADATA);
+      if (isEventRelated) {
         event.setKeepInventory(true);
         event.setKeepLevel(true);
         event.setShouldDropExperience(false);
@@ -267,6 +279,14 @@ public class EventListener  extends PHListener {
       LivingEntity entity = event.getEntity();
       if (entity.hasMetadata(PhantomEvent.EVENT_METADATA_KEY)) {
         PhantomEvent.manageKill(((Phantom) entity));
+        // If it's a healer phantom, kill its respective guardian
+        if (PhantomType.getTypeFromPhantom((Phantom) entity) == PhantomType.HEALER_PHANTOM) {
+          for (Entity passenger : entity.getPassengers()) {
+            if (passenger.getType() == EntityType.GUARDIAN) {
+              passenger.remove();
+            }
+          }
+        }
       }
       PhantomDropHandler.classifyAndDividePDE(event);
     }
@@ -341,6 +361,17 @@ public class EventListener  extends PHListener {
 
   @EventHandler
   public void onTargetEntity(EntityTargetLivingEntityEvent event) {
+    if (event.getEntity() instanceof LivingEntity) {
+      LivingEntity entity = (LivingEntity) event.getEntity();
+      if (event != null && PhantomEvent.isActive()) {
+        if (entity.getType() == EntityType.GUARDIAN && entity.hasMetadata(PhantomType.PHANTOM_TYPE_METADATA_KEY)) {
+          Phantom moap = PhantomEvent.getMOAP();
+          if (moap != null) {
+            event.setTarget(moap);
+          }
+        }
+      }
+    }
     CustomItemEventManager.parseEvent(event);
   }
 
@@ -409,6 +440,7 @@ public class EventListener  extends PHListener {
         Entity damager = edbee.getDamager();
         UUID playerUUID = ((Player) edbee.getEntity()).getUniqueId();
         boolean doCancel = RecentPlayerDeaths.isPlayerOnList(playerUUID);
+        Player player = (Player) event.getEntity();
         // If it's an event creature targetting a player
         if (damager.hasMetadata(PhantomEvent.EVENT_METADATA_KEY)) {
           event.setCancelled(doCancel);
@@ -416,69 +448,37 @@ public class EventListener  extends PHListener {
             entity.setFireTicks(0);
           }
 
-          Player player = (Player) event.getEntity();
-          if (!doCancel) {
-            if (damager.getType() == EntityType.PHANTOM) {
-              Phantom phantom = (Phantom) damager;
-              PhantomType phantomType = PhantomType.getTypeFromPhantom(phantom);
-              if (phantomType == PhantomType.MOTHER_OF_ALL_PHANTOMS) {
-                edbee.setDamage(20);
-              } else {
-                edbee.setDamage(edbee.getDamage() + PhantomEvent.EXTRA_PHANTOM_DAMAGE);
-              }
-            }
-            if ((player.getHealth() - edbee.getFinalDamage()) <= 0) {
-              player.setMetadata(RecentPlayerDeaths.DIED_DURING_EVENT_METADATA, new FixedMetadataValue(PhantomMain.getPlugin(), true));
-            }
-          }
-
           if (doCancel) {
             return;
           }
-        }
-        if (damager.getType() == EntityType.PHANTOM) {
-          Phantom phantom = (Phantom) damager;
-          // If it's a flaming phantom
-          PhantomType phantomType = PhantomType.getTypeFromPhantom(phantom);
-          if (phantomType == PhantomType.FLAMING_PHANTOM) {
-            final int THREE_SECONDS = 20 * 3;
-            entity.setFireTicks(THREE_SECONDS);
-          }
 
-          if (edbee.getEntity() != null && damager != null) {
-
-            if (damager instanceof Projectile) {
-              Projectile proj = (Projectile) damager;
-              if (proj.getShooter() instanceof LivingEntity) {
-                damager = (LivingEntity) proj.getShooter();
-              }
+          if (damager.getType() == EntityType.PHANTOM) {
+            Phantom phantom = (Phantom) damager;
+            PhantomType phantomType = PhantomType.getTypeFromPhantom(phantom);
+            edbee.setDamage(edbee.getDamage() + PhantomEvent.EXTRA_PHANTOM_DAMAGE);
+            if (phantomType == PhantomType.MOTHER_OF_ALL_PHANTOMS) {
+              edbee.setDamage(20);
+            } else if (phantomType == PhantomType.FLAMING_PHANTOM) {
+              final int THREE_SECONDS = 20 * 3;
+              entity.setFireTicks(THREE_SECONDS);
+              player.setMetadata(RecentPlayerDeaths.ON_FIRE_EVENT_METADATA, new FixedMetadataValue(PhantomMain.getPlugin(), true));
+              (new RemoveOnFireMetadata(player)).runTaskLater(PhantomMain.getPlugin(), THREE_SECONDS + 1);
+            } else if (phantomType == PhantomType.KAMIKAZE_PHANTOM && edbee.getCause() != DamageCause.ENTITY_EXPLOSION) {
+              Location phantomLoc = phantom.getLocation();
+              double x = phantomLoc.getX();
+              double y = phantomLoc.getY();
+              double z = phantomLoc.getZ();
+              phantom.getLocation().getWorld().createExplosion(x, y, z, 2, false, false, phantom);
+              phantom.setHealth(0);
             }
-
-            if (!doCancel) {
-              if (phantomType == PhantomType.KAMIKAZE_PHANTOM && edbee.getCause() != DamageCause.ENTITY_EXPLOSION) {
-                Location phantomLoc = phantom.getLocation();
-                double x = phantomLoc.getX();
-                double y = phantomLoc.getY();
-                double z = phantomLoc.getZ();
-                phantom.getLocation().getWorld().createExplosion(x, y, z, 2, false, false, phantom);
-                phantom.setHealth(0);
-              }
+          } else if (damager.getType() == EntityType.SPLASH_POTION && PhantomEvent.isActive()) {
+            if ((player.getHealth() - event.getFinalDamage()) <= 0) {
+              // (new ManageDeathImmunity(player.getUniqueId())).runTask(PhantomMain.getPlugin());
+              player.setMetadata(RecentPlayerDeaths.DIED_DURING_EVENT_METADATA, new FixedMetadataValue(PhantomMain.getPlugin(), true));
             }
           }
-        } else if (damager.getType() == EntityType.SPLASH_POTION) {
-          if (PhantomEvent.isActive()) {
-            if (damager.hasMetadata(PhantomEvent.EVENT_METADATA_KEY)) {
-              event.setCancelled(doCancel);
-              if (doCancel) {
-                entity.setFireTicks(0);
-              }
-
-              Player player = (Player) event.getEntity();
-              if (!doCancel && (player.getHealth() - event.getFinalDamage()) <= 0) {
-                // (new ManageDeathImmunity(player.getUniqueId())).runTask(PhantomMain.getPlugin());
-                player.setMetadata(RecentPlayerDeaths.DIED_DURING_EVENT_METADATA, new FixedMetadataValue(PhantomMain.getPlugin(), true));
-              }
-            }
+          if ((player.getHealth() - edbee.getFinalDamage()) <= 0) {
+            player.setMetadata(RecentPlayerDeaths.DIED_DURING_EVENT_METADATA, new FixedMetadataValue(PhantomMain.getPlugin(), true));
           }
         }
       }
@@ -509,21 +509,35 @@ public class EventListener  extends PHListener {
           }
         }
 
+        PhantomType phantomType = PhantomType.getTypeFromPhantom(phantom);
+
         // If it's an invisible phantom being shot by a spectral arrow, increase the damage.
-        if (PhantomType.getTypeFromPhantom(phantom) == PhantomType.INVISIBLE_PHANTOM && isSpectralArrow) {
+        if (phantomType == PhantomType.INVISIBLE_PHANTOM && isSpectralArrow) {
           edbee.setDamage(edbee.getDamage() * 1.5);
         }
 
-        if (PhantomType.getTypeFromPhantom(phantom) == PhantomType.MOTHER_OF_ALL_PHANTOMS) {
+        if (phantomType == PhantomType.MOTHER_OF_ALL_PHANTOMS) {
           if (PhantomEvent.moapBar != null) {
             PhantomEvent.moapBar.setProgress(phantom.getHealth() / phantom.getMaxHealth());
           }
         }
 
         // If it's an ender phantom that is being damaged, make it blink
-        if (PhantomType.getTypeFromPhantom(phantom) == PhantomType.ENDER_PHANTOM) {
+        if (phantomType == PhantomType.ENDER_PHANTOM) {
           // Make the phantom blink
           (new DoPhantomBlinkRunnable(phantom)).runTask(PhantomMain.getPlugin());
+        }
+
+        if (!isPlayer && damager instanceof Guardian) {
+          if (damager.hasMetadata(PhantomType.PHANTOM_TYPE_METADATA_KEY) && phantomType == PhantomType.MOTHER_OF_ALL_PHANTOMS) {
+            double moapHP = phantom.getHealth();
+            double moapMax = phantom.getMaxHealth();
+            double fivePercent = phantom.getMaxHealth() * 0.05;
+            double newHP = ((moapHP + fivePercent) > moapMax) ? moapMax : (moapHP + fivePercent);
+            phantom.setHealth(newHP);
+            event.setCancelled(true);
+            return;
+          }
         }
 
         boolean isDead = (phantom.getHealth() - edbee.getFinalDamage()) <= 0;

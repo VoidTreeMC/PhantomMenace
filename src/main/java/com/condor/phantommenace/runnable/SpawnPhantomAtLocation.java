@@ -62,6 +62,7 @@ public class SpawnPhantomAtLocation extends BukkitRunnable {
       for (Player p : Bukkit.getOnlinePlayers()) {
         PhantomEvent.moapBar.addPlayer(p);
       }
+      PhantomEvent.setMOAP(phantom);
     }
 
     // After 10 seconds, start making the phantom aggressively target players

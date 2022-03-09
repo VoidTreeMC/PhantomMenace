@@ -73,6 +73,8 @@ public class PhantomEvent extends BukkitRunnable {
   private static BossBar bossBar = null;
   public static BossBar moapBar = null;
 
+  private static Phantom moap = null;
+
   // private static long timeBeforeSetting = 0;
 
   private final static int ARENA_MIN_Z = -2885;
@@ -83,7 +85,7 @@ public class PhantomEvent extends BukkitRunnable {
   private final static int ARENA_MAX_Y = 137;
 
   // 25 minutes
-  private static final long EVENT_MAX_DURATION = 20 * 60 * 25;
+  private static final long EVENT_MAX_DURATION = 20 * 60 * 30;
 
   public static final int EXTRA_PHANTOM_DAMAGE = 4;
 
@@ -251,6 +253,7 @@ public class PhantomEvent extends BukkitRunnable {
     numKilledThisWave++;
 
     if (PhantomType.getTypeFromPhantom(phantom) == PhantomType.MOTHER_OF_ALL_PHANTOMS) {
+      setMOAP(null);
       if (player != null) {
         Bukkit.broadcastMessage(ChatColor.GOLD + player.getDisplayName() + ChatColor.YELLOW + " has vanquished the Mother of All Phantoms!");
       } else {
@@ -418,5 +421,13 @@ public class PhantomEvent extends BukkitRunnable {
     ret = ret && locZ >= ARENA_MIN_Z && locZ <= ARENA_MAX_Z;
 
     return ret;
+  }
+
+  public static void setMOAP(Phantom phantom) {
+    moap = phantom;
+  }
+
+  public static Phantom getMOAP() {
+    return moap;
   }
 }

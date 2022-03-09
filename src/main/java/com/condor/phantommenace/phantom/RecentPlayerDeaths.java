@@ -17,6 +17,7 @@ public class RecentPlayerDeaths {
   private static final String EXPIRED = ChatColor.GOLD + "" + ChatColor.UNDERLINE + "Your immunity has expired. You can take damage from the event once again.";
 
   public static final String DIED_DURING_EVENT_METADATA = "diedDuringEvent";
+  public static final String ON_FIRE_EVENT_METADATA = "onFireInEvent";
   private static final World WORLD = PhantomMain.getPlugin().getServer().getWorld("survival");
   private static final double X = 1498.5;
   private static final double Y = 77;

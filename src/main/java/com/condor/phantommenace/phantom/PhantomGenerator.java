@@ -4,6 +4,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Phantom;
 import org.bukkit.entity.Skeleton;
+import org.bukkit.entity.Guardian;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.metadata.FixedMetadataValue;
@@ -38,6 +39,8 @@ public class PhantomGenerator {
         return summonMOAP(loc);
       case KAMIKAZE_PHANTOM:
         return summonKamikaze(loc);
+      case HEALER_PHANTOM:
+        return summonHealerPhantom(loc);
       default:
         return null;
     }
@@ -66,9 +69,23 @@ public class PhantomGenerator {
         return summonMOAP(loc);
       case KAMIKAZE_PHANTOM:
         return summonKamikaze(loc);
+      case HEALER_PHANTOM:
+        return summonHealerPhantom(loc);
       default:
         return null;
     }
+  }
+
+  public static Phantom summonHealerPhantom(Location loc) {
+    Phantom phantom = (Phantom) loc.getWorld().spawnEntity(loc, EntityType.PHANTOM);
+    phantom.setMetadata(PhantomType.PHANTOM_TYPE_METADATA_KEY, new FixedMetadataValue(PhantomMain.getPlugin(), PhantomType.HEALER_PHANTOM.toString()));
+    Guardian guardian = (Guardian) loc.getWorld().spawnEntity(loc.add(0, 1, 0), EntityType.GUARDIAN);
+    guardian.setInvulnerable(true);
+    guardian.setMetadata(PhantomType.PHANTOM_TYPE_METADATA_KEY, new FixedMetadataValue(PhantomMain.getPlugin(), PhantomType.HEALER_PHANTOM.toString()));
+    PotionEffect speedFour = new PotionEffect(PotionEffectType.INVISIBILITY, 1000000, 0, true, false, false);
+    guardian.addPotionEffect(speedFour);
+    phantom.addPassenger(guardian);
+    return phantom;
   }
 
   public static Phantom summonKamikaze(Location loc) {
