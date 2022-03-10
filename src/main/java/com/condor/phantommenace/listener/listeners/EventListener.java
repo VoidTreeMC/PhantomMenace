@@ -55,6 +55,7 @@ import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.event.block.BlockDropItemEvent;
+import org.spigotmc.event.entity.EntityDismountEvent;
 import io.papermc.paper.event.entity.EntityMoveEvent;
 import com.destroystokyo.paper.event.player.PlayerPostRespawnEvent;
 
@@ -79,6 +80,7 @@ import com.condor.phantommenace.phantom.RecentPlayerDeaths;
 import com.condor.phantommenace.item.legendaryitems.FlightPotion;
 import com.condor.phantommenace.runnable.RemoveOnFireMetadata;
 import com.condor.phantommenace.event.Wave;
+import com.condor.phantommenace.runnable.AddFlightEffect;
 
 import com.github.juliarn.npc.NPC;
 import com.github.juliarn.npc.event.PlayerNPCEvent;
@@ -192,11 +194,12 @@ public class EventListener  extends PHListener {
     }
   }
 
-  @EventHandler
+  @EventHandler(priority=EventPriority.HIGHEST)
   public void onPlayerTeleport(PlayerTeleportEvent event) {
     Player player = event.getPlayer();
     if (player.hasMetadata(FlightPotion.METADATA_KEY)) {
       player.setAllowFlight(true);
+      (new AddFlightEffect(player)).runTaskLater(PhantomMain.getPlugin(), 5);
     }
   }
 
@@ -215,6 +218,7 @@ public class EventListener  extends PHListener {
       isEventRelated = isEventRelated || player.hasMetadata(RecentPlayerDeaths.DIED_DURING_EVENT_METADATA);
       isEventRelated = isEventRelated || player.hasMetadata(RecentPlayerDeaths.ON_FIRE_EVENT_METADATA);
       if (isEventRelated) {
+        Bukkit.getLogger().info("Preventing death drops.");
         event.setKeepInventory(true);
         event.setKeepLevel(true);
         event.setShouldDropExperience(false);
@@ -271,6 +275,15 @@ public class EventListener  extends PHListener {
   @EventHandler
   public void onPlayerInteractEvent(PlayerInteractEvent event) {
     CustomItemEventManager.parseEvent(event);
+  }
+
+  @EventHandler
+  public void onEntityDismountEvent(EntityDismountEvent event) {
+    Entity entity = event.getDismounted();
+    if (entity.getType() == EntityType.PHANTOM &&
+        entity.hasMetadata(PhantomEvent.EVENT_METADATA_KEY)) {
+      event.setCancelled(true);
+    }
   }
 
   @EventHandler
@@ -364,7 +377,7 @@ public class EventListener  extends PHListener {
     if (event.getEntity() instanceof LivingEntity) {
       LivingEntity entity = (LivingEntity) event.getEntity();
       if (event != null && PhantomEvent.isActive()) {
-        if (entity.getType() == EntityType.GUARDIAN && entity.hasMetadata(PhantomType.PHANTOM_TYPE_METADATA_KEY)) {
+        if (entity.getType() == EntityType.GUARDIAN && entity.hasMetadata(PhantomEvent.EVENT_METADATA_KEY)) {
           Phantom moap = PhantomEvent.getMOAP();
           if (moap != null) {
             event.setTarget(moap);

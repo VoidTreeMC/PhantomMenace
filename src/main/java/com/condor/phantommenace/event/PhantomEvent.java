@@ -173,6 +173,7 @@ public class PhantomEvent extends BukkitRunnable {
     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "announcer togglebroadcasts");
   }
 
+  // TODO: Consider refactoring this
   public void skipWave() {
     int num = getWaveIndex();
     int numDespawned = 0;
@@ -182,6 +183,10 @@ public class PhantomEvent extends BukkitRunnable {
           PhantomEvent.manageKill(((Phantom) entity));
           entity.remove();
           numDespawned++;
+        }
+      } else if (entity.getType() == EntityType.GUARDIAN) {
+        if (entity.hasMetadata(EVENT_METADATA_KEY)) {
+          entity.remove();
         }
       }
     }

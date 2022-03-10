@@ -81,9 +81,9 @@ public class PhantomGenerator {
     phantom.setMetadata(PhantomType.PHANTOM_TYPE_METADATA_KEY, new FixedMetadataValue(PhantomMain.getPlugin(), PhantomType.HEALER_PHANTOM.toString()));
     Guardian guardian = (Guardian) loc.getWorld().spawnEntity(loc.add(0, 1, 0), EntityType.GUARDIAN);
     guardian.setInvulnerable(true);
-    guardian.setMetadata(PhantomType.PHANTOM_TYPE_METADATA_KEY, new FixedMetadataValue(PhantomMain.getPlugin(), PhantomType.HEALER_PHANTOM.toString()));
-    PotionEffect speedFour = new PotionEffect(PotionEffectType.INVISIBILITY, 1000000, 0, true, false, false);
-    guardian.addPotionEffect(speedFour);
+    guardian.setMetadata(PhantomEvent.EVENT_METADATA_KEY, new FixedMetadataValue(PhantomMain.getPlugin(), PhantomType.HEALER_PHANTOM.toString()));
+    PotionEffect invisEffect = new PotionEffect(PotionEffectType.INVISIBILITY, 1000000, 0, true, false, false);
+    guardian.addPotionEffect(invisEffect);
     phantom.addPassenger(guardian);
     return phantom;
   }

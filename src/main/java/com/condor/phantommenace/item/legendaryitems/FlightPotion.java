@@ -130,7 +130,6 @@ public class FlightPotion extends CustomItem {
       over = finalDam >= MAX_DMG;
       damageMap.put(player.getUniqueId(), finalDam);
       damageTimeMap.put(player.getUniqueId(), System.currentTimeMillis());
-      Bukkit.getLogger().info("Before: " + before + " FinalDam: " + finalDam);
       if (over && before < MAX_DMG) {
         (new RemoveFlightEffect(player, System.currentTimeMillis(), false)).runTaskAsynchronously(PhantomMain.getPlugin());
       }

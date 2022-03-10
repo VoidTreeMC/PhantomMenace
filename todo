@@ -7,7 +7,7 @@ Bossbars for almond cake and flight potion
 
 Bugs
 ===
-Flight potions expire if you switch dimension. Make sure to test with /home as well as with portals
+
 
 Exploits
 ===
@@ -21,6 +21,5 @@ Phantoms that disable all potion effects when they hit you, including flight pot
 
 DID
 ===
-Fixed a bug that caused people that died during the phantom event from fire to drop their items
-Cleaned up some code for event processing
-Added new type of phantom: healer phantom
+Fixed a bug that caused healer guardians to be dismounted unintentionally when the phantoms flew through water
+Fixed a bug that caused flight potions to be deactivated upon teleportation between dimensions
