@@ -14,6 +14,8 @@ import com.condor.phantommenace.command.CommandControl;
 import com.condor.phantommenace.listener.PHListener;
 import com.condor.phantommenace.npc.NPCManager;
 import com.condor.phantommenace.event.PhantomEvent;
+import com.condor.phantommenace.sql.SQLLinker;
+import com.condor.phantommenace.sql.SQLConfig;
 
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
@@ -96,6 +98,12 @@ public class PhantomMain extends JavaPlugin {
 		catch(Exception e) {
 
 		}
+
+    Bukkit.getLogger().info("Loading SQL config...");
+    SQLConfig.init();
+
+    Bukkit.getLogger().info("Initializing SQL connection...");
+    SQLLinker.init();
 
 		Bukkit.getLogger().log(Level.INFO, "Calling onStart...");
 		this.onStart();

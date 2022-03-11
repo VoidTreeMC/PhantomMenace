@@ -7,6 +7,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.entity.Player;
 import org.bukkit.Material;
 import org.bukkit.ChatColor;
+import org.bukkit.Bukkit;
 import net.kyori.adventure.text.Component;
 
 import dev.triumphteam.gui.guis.Gui;
@@ -21,6 +22,8 @@ import com.condor.phantommenace.item.simpleitems.DefenderToken;
 import com.condor.phantommenace.item.CustomItemType;
 import com.condor.phantommenace.item.legendaryitems.CreeperFirework;
 import com.condor.phantommenace.item.legendaryitems.SuperPick;
+import com.condor.phantommenace.sql.SQLLinker;
+import com.condor.phantommenace.main.PhantomMain;
 
 public class PhantomShopGUI {
 
@@ -54,7 +57,7 @@ public class PhantomShopGUI {
     return amt >= price;
   }
 
-  private static void handleGenericPurchase(PaginatedGui gui, Player player, ItemStack item, int price) {
+  private static void handleGenericPurchase(PaginatedGui gui, Player player, ItemStack item, CustomItemType type, int price) {
     boolean purchased = false;
 
     if (canAfford(player, price)) {
@@ -66,6 +69,12 @@ public class PhantomShopGUI {
     if (!purchased) {
       player.sendMessage("You can't afford that.");
     } else {
+      Bukkit.getScheduler().runTaskAsynchronously(PhantomMain.getPlugin(), new Runnable() {
+        @Override
+        public void run() {
+          SQLLinker.pushToDB(player, type, price, System.currentTimeMillis());
+        }
+      });
       gui.close(player);
     }
   }
@@ -101,75 +110,75 @@ public class PhantomShopGUI {
   	});
 
     GuiItem fancyPantsItem = new GuiItem(FANCY_PANTS.getInstance(), event -> {
-        handleGenericPurchase(gui, player, FANCY_PANTS.getInstance(), FANCY_PANTS.getPrice());
+        handleGenericPurchase(gui, player, FANCY_PANTS.getInstance(), FANCY_PANTS.getType(), FANCY_PANTS.getPrice());
   	});
 
     GuiItem enderBladeItem = new GuiItem(ENDER_BLADE.getInstance(), event -> {
-        handleGenericPurchase(gui, player, ENDER_BLADE.getInstance(), ENDER_BLADE.getPrice());
+        handleGenericPurchase(gui, player, ENDER_BLADE.getInstance(), ENDER_BLADE.getType(), ENDER_BLADE.getPrice());
   	});
 
     GuiItem prideShearsItem = new GuiItem(PRIDE_SHEARS.getInstance(), event -> {
-        handleGenericPurchase(gui, player, PRIDE_SHEARS.getInstance(), PRIDE_SHEARS.getPrice());
+        handleGenericPurchase(gui, player, PRIDE_SHEARS.getInstance(), PRIDE_SHEARS.getType(), PRIDE_SHEARS.getPrice());
   	});
 
     GuiItem creeperBowItem = new GuiItem(CREEPER_BOW.getInstance(), event -> {
-        handleGenericPurchase(gui, player, CREEPER_BOW.getInstance(), CREEPER_BOW.getPrice());
+        handleGenericPurchase(gui, player, CREEPER_BOW.getInstance(), CREEPER_BOW.getType(), CREEPER_BOW.getPrice());
   	});
 
     GuiItem lavaWalkersItem = new GuiItem(LAVA_WALKERS.getInstance(), event -> {
-        handleGenericPurchase(gui, player, LAVA_WALKERS.getInstance(), LAVA_WALKERS.getPrice());
+        handleGenericPurchase(gui, player, LAVA_WALKERS.getInstance(), LAVA_WALKERS.getType(), LAVA_WALKERS.getPrice());
   	});
 
     GuiItem creeperFireworkItem = new GuiItem(CREEPER_FIREWORK.getInstance(), event -> {
-        handleGenericPurchase(gui, player, CREEPER_FIREWORK.getInstance(), CREEPER_FIREWORK.getPrice());
+        handleGenericPurchase(gui, player, CREEPER_FIREWORK.getInstance(), CREEPER_FIREWORK.getType(), CREEPER_FIREWORK.getPrice());
   	});
 
     GuiItem superPickItem = new GuiItem(SUPER_PICK.getInstance(), event -> {
-        handleGenericPurchase(gui, player, SUPER_PICK.getInstance(), SUPER_PICK.getPrice());
+        handleGenericPurchase(gui, player, SUPER_PICK.getInstance(), SUPER_PICK.getType(), SUPER_PICK.getPrice());
   	});
 
     GuiItem slayerSwordItem = new GuiItem(SLAYER_SWORD.getInstance(), event -> {
-        handleGenericPurchase(gui, player, SLAYER_SWORD.getInstance(), SLAYER_SWORD.getPrice());
+        handleGenericPurchase(gui, player, SLAYER_SWORD.getInstance(), SLAYER_SWORD.getType(), SLAYER_SWORD.getPrice());
   	});
 
     GuiItem flightPotionItem = new GuiItem(FLIGHT_POTION.getInstance(), event -> {
-        handleGenericPurchase(gui, player, FLIGHT_POTION.getInstance(), FLIGHT_POTION.getPrice());
+        handleGenericPurchase(gui, player, FLIGHT_POTION.getInstance(), FLIGHT_POTION.getType(), FLIGHT_POTION.getPrice());
   	});
 
     GuiItem zombieSpawnItem = new GuiItem(ZOMBIE_EGG.getInstance(), event -> {
-      handleGenericPurchase(gui, player, ZOMBIE_EGG.getInstance(), ZOMBIE_EGG.getPrice());
+      handleGenericPurchase(gui, player, ZOMBIE_EGG.getInstance(), ZOMBIE_EGG.getType(), ZOMBIE_EGG.getPrice());
     });
 
     GuiItem foxSpawnItem = new GuiItem(FOX_EGG.getInstance(), event -> {
-      handleGenericPurchase(gui, player, FOX_EGG.getInstance(), FOX_EGG.getPrice());
+      handleGenericPurchase(gui, player, FOX_EGG.getInstance(), FOX_EGG.getType(), FOX_EGG.getPrice());
     });
 
     GuiItem spiderSpawnItem = new GuiItem(SPIDER_EGG.getInstance(), event -> {
-      handleGenericPurchase(gui, player, SPIDER_EGG.getInstance(), SPIDER_EGG.getPrice());
+      handleGenericPurchase(gui, player, SPIDER_EGG.getInstance(), SPIDER_EGG.getType(), SPIDER_EGG.getPrice());
     });
 
     GuiItem zombiePiglinSpawnItem = new GuiItem(ZOMBIE_PIGLIN_EGG.getInstance(), event -> {
-      handleGenericPurchase(gui, player, ZOMBIE_PIGLIN_EGG.getInstance(), ZOMBIE_PIGLIN_EGG.getPrice());
+      handleGenericPurchase(gui, player, ZOMBIE_PIGLIN_EGG.getInstance(), ZOMBIE_PIGLIN_EGG.getType(), ZOMBIE_PIGLIN_EGG.getPrice());
     });
 
     GuiItem slimeSpawnItem = new GuiItem(SLIME_EGG.getInstance(), event -> {
-      handleGenericPurchase(gui, player, SLIME_EGG.getInstance(), SLIME_EGG.getPrice());
+      handleGenericPurchase(gui, player, SLIME_EGG.getInstance(), SLIME_EGG.getType(), SLIME_EGG.getPrice());
     });
 
     GuiItem cowSpawnItem = new GuiItem(COW_EGG.getInstance(), event -> {
-      handleGenericPurchase(gui, player, COW_EGG.getInstance(), COW_EGG.getPrice());
+      handleGenericPurchase(gui, player, COW_EGG.getInstance(), COW_EGG.getType(), COW_EGG.getPrice());
     });
 
     GuiItem almondCakeItem = new GuiItem(ALMOND_CAKE.getInstance(), event -> {
-      handleGenericPurchase(gui, player, ALMOND_CAKE.getInstance(), ALMOND_CAKE.getPrice());
+      handleGenericPurchase(gui, player, ALMOND_CAKE.getInstance(), ALMOND_CAKE.getType(), ALMOND_CAKE.getPrice());
     });
 
     GuiItem bedrockBreakerItem = new GuiItem(BEDROCK_BREAKER.getInstance(), event -> {
-      handleGenericPurchase(gui, player, BEDROCK_BREAKER.getInstance(), BEDROCK_BREAKER.getPrice());
+      handleGenericPurchase(gui, player, BEDROCK_BREAKER.getInstance(), BEDROCK_BREAKER.getType(), BEDROCK_BREAKER.getPrice());
     });
 
     GuiItem replanterHoeItem = new GuiItem(REPLANTER_HOE.getInstance(), event -> {
-      handleGenericPurchase(gui, player, REPLANTER_HOE.getInstance(), REPLANTER_HOE.getPrice());
+      handleGenericPurchase(gui, player, REPLANTER_HOE.getInstance(), REPLANTER_HOE.getType(), REPLANTER_HOE.getPrice());
     });
 
     gui.addItem(insomniaPotionItem);

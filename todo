@@ -21,5 +21,7 @@ Phantoms that disable all potion effects when they hit you, including flight pot
 
 DID
 ===
-Fixed a bug that caused healer guardians to be dismounted unintentionally when the phantoms flew through water
-Fixed a bug that caused flight potions to be deactivated upon teleportation between dimensions
+Added SQL backend logging for void coin purchases
+Added SQL backend logging for blacksmith reforgings
+VoidCoins are no longer placeable items
+Added food shop to the fox vendor's menu

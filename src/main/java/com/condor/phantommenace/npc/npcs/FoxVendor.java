@@ -11,7 +11,7 @@ import org.bukkit.inventory.ItemStack;
 import com.condor.phantommenace.main.PhantomMain;
 import com.condor.phantommenace.npc.PHNPC;
 import com.condor.phantommenace.item.CustomItemGenerator;
-import com.condor.phantommenace.gui.PhantomShopGUI;
+import com.condor.phantommenace.gui.FoodShopGUI;
 
 import com.github.juliarn.npc.profile.Profile;
 import com.github.juliarn.npc.profile.Profile.Property;
@@ -65,7 +65,7 @@ public class FoxVendor extends PHNPC {
           .send(player);
         break;
       default:
-        // Do the dialogue here
+        FoodShopGUI.displayShopGUI(player);
         break;
     }
   }

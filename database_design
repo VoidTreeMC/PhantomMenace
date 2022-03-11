@@ -1,0 +1,16 @@
+PhantomVendorPurchaseTable
+==============
+  player_uuid:              VARCHAR(36)
+  player_name:              VARCHAR(16)
+  item:                     VARCHAR(36)
+  price:                    SMALLINT
+  time:                     BIGINT
+
+BlacksmithReforgeTable
+======================
+  player_uuid:              VARCHAR(36)
+  player_name:              VARCHAR(16)
+  item_one:                 VARCHAR(36)
+  item_two:                 VARCHAR(36)
+  item_result:              VARCHAR(36)
+  time:                     BIGINT

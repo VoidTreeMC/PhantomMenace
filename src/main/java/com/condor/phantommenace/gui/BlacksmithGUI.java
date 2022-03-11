@@ -10,6 +10,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.PlayerInventory;
+import org.bukkit.Bukkit;
 
 import dev.triumphteam.gui.guis.Gui;
 import dev.triumphteam.gui.guis.GuiItem;
@@ -18,6 +19,8 @@ import com.condor.phantommenace.item.CustomItemGenerator;
 import com.condor.phantommenace.item.CustomItemManager;
 import com.condor.phantommenace.item.simpleitems.DefenderToken;
 import com.condor.phantommenace.item.CustomItemType;
+import com.condor.phantommenace.sql.SQLLinker;
+import com.condor.phantommenace.main.PhantomMain;
 
 public class BlacksmithGUI {
 
@@ -89,9 +92,10 @@ public class BlacksmithGUI {
    * Returns null if one of the items is not a legendary item
    * @param  firstItem  The first legendary item to be destroyed
    * @param  secondItem The second legendary item to be destroyed
+   * @param  player     The player who is reforging
    * @return            A new legendary item, or null.
    */
-  public static ItemStack forgeItems(ItemStack firstItem, ItemStack secondItem) {
+  public static ItemStack forgeItems(ItemStack firstItem, ItemStack secondItem, Player player) {
     CustomItemType firstType = CustomItemType.getTypeFromCustomItem(firstItem);
     CustomItemType secondType = CustomItemType.getTypeFromCustomItem(secondItem);
 
@@ -120,6 +124,13 @@ public class BlacksmithGUI {
       return CONFIRM_PANE_ORANGE;
     }
     thirdType = potentials.get(rng.nextInt(potentials.size()));
+
+    Bukkit.getScheduler().runTaskAsynchronously(PhantomMain.getPlugin(), new Runnable() {
+      @Override
+      public void run() {
+        SQLLinker.pushToDB(player, firstType, secondType, thirdType, System.currentTimeMillis());
+      }
+    });
 
     return CustomItemManager.getItemByType(thirdType).getInstance();
   }
@@ -162,7 +173,7 @@ public class BlacksmithGUI {
       Inventory guiInventory = gui.getInventory();
       ItemStack firstItem = guiInventory.getItem(11);
       ItemStack secondItem = guiInventory.getItem(15);
-      ItemStack newItem = forgeItems(firstItem, secondItem);
+      ItemStack newItem = forgeItems(firstItem, secondItem, player);
       if (newItem == null) {
         gui.updateItem(5, 5, new GuiItem(CONFIRM_PANE_YELLOW));
       } else if (newItem == CONFIRM_PANE_ORANGE) {

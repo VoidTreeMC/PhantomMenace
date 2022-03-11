@@ -103,6 +103,17 @@ public class EventListener  extends PHListener {
   private static final Random rng = new Random();
 
   @EventHandler
+  public void onBlockPlaceEvent(BlockPlaceEvent event) {
+    ItemStack is = event.getItemInHand();
+    if (is.getType() == Material.SUNFLOWER) {
+      if (CustomItemType.getTypeFromCustomItem(is) == CustomItemType.DEFENDER_TOKEN) {
+        event.getPlayer().sendMessage("VoidCoins are for spending, not placing.");
+        event.setCancelled(true);
+      }
+    }
+  }
+
+  @EventHandler
   public void onBlockDropItemEvent(BlockDropItemEvent event) {
     CustomItemEventManager.parseEvent(event);
   }
