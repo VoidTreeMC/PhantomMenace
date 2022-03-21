@@ -21,7 +21,7 @@ Phantoms that disable all potion effects when they hit you, including flight pot
 
 DID
 ===
-Added SQL backend logging for void coin purchases
-Added SQL backend logging for blacksmith reforgings
-VoidCoins are no longer placeable items
-Added food shop to the fox vendor's menu
+Fixed a bug that caused healer guardians to damage the MOAP instead of healing it
+Fixed a bug that allowed people to spam-click the slayer sword and steal receive damage buffs to undead
+Fixed a bug where the TAB would break containers and delete their contents
+Extended functionality of /getcustomitem to allow one to specify recipient name and quantity

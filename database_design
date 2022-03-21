@@ -1,7 +1,7 @@
 PhantomVendorPurchaseTable
 ==============
   player_uuid:              VARCHAR(36)
-  player_name:              VARCHAR(16)
+  player_name:              VARCHAR(36)
   item:                     VARCHAR(36)
   price:                    SMALLINT
   time:                     BIGINT
@@ -9,7 +9,7 @@ PhantomVendorPurchaseTable
 BlacksmithReforgeTable
 ======================
   player_uuid:              VARCHAR(36)
-  player_name:              VARCHAR(16)
+  player_name:              VARCHAR(36)
   item_one:                 VARCHAR(36)
   item_two:                 VARCHAR(36)
   item_result:              VARCHAR(36)

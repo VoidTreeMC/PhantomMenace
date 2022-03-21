@@ -38,8 +38,8 @@ public enum CustomItemType {
   BEE_VOUCHER,
   ALMOND_CAKE,
   BEDROCK_BREAKER,
-  REPLANTER_HOE;
-  // FOLIAGE_AXE;
+  REPLANTER_HOE,
+  FOLIAGE_AXE;
 
   private static HashMap<String, CustomItemType> CUSTOM_ITEM_TYPES;
 
@@ -166,8 +166,8 @@ public enum CustomItemType {
         return BEDROCK_BREAKER;
       case "Wand of Regeneration":
         return REPLANTER_HOE;
-      // case "Foliage Axe":
-      //   return FOLIAGE_AXE;
+      case "Foliage Axe":
+        return FOLIAGE_AXE;
       default:
         return null;
     }

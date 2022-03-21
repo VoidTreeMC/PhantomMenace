@@ -59,6 +59,7 @@ public class SuperPick extends CustomItem {
     meta.setDisplayName(NAME);
     meta.setLore(loreList);
     meta.addEnchant(Enchantment.MENDING, 1, false);
+    meta.addEnchant(Enchantment.DIG_SPEED, 5, false);
     // meta.setUnbreakable(true);
     is.setItemMeta(meta);
     return is;
@@ -128,7 +129,7 @@ public class SuperPick extends CustomItem {
       short numBlocksBroken = 1;
 
       for (Location loc : blocksToRemove) {
-        if (loc.getBlock().getType() == Material.BEDROCK) {
+        if (loc.getBlock().getType() == Material.BEDROCK || isContainer(loc.getBlock().getType())) {
           continue;
         }
         if (loc.getBlock().getType() != Material.AIR) {
@@ -152,6 +153,46 @@ public class SuperPick extends CustomItem {
         BlockFace blockFace = pie.getBlockFace();
         blockMap.put(block.getLocation().toString(), blockFace);
       }
+    }
+  }
+
+  public static boolean isContainer(Material mat) {
+    switch (mat) {
+      case CHEST:
+      case TRAPPED_CHEST:
+      case ENDER_CHEST:
+      case BARREL:
+      case FURNACE:
+      case LECTERN:
+      case BEACON:
+      case ANVIL:
+      case BREWING_STAND:
+      case CARTOGRAPHY_TABLE:
+      case CRAFTING_TABLE:
+      case ENCHANTING_TABLE:
+      case GRINDSTONE:
+      case LOOM:
+      case STONECUTTER:
+      case BLACK_SHULKER_BOX:
+      case BLUE_SHULKER_BOX:
+      case BROWN_SHULKER_BOX:
+      case CYAN_SHULKER_BOX:
+      case GRAY_SHULKER_BOX:
+      case GREEN_SHULKER_BOX:
+      case LIGHT_BLUE_SHULKER_BOX:
+      case LIGHT_GRAY_SHULKER_BOX:
+      case LIME_SHULKER_BOX:
+      case MAGENTA_SHULKER_BOX:
+      case ORANGE_SHULKER_BOX:
+      case PINK_SHULKER_BOX:
+      case PURPLE_SHULKER_BOX:
+      case RED_SHULKER_BOX:
+      case SHULKER_BOX:
+      case WHITE_SHULKER_BOX:
+      case YELLOW_SHULKER_BOX:
+        return true;
+      default:
+        return false;
     }
   }
 }

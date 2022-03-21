@@ -29,6 +29,7 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.ChatColor;
 import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.Bukkit;
 
 import com.condor.phantommenace.item.CustomItem;
 import com.condor.phantommenace.item.CustomItemType;
@@ -104,7 +105,8 @@ public class SlayerSword extends CustomItem {
       EntityDamageByEntityEvent edbee = (EntityDamageByEntityEvent) event;
       if (edbee.getDamager() instanceof Player) {
         Player player = (Player) edbee.getDamager();
-        if (isSlayerSword(player.getItemInHand())) {
+        double damageAmt = edbee.getDamage();
+        if (isSlayerSword(player.getItemInHand()) && damageAmt >= 10) {
           ret = true;
         }
       }

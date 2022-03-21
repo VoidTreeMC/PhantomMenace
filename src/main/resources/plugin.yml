@@ -26,7 +26,7 @@ commands:
      permission-message: You do not have permission to use ths command.
    getcustomitem:
      description: Gives the player the specified custom item
-     usage: /getcustomitem <item name>
+     usage: /getcustomitem <item name> <player name> <quantity>
      permision: condor.commands.executors.getcustomitem
      permission-message: You do not have permission to use ths command.
    startphantomevent:

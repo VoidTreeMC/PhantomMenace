@@ -46,7 +46,8 @@ public abstract class CommandControl implements CommandExecutor {
 		NOT_AN_ARGUMENT,
     PLAYER_OFFLINE,
     PERMISSION_DENIED,
-    STILL_PROCESSING;
+    STILL_PROCESSING,
+    INVALID_NUMBER;
 	}
 
 

@@ -5,6 +5,8 @@ import java.util.HashMap;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.Bukkit;
 
 import com.condor.phantommenace.command.CommandControl;
 import com.condor.phantommenace.command.SubCommand;
@@ -22,24 +24,47 @@ public class GetCustomItemCommand extends CommandControl {
 
 	@Override
 	protected FailureCode execute(CommandSender sender, String label, String[] args) {
-    // TODO: Make it so you can give it to another player by specifying their name
 
     if (!sender.hasPermission("condor.commands.executors.getcustomitem")) {
       sender.sendMessage("You do not have permission to use this command.");
       return FailureCode.PERMISSION_DENIED;
     }
 
-    if (!(sender instanceof Player)) {
-      sender.sendMessage("You must be a player to run this command.");
-      return FailureCode.NOT_A_PLAYER;
-    }
+    Player player = null;
+    int quantity = 1;
 
     if (args.length < 1) {
       sender.sendMessage("Please provide an argument.");
       return FailureCode.NOT_AN_ARGUMENT;
+    } else if (args.length == 1) {
+      if (sender instanceof Player) {
+        player = (Player) sender;
+      } else {
+        sender.sendMessage("Please provide the name of the player to give the item to.");
+        return FailureCode.NOT_AN_ARGUMENT;
+      }
+    } else if (args.length >= 2) {
+      String playerName = args[1];
+      OfflinePlayer offlinePlayer = Bukkit.getServer().getOfflinePlayer(playerName);
+      if (offlinePlayer == null) {
+        sender.sendMessage("Couldn't find a player by that name");
+        return FailureCode.NOT_A_PLAYER;
+      }
+      player = offlinePlayer.getPlayer();
+      if (player == null) {
+        sender.sendMessage("Player is currently offline.");
+        return FailureCode.PLAYER_OFFLINE;
+      }
+      if (args.length >= 3) {
+        try {
+          quantity = Integer.parseInt(args[2]);
+        } catch (NumberFormatException e) {
+          sender.sendMessage("Invalid quantity entered.");
+          return FailureCode.INVALID_NUMBER;
+        }
+      }
     }
 
-    Player player = (Player) sender;
     String typeStr = args[0].toLowerCase();
     ItemStack is = null;
     switch (typeStr) {
@@ -119,16 +144,23 @@ public class GetCustomItemCommand extends CommandControl {
       case "wandofregeneration":
         is = CustomItemManager.getItemByType(CustomItemType.REPLANTER_HOE).getInstance();
         break;
-      // case "foliageaxe":
-      //   is = CustomItemManager.getItemByType(CustomItemType.FOLIAGE_AXE).getInstance();
-      //   break;
+      case "foliageaxe":
+        is = CustomItemManager.getItemByType(CustomItemType.FOLIAGE_AXE).getInstance();
+        break;
     }
 
     if (is != null) {
-      player.getInventory().addItem(is);
+      if (is.getMaxStackSize() > quantity) {
+        is.setAmount(quantity);
+        player.getInventory().addItem(is);
+      } else {
+        for (int i = 0; i < quantity; i++) {
+          player.getInventory().addItem(is);
+        }
+      }
       sender.sendMessage(GIVEN_MSG);
     } else {
-      sender.sendMessage("No item of that name was found.");
+      sender.sendMessage("An error was encountered. Perhaps there is no item by that name.");
     }
 
 		return FailureCode.SUCCESS;

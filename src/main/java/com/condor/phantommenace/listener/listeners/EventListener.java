@@ -553,7 +553,7 @@ public class EventListener  extends PHListener {
         }
 
         if (!isPlayer && damager instanceof Guardian) {
-          if (damager.hasMetadata(PhantomType.PHANTOM_TYPE_METADATA_KEY) && phantomType == PhantomType.MOTHER_OF_ALL_PHANTOMS) {
+          if (damager.hasMetadata(PhantomEvent.EVENT_METADATA_KEY) && phantomType == PhantomType.MOTHER_OF_ALL_PHANTOMS) {
             double moapHP = phantom.getHealth();
             double moapMax = phantom.getMaxHealth();
             double fivePercent = phantom.getMaxHealth() * 0.05;
