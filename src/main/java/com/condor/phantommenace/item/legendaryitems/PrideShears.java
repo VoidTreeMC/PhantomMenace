@@ -172,7 +172,7 @@ public class PrideShears extends CustomItem {
       int woolAmt = rng.nextInt(5) + 3;
       ItemStack item = new ItemStack(woolType, woolAmt);
       Location sheepLoc = bsee.getEntity().getLocation();
-      sheepLoc.getWorld().dropItemNaturally(sheepLoc, item);
+      sheepLoc.getWorld().dropItem(sheepLoc, item);
     }
   }
 

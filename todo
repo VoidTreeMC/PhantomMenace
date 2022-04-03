@@ -21,7 +21,6 @@ Phantoms that disable all potion effects when they hit you, including flight pot
 
 DID
 ===
-Fixed a bug that caused healer guardians to damage the MOAP instead of healing it
-Fixed a bug that allowed people to spam-click the slayer sword and steal receive damage buffs to undead
-Fixed a bug where the TAB would break containers and delete their contents
-Extended functionality of /getcustomitem to allow one to specify recipient name and quantity
+Added foliage axe to phantom shop menu
+Tentative fix for pride shears dropping items in weird locations
+Made it so getcustomitem drops the item on the ground if their inventory is full

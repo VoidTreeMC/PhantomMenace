@@ -152,10 +152,18 @@ public class GetCustomItemCommand extends CommandControl {
     if (is != null) {
       if (is.getMaxStackSize() > quantity) {
         is.setAmount(quantity);
-        player.getInventory().addItem(is);
+        HashMap<Integer, ItemStack> leftovers = player.getInventory().addItem(is);
+        // Drop the leftovers on the ground
+        for (ItemStack item : leftovers.values()) {
+          player.getLocation().getWorld().dropItem(player.getLocation(), item);
+        }
       } else {
         for (int i = 0; i < quantity; i++) {
-          player.getInventory().addItem(is);
+          HashMap<Integer, ItemStack> leftovers = player.getInventory().addItem(is);
+          // Drop the leftovers on the ground
+          for (ItemStack item : leftovers.values()) {
+            player.getLocation().getWorld().dropItem(player.getLocation(), item);
+          }
         }
       }
       sender.sendMessage(GIVEN_MSG);

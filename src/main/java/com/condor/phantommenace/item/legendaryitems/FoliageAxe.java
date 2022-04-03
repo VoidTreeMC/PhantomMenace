@@ -54,7 +54,7 @@ public class FoliageAxe extends CustomItem {
 
   static {
     loreList.add("Foliage Axe");
-    loreList.add("With destruction comes creation.");
+    loreList.add("I'm a lumberjack and I'm okay.");
     loreList.add("");
 
     triggerList.add(BlockBreakEvent.class);
