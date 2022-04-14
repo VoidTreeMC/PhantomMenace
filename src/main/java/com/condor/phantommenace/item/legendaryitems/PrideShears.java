@@ -2,6 +2,7 @@ package com.condor.phantommenace.item.legendaryitems;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.HashMap;
 
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -24,7 +25,6 @@ import org.bukkit.block.data.type.Beehive;
 import io.papermc.paper.event.block.PlayerShearBlockEvent;
 import org.bukkit.event.block.BlockShearEntityEvent;
 import org.bukkit.block.Block;
-
 
 import com.condor.phantommenace.item.CustomItem;
 import com.condor.phantommenace.item.CustomItemType;
@@ -149,7 +149,11 @@ public class PrideShears extends CustomItem {
       Material woolType = WOOL_TYPES.get(rng.nextInt(WOOL_TYPES.size()));
       int woolAmt = rng.nextInt(5) + 3;
       ItemStack item = new ItemStack(woolType, woolAmt);
-      player.getInventory().addItem(item);
+      HashMap<Integer, ItemStack> leftovers = player.getInventory().addItem(item);
+      Location sheepLoc = psee.getEntity().getLocation();
+      for (ItemStack leftoverItem : leftovers.values()) {
+        sheepLoc.getWorld().dropItem(sheepLoc, leftoverItem);
+      }
     } else if (event instanceof PlayerShearBlockEvent) {
       PlayerShearBlockEvent psbe = (PlayerShearBlockEvent) event;
       Player player = psbe.getPlayer();
@@ -161,7 +165,11 @@ public class PrideShears extends CustomItem {
         Material candleType = CANDLE_TYPES.get(rng.nextInt(CANDLE_TYPES.size()));
         int candleAmt = rng.nextInt(5) + 3;
         ItemStack item = new ItemStack(candleType, candleAmt);
-        player.getInventory().addItem(item);
+        HashMap<Integer, ItemStack> leftovers = player.getInventory().addItem(item);
+        Location blockLoc = psbe.getBlock().getLocation();
+        for (ItemStack leftoverItem : leftovers.values()) {
+          blockLoc.getWorld().dropItem(blockLoc, leftoverItem);
+        }
       }
       psbe.getBlock().setBlockData(hive);
     } else if (event instanceof BlockShearEntityEvent) {

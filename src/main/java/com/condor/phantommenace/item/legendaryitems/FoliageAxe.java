@@ -23,6 +23,7 @@ import org.bukkit.util.Vector;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.block.data.type.Leaves;
+import org.bukkit.block.data.type.Sapling;
 import org.bukkit.event.block.Action;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -32,6 +33,7 @@ import com.condor.phantommenace.item.CustomItemType;
 import com.condor.phantommenace.main.PhantomMain;
 import com.condor.phantommenace.runnable.DoDisableTargetAI;
 import com.condor.phantommenace.runnable.DisplayCooldown;
+import com.condor.phantommenace.runnable.RemoveMetadataAfterDelay;
 
 public class FoliageAxe extends CustomItem {
 
@@ -44,7 +46,8 @@ public class FoliageAxe extends CustomItem {
   private HashMap<String, BlockFace> blockMap = new HashMap<>();
 
   private static final String METADATA_KEY = "isFoliageAxeAdjacent";
-  private static final int MAX_WIDTH = 3;
+  private static final String RECENT_SAPLING_METADATA_KEY = "grewFromSapling";
+  private static final int MAX_WIDTH = 5;
   private static final int MAX_HEIGHT = 30;
 
   // 15 second cooldown
@@ -107,17 +110,31 @@ public class FoliageAxe extends CustomItem {
       if (isLeaf(blockType)) {
         BlockFace blockFace = pie.getBlockFace();
         blockMap.put(block.getLocation().toString(), blockFace);
-      } else if (pie.getAction() == Action.RIGHT_CLICK_BLOCK && player.isSneaking() && isLog(blockType)) {
-        long currTime = System.currentTimeMillis();
-        long lastTimeUsed = 0;
-        if (mapOfTimesUsed.containsKey(player.getUniqueId())) {
-          lastTimeUsed = mapOfTimesUsed.get(player.getUniqueId());
-        }
-        // If it's off cooldown
-        if ((currTime - lastTimeUsed) >= COOLDOWN_DURATION) {
-          handleTreefeller(pie, block);
-          (new DisplayCooldown(player, ChatColor.GOLD + "Treefeller cooldown", COOLDOWN_DURATION, 1000)).runTaskAsynchronously(PhantomMain.getPlugin());
-          mapOfTimesUsed.put(player.getUniqueId(), currTime);
+      } else if (pie.getAction() == Action.RIGHT_CLICK_BLOCK && player.isSneaking()) {
+        if (isLog(blockType)) {
+          if (block.hasMetadata(RECENT_SAPLING_METADATA_KEY)) {
+            return;
+          }
+          long currTime = System.currentTimeMillis();
+          long lastTimeUsed = 0;
+          if (mapOfTimesUsed.containsKey(player.getUniqueId())) {
+            lastTimeUsed = mapOfTimesUsed.get(player.getUniqueId());
+          }
+          // If it's off cooldown
+          if ((currTime - lastTimeUsed) >= COOLDOWN_DURATION) {
+            handleTreefeller(pie, block);
+            (new DisplayCooldown(player, ChatColor.GOLD + "Treefeller cooldown", COOLDOWN_DURATION, 1000)).runTaskAsynchronously(PhantomMain.getPlugin());
+            mapOfTimesUsed.put(player.getUniqueId(), currTime);
+          }
+        } else if (isSapling(blockType)) {
+          if (ReplanterHoe.hasBonemeal(player)) {
+            boolean wasBonemealed = block.applyBoneMeal(pie.getBlockFace());
+            if (wasBonemealed) {
+              ReplanterHoe.removeBonemeal(player);
+            }
+            block.setMetadata(RECENT_SAPLING_METADATA_KEY, new FixedMetadataValue(PhantomMain.getPlugin(), true));
+            (new RemoveMetadataAfterDelay(block, RECENT_SAPLING_METADATA_KEY)).runTaskLater(PhantomMain.getPlugin(), 10);
+          }
         }
       }
     }
@@ -128,6 +145,7 @@ public class FoliageAxe extends CustomItem {
     Block block = bbe.getBlock();
     // If it's one of the adjacent blocks, stop processing early
     if (block.hasMetadata(METADATA_KEY)) {
+      block.removeMetadata(METADATA_KEY, PhantomMain.getPlugin());
       return;
     }
     BlockFace blockFace = blockMap.get(block.getLocation().toString());
@@ -215,7 +233,7 @@ public class FoliageAxe extends CustomItem {
   }
 
   private static boolean isLeaf(Material material) {
-    return (material.createBlockData() instanceof Leaves);
+    return (material.createBlockData() instanceof Leaves) || material == Material.NETHER_WART_BLOCK || material == Material.WARPED_WART_BLOCK || material == Material.SHROOMLIGHT;
   }
 
   private static boolean isLog(Material material) {
@@ -226,9 +244,23 @@ public class FoliageAxe extends CustomItem {
       case JUNGLE_LOG:
       case OAK_LOG:
       case SPRUCE_LOG:
+      case CRIMSON_STEM:
+      case WARPED_STEM:
+      case STRIPPED_ACACIA_LOG:
+      case STRIPPED_BIRCH_LOG:
+      case STRIPPED_DARK_OAK_LOG:
+      case STRIPPED_JUNGLE_LOG:
+      case STRIPPED_OAK_LOG:
+      case STRIPPED_SPRUCE_LOG:
+      case STRIPPED_CRIMSON_STEM:
+      case STRIPPED_WARPED_STEM:
         return true;
       default:
         return false;
     }
+  }
+
+  private static boolean isSapling(Material material) {
+    return (material.createBlockData() instanceof Sapling) || material == Material.CRIMSON_FUNGUS || material == Material.WARPED_FUNGUS;
   }
 }

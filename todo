@@ -8,7 +8,6 @@ Bossbars for almond cake and flight potion
 Bugs
 ===
 
-
 Exploits
 ===
 Spectator area people can use the slayer sword's feature from the spectator zone
@@ -21,6 +20,11 @@ Phantoms that disable all potion effects when they hit you, including flight pot
 
 DID
 ===
-Added foliage axe to phantom shop menu
-Tentative fix for pride shears dropping items in weird locations
-Made it so getcustomitem drops the item on the ground if their inventory is full
+Made foliage axe work on nether trees
+Added bonemeal usage as a feature of foliage axe
+Added stripped logs to the list of things that can be treefelled
+Fixed an intermittent bug with the foliage axe that occurred when replacing leaves and trying to break them again
+Fixed a bug with pride shears where it would delete wool from sheep if the player's inventory was full
+Fixed a bug with pride shears where it would delete candles from beehives if the player's inventory was full
+Fixed a bug with the slayer sword that caused it to damage innocent entities if the player spam-clicked
+Fixed a bug with the wand of regeneration that allowed it to generate infinite beetroot seeds

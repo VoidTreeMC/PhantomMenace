@@ -121,7 +121,7 @@ public class ReplanterHoe extends CustomItem {
     }
   }
 
-  private boolean hasBonemeal(Player player) {
+  public static boolean hasBonemeal(Player player) {
     for (ItemStack is : player.getInventory().getContents()) {
       if (is != null && is.getType() == Material.BONE_MEAL) {
         return true;
@@ -130,7 +130,7 @@ public class ReplanterHoe extends CustomItem {
     return false;
   }
 
-  private void removeBonemeal(Player player) {
+  public static void removeBonemeal(Player player) {
     for (ItemStack is : player.getInventory().getContents()) {
       if (is != null && is.getType() == Material.BONE_MEAL) {
         is.setAmount(is.getAmount() - 1);
@@ -173,6 +173,7 @@ public class ReplanterHoe extends CustomItem {
       case MELON_SEEDS:
       case WHEAT_SEEDS:
       case PUMPKIN_SEEDS:
+      case BEETROOT_SEEDS:
         return true;
       default:
         return false;

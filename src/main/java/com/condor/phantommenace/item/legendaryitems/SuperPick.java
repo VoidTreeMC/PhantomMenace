@@ -171,6 +171,7 @@ public class SuperPick extends CustomItem {
       case CRAFTING_TABLE:
       case ENCHANTING_TABLE:
       case GRINDSTONE:
+      case HOPPER:
       case LOOM:
       case STONECUTTER:
       case BLACK_SHULKER_BOX:

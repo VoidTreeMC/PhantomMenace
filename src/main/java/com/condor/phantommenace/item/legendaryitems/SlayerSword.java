@@ -105,8 +105,7 @@ public class SlayerSword extends CustomItem {
       EntityDamageByEntityEvent edbee = (EntityDamageByEntityEvent) event;
       if (edbee.getDamager() instanceof Player) {
         Player player = (Player) edbee.getDamager();
-        double damageAmt = edbee.getDamage();
-        if (isSlayerSword(player.getItemInHand()) && damageAmt >= 10) {
+        if (isSlayerSword(player.getItemInHand())) {
           ret = true;
         }
       }
@@ -145,8 +144,10 @@ public class SlayerSword extends CustomItem {
       LivingEntity target = (LivingEntity) edbee.getEntity();
       // If the target is undead, make it deal smite-level damage
       if (target.getCategory() == EntityCategory.UNDEAD) {
-        edbee.setDamage(edbee.getDamage() + DAMAGE_TO_ADD_TO_UNDEAD);
-        target.setMetadata(METADATA_KEY, new FixedMetadataValue(PhantomMain.getPlugin(), true));
+        if (edbee.getDamage() >= 10) {
+          edbee.setDamage(edbee.getDamage() + DAMAGE_TO_ADD_TO_UNDEAD);
+          target.setMetadata(METADATA_KEY, new FixedMetadataValue(PhantomMain.getPlugin(), true));
+        }
       } else {
         if (!shouldDealDamageTo(target)) {
         // If the target is innocent, make it deal no damage
