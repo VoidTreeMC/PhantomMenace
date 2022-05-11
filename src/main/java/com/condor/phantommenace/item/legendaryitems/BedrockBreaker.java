@@ -46,6 +46,9 @@ public class BedrockBreaker extends CustomItem {
 
   private static HashMap<UUID, Long> mapOfTimesUsed = new HashMap<>();
 
+  private static Random rng = new Random();
+  private static Material[] glassTypes = {Material.WHITE_STAINED_GLASS, Material.LIGHT_BLUE_STAINED_GLASS, Material.PINK_STAINED_GLASS};
+
   static {
     loreList.add("Trans (Dimensional) Pick");
     loreList.add("No walls. Only windows.");
@@ -109,7 +112,7 @@ public class BedrockBreaker extends CustomItem {
         Bukkit.getScheduler().runTask(PhantomMain.getPlugin(), new Runnable() {
           @Override
           public void run() {
-            clickedBlock.setType(Material.GLASS);
+            clickedBlock.setType(glassTypes[rng.nextInt(glassTypes.length)]);
           }
         });
         if (--numUses <= 0) {

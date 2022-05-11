@@ -147,6 +147,9 @@ public class GetCustomItemCommand extends CommandControl {
       case "foliageaxe":
         is = CustomItemManager.getItemByType(CustomItemType.FOLIAGE_AXE).getInstance();
         break;
+      case "beelordwand":
+        is = CustomItemManager.getItemByType(CustomItemType.BEE_LORD_WAND).getInstance();
+        break;
     }
 
     if (is != null) {

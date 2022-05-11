@@ -47,8 +47,10 @@ public class PhantomShopGUI {
     CustomItemManager.getItemByType(CustomItemType.SLIME_EGG),
     CustomItemManager.getItemByType(CustomItemType.COW_EGG),
     CustomItemManager.getItemByType(CustomItemType.ZOMBIE_PIGLIN_EGG),
+    CustomItemManager.getItemByType(CustomItemType.BAT_EGG),
     CustomItemManager.getItemByType(CustomItemType.REPLANTER_HOE),
-    CustomItemManager.getItemByType(CustomItemType.FOLIAGE_AXE)
+    CustomItemManager.getItemByType(CustomItemType.FOLIAGE_AXE),
+    CustomItemManager.getItemByType(CustomItemType.BEE_LORD_WAND)
   };
 
   private static boolean canAfford(Player player, int price) {

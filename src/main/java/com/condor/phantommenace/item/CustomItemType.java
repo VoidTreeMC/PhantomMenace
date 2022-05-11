@@ -26,6 +26,7 @@ public enum CustomItemType {
   FOX_EGG,
   SPIDER_EGG,
   SLIME_EGG,
+  BAT_EGG,
   ZOMBIE_PIGLIN_EGG,
   COW_EGG,
   COPPER_VOUCHER,
@@ -39,7 +40,8 @@ public enum CustomItemType {
   ALMOND_CAKE,
   BEDROCK_BREAKER,
   REPLANTER_HOE,
-  FOLIAGE_AXE;
+  FOLIAGE_AXE,
+  BEE_LORD_WAND;
 
   private static HashMap<String, CustomItemType> CUSTOM_ITEM_TYPES;
 
@@ -168,6 +170,8 @@ public enum CustomItemType {
         return REPLANTER_HOE;
       case "Foliage Axe":
         return FOLIAGE_AXE;
+      case "Bee Lord's Wand":
+        return BEE_LORD_WAND;
       default:
         return null;
     }

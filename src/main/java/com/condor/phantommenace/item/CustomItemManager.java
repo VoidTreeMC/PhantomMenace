@@ -32,6 +32,7 @@ public class CustomItemManager {
     itemMap.put(CustomItemType.SLIME_EGG, new SlimeSpawnEgg());
     itemMap.put(CustomItemType.ZOMBIE_PIGLIN_EGG, new ZombiePiglinSpawnEgg());
     itemMap.put(CustomItemType.COW_EGG, new CowSpawnEgg());
+    itemMap.put(CustomItemType.BAT_EGG, new BatSpawnEgg());
     itemMap.put(CustomItemType.COPPER_VOUCHER, new CopperVoucher());
     itemMap.put(CustomItemType.IRON_VOUCHER, new IronVoucher());
     itemMap.put(CustomItemType.GOLD_VOUCHER, new GoldVoucher());
@@ -44,6 +45,7 @@ public class CustomItemManager {
     itemMap.put(CustomItemType.BEDROCK_BREAKER, new BedrockBreaker());
     itemMap.put(CustomItemType.REPLANTER_HOE, new ReplanterHoe());
     itemMap.put(CustomItemType.FOLIAGE_AXE, new FoliageAxe());
+    itemMap.put(CustomItemType.BEE_LORD_WAND, new BeeLordWand());
   }
 
   public static double getPriceScale() {
