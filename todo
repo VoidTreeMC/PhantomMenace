@@ -4,7 +4,6 @@ If a phantom explodes on you, you should get credit for its kills
 Have the tiny phantoms constantly target the MOAP to make it look like a swarm of bees
 Make a dedicated file for constants, especially names for items.
 Bossbars for almond cake and flight potion
-Nerf pride shears (change to 2-4)
 
 Bugs
 ===
@@ -21,4 +20,4 @@ Phantoms that disable all potion effects when they hit you, including flight pot
 
 DID
 ===
-Added mushrooms etc. to foliage axe list of blocks
+Nerfed pride shears (changed wool output to be 2-4)

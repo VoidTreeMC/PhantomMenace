@@ -147,7 +147,7 @@ public class PrideShears extends CustomItem {
       psee.setCancelled(true);
       ((Sheep) (psee.getEntity())).setSheared(true);
       Material woolType = WOOL_TYPES.get(rng.nextInt(WOOL_TYPES.size()));
-      int woolAmt = rng.nextInt(5) + 3;
+      int woolAmt = rng.nextInt(3) + 2;
       ItemStack item = new ItemStack(woolType, woolAmt);
       HashMap<Integer, ItemStack> leftovers = player.getInventory().addItem(item);
       Location sheepLoc = psee.getEntity().getLocation();
@@ -177,7 +177,7 @@ public class PrideShears extends CustomItem {
       bsee.setCancelled(true);
       ((Sheep) (bsee.getEntity())).setSheared(true);
       Material woolType = WOOL_TYPES.get(rng.nextInt(WOOL_TYPES.size()));
-      int woolAmt = rng.nextInt(5) + 3;
+      int woolAmt = rng.nextInt(3) + 2;
       ItemStack item = new ItemStack(woolType, woolAmt);
       Location sheepLoc = bsee.getEntity().getLocation();
       sheepLoc.getWorld().dropItem(sheepLoc, item);
