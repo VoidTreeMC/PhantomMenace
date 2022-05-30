@@ -198,7 +198,9 @@ public class FoliageAxe extends CustomItem {
       // Uncomment this to re-enable drops
       Collection<ItemStack> drops = loc.getBlock().getDrops(player.getItemInHand());
       for (ItemStack is : drops) {
-        loc.getWorld().dropItem(loc, is);
+        if (is.getType() != Material.AIR) {
+          loc.getWorld().dropItem(loc, is);
+        }
       }
       Block adjBlock = loc.getBlock();
       adjBlock.setMetadata(METADATA_KEY, new FixedMetadataValue(PhantomMain.getPlugin(), true));
@@ -233,7 +235,19 @@ public class FoliageAxe extends CustomItem {
   }
 
   private static boolean isLeaf(Material material) {
-    return (material.createBlockData() instanceof Leaves) || material == Material.NETHER_WART_BLOCK || material == Material.WARPED_WART_BLOCK || material == Material.SHROOMLIGHT;
+    if (material.createBlockData() instanceof Leaves) {
+      return true;
+    }
+    switch (material) {
+      case NETHER_WART_BLOCK:
+      case WARPED_WART_BLOCK:
+      case SHROOMLIGHT:
+      case RED_MUSHROOM_BLOCK:
+      case BROWN_MUSHROOM_BLOCK:
+        return true;
+      default:
+        return false;
+    }
   }
 
   private static boolean isLog(Material material) {
@@ -254,6 +268,7 @@ public class FoliageAxe extends CustomItem {
       case STRIPPED_SPRUCE_LOG:
       case STRIPPED_CRIMSON_STEM:
       case STRIPPED_WARPED_STEM:
+      case MUSHROOM_STEM:
         return true;
       default:
         return false;
@@ -261,6 +276,17 @@ public class FoliageAxe extends CustomItem {
   }
 
   private static boolean isSapling(Material material) {
-    return (material.createBlockData() instanceof Sapling) || material == Material.CRIMSON_FUNGUS || material == Material.WARPED_FUNGUS;
+    if (material.createBlockData() instanceof Sapling) {
+      return true;
+    }
+    switch (material) {
+      case CRIMSON_FUNGUS:
+      case WARPED_FUNGUS:
+      case BROWN_MUSHROOM:
+      case RED_MUSHROOM:
+        return true;
+      default:
+        return false;
+    }
   }
 }
