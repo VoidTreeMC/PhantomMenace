@@ -11,7 +11,7 @@ public class AllFlamingWave extends Wave {
   private static HashMap<PhantomType, Integer> map = new HashMap<>();
 
   static {
-    map.put(PhantomType.FLAMING_PHANTOM, 9);
+    map.put(PhantomType.FLAMING_PHANTOM, 5);
     map.put(PhantomType.KAMIKAZE_PHANTOM, 1);
   }
 

@@ -25,6 +25,10 @@ import org.bukkit.block.data.type.Beehive;
 import io.papermc.paper.event.block.PlayerShearBlockEvent;
 import org.bukkit.event.block.BlockShearEntityEvent;
 import org.bukkit.block.Block;
+import org.bukkit.Bukkit;
+import org.bukkit.inventory.meta.Damageable;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.block.Dispenser;
 
 import com.condor.phantommenace.item.CustomItem;
 import com.condor.phantommenace.item.CustomItemType;
@@ -181,6 +185,22 @@ public class PrideShears extends CustomItem {
       ItemStack item = new ItemStack(woolType, woolAmt);
       Location sheepLoc = bsee.getEntity().getLocation();
       sheepLoc.getWorld().dropItem(sheepLoc, item);
+      updateDurability((Dispenser) bsee.getBlock().getState());
+    }
+  }
+
+  public void updateDurability(Dispenser dispenser) {
+    Inventory dispenserInventory = dispenser.getInventory();
+    for (ItemStack tool : dispenserInventory.getContents()) {
+      if (isPrideShears(tool)) {
+        Damageable durMeta = (Damageable) tool.getItemMeta();
+        // Unbreaking 3
+        if (rng.nextDouble() < 0.25) {
+          durMeta.setDamage(durMeta.getDamage() + 1);
+          tool.setItemMeta((ItemMeta) durMeta);
+        }
+        break;
+      }
     }
   }
 

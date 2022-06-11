@@ -11,10 +11,10 @@ public class AllPhantomsWave extends Wave {
   private static HashMap<PhantomType, Integer> map = new HashMap<>();
 
   static {
-    map.put(PhantomType.INVISIBLE_PHANTOM, 3);
-    map.put(PhantomType.ENDER_PHANTOM, 4);
-    map.put(PhantomType.FLAMING_PHANTOM, 5);
-    map.put(PhantomType.MOUNTED_PHANTOM, 5);
+    map.put(PhantomType.INVISIBLE_PHANTOM, 2);
+    map.put(PhantomType.ENDER_PHANTOM, 3);
+    map.put(PhantomType.FLAMING_PHANTOM, 4);
+    map.put(PhantomType.MOUNTED_PHANTOM, 4);
     map.put(PhantomType.KAMIKAZE_PHANTOM, 1);
   }
 
