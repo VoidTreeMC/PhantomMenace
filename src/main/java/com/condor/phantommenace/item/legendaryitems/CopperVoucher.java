@@ -110,6 +110,7 @@ public class CopperVoucher extends CustomItem {
     ItemStack sixVoidCoins = CustomItemManager.getItemByType(CustomItemType.DEFENDER_TOKEN).getInstance();
     sixVoidCoins.setAmount(6);
     ItemStack sixtyFourCopper = new ItemStack(Material.COPPER_INGOT, 64);
+    ItemStack sixtyFourCopperBlocks = new ItemStack(Material.COPPER_BLOCK, 64);
     ItemStack sixteenCreeperFireworks = CustomItemManager.getItemByType(CustomItemType.CREEPER_FIREWORK).getInstance();
     ItemStack thankYouBook = new ItemStack(Material.WRITTEN_BOOK);
     BookMeta bookMeta = (BookMeta) thankYouBook.getItemMeta();
@@ -127,15 +128,15 @@ public class CopperVoucher extends CustomItem {
     inventory.setItem(6, sixVoidCoins);
     inventory.setItem(7, sixtyFourCopper);
     inventory.setItem(8, sixVoidCoins);
-    inventory.setItem(9, sixtyFourCopper);
+    inventory.setItem(9, sixtyFourCopperBlocks);
     inventory.setItem(10, sixteenCreeperFireworks);
-    inventory.setItem(11, sixtyFourCopper);
+    inventory.setItem(11, sixtyFourCopperBlocks);
     inventory.setItem(12, sixteenCreeperFireworks);
     inventory.setItem(13, thankYouBook);
     inventory.setItem(14, sixteenCreeperFireworks);
-    inventory.setItem(15, sixtyFourCopper);
+    inventory.setItem(15, sixtyFourCopperBlocks);
     inventory.setItem(16, sixteenCreeperFireworks);
-    inventory.setItem(17, sixtyFourCopper);
+    inventory.setItem(17, sixtyFourCopperBlocks);
     inventory.setItem(18, sixVoidCoins);
     inventory.setItem(19, sixtyFourCopper);
     inventory.setItem(20, sixVoidCoins);

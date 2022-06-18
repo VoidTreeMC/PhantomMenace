@@ -110,6 +110,7 @@ public class DiamondVoucher extends CustomItem {
     ItemStack sixtyFourVoidCoins = CustomItemManager.getItemByType(CustomItemType.DEFENDER_TOKEN).getInstance();
     sixtyFourVoidCoins.setAmount(64);
     ItemStack sixteenDiamond = new ItemStack(Material.DIAMOND, 16);
+    ItemStack sixtyFourPistons = new ItemStack(Material.PISTON, 64);
     ItemStack sixtyFourSlimeBlocks = new ItemStack(Material.SLIME_BLOCK, 64);
     ItemStack sixtyFourIronBlocks = new ItemStack(Material.IRON_BLOCK, 64);
     ItemStack wandOfRegeneration = CustomItemManager.getItemByType(CustomItemType.REPLANTER_HOE).getInstance();
@@ -121,7 +122,7 @@ public class DiamondVoucher extends CustomItem {
     bookMeta.addPage("Thank you for contributing to " + ChatColor.RED + "Void" + ChatColor.GRAY + "Tree" + ChatColor.RESET + ", " + player.getDisplayName());
     thankYouBook.setItemMeta(bookMeta);
     inventory.setItem(0, sixteenDiamond);
-    inventory.setItem(1, wandOfRegeneration);
+    inventory.setItem(1, sixtyFourPistons);
     inventory.setItem(2, sixteenDiamond);
     inventory.setItem(3, sixtyFourSlimeBlocks);
     inventory.setItem(4, sixteenDiamond);
@@ -145,7 +146,7 @@ public class DiamondVoucher extends CustomItem {
     inventory.setItem(22, sixteenDiamond);
     inventory.setItem(23, sixtyFourSlimeBlocks);
     inventory.setItem(24, sixteenDiamond);
-    inventory.setItem(25, creeperbane);
+    inventory.setItem(25, sixtyFourPistons);
     inventory.setItem(26, sixteenDiamond);
     meta.setBlockState(box);
     is.setItemMeta(meta);
