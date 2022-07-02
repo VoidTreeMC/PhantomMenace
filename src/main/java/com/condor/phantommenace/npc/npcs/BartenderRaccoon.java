@@ -26,11 +26,11 @@ public class BartenderRaccoon extends PHNPC {
   private static final String NAME = "Sykstus";
   private static final UUID UNIQUE_ID = UUID.fromString("bc72acc3-7feb-45a0-b68c-060729c4cd51");
   private static final World WORLD = PhantomMain.getPlugin().getServer().getWorld("survival");
-  private static final double X = 1818.3;
-  private static final double Y = 84;
-  private static final double Z = -2986.652;
-  private static final float PITCH = 91.3f;
-  private static final float YAW = 3.6f;
+  private static final double X = 565.287;
+  private static final double Y = 66;
+  private static final double Z = -613.550;
+  private static final float PITCH = -159.1f;
+  private static final float YAW = 2.5f;
   private static final Location loc = new Location(WORLD, X, Y, Z, PITCH, YAW);
 
   public BartenderRaccoon() {

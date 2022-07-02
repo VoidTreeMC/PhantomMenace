@@ -19,21 +19,21 @@ import com.github.juliarn.npc.modifier.NPCModifier;
 import com.github.juliarn.npc.modifier.EquipmentModifier;
 import com.github.juliarn.npc.event.PlayerNPCInteractEvent;
 
-public class QueenBear extends PHNPC {
+public class TurtleBankTeller extends PHNPC {
 
-  private static final String TEXTURE = "ewogICJ0aW1lc3RhbXAiIDogMTYxMTE4MDI5MjU4MSwKICAicHJvZmlsZUlkIiA6ICI5ZDEzZjcyMTcxM2E0N2U0OTAwZTMyZGVkNjBjNDY3MyIsCiAgInByb2ZpbGVOYW1lIiA6ICJUYWxvZGFvIiwKICAic2lnbmF0dXJlUmVxdWlyZWQiIDogdHJ1ZSwKICAidGV4dHVyZXMiIDogewogICAgIlNLSU4iIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzFlNGE5OWEyZjAyYzYzM2ExYTA3NGFjZDBlZjIzOTY2NTdkMmU5YzU2OTdhNGQ3ZDg3MjQxMDhlYmI5MDQ5YWUiCiAgICB9CiAgfQp9";
-  private static final String TEXTURE_SIGNATURE = "kWhugkZjypTu7VlftMVYvvuGus4DtAd6tpFkAZjTiGf09acaNt8Eq7fDrIzJMPCty3mW5eVea3b9FCfNjU9AZ2B42C1PuD56UMX4YDaicX/2k6OlKJ2IDVlqI71A/j4mPhpk+0onZ5R+/MXlshHAEXRRvpxNa8opc3bTMxTVH1icNoYhc21IvmCEhlN2BZk1ohVZSW67AysYNbb3NyFCUtk4hf8zGMmz6k0Br7g2JGXRX4J14F6leIKqCpGGhKMN6a+biidGWXca2fZRtHRCnBlECVBWX078KXDkvCBF5Q8dEBZOf40NXBzgenZwB8fUOEhCou7AhsTB3/ERKQYyAHfjWq6EA23Ha3USN+6FgVdWI5WFQomIvUHrqVcczD9sleHHdYP9sWkIn/mL0HAKOobbBwa2nx4qNFwSEbZ0non8PRfac+JdjhBdYgQr8Q49rliwa/tdgkyqZoxAS0Ql0G+1n42F5Y/vqQrjQY+kcS5CxNl/rOSvsqpA39VXTdDs8s5VyIuyLhZ3tU0AWL7mlFkF3lTDCOu5q6W/ynWPjG8o/Vsk+2N7cnudLyjmO+sTkyQ50vwSswWGFouaHz3fc7bNiWPGNd/B8t+bYpTQwBwF7yjHrzSzOH8X/7I3El2E81pSMIVE6bN1J2d0+KpP2KxvbVNFlcBaXKSuaQxx2/I=";
-  private static final String NAME = "Queen Ursula";
-  private static final UUID UNIQUE_ID = UUID.fromString("bc72acc3-7feb-45a0-b68c-060729c4cc91");
+  private static final String TEXTURE = "ewogICJ0aW1lc3RhbXAiIDogMTY1NjYxODMyOTEzNiwKICAicHJvZmlsZUlkIiA6ICI1NTZjNDNmOWJmZjU0MjI1OTI0NDU5M2EwN2QyYzE1MSIsCiAgInByb2ZpbGVOYW1lIiA6ICJHaW50b2tsIiwKICAic2lnbmF0dXJlUmVxdWlyZWQiIDogdHJ1ZSwKICAidGV4dHVyZXMiIDogewogICAgIlNLSU4iIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlL2VkNWRlMzE2NmRmNWY2ZTkxMzgwOGJkZjNlNjA1NDY4YjkyM2UzYTI3YTUxNzM2ZGEyY2I0NzQ3NzljNTczNzkiLAogICAgICAibWV0YWRhdGEiIDogewogICAgICAgICJtb2RlbCIgOiAic2xpbSIKICAgICAgfQogICAgfQogIH0KfQ==";
+  private static final String TEXTURE_SIGNATURE = "mWeNjGqAPs4+r47IMHbi+R7A8t2skbwf8aPrfT7yfCnwhgK3DaCw2xex4Z1uF1cyyG0PXZDsi+IdbOkUBmoY/iEM+wU8bNZxj2WpJalrvdqkWpCRtpqOBSwKXiZqec6fmwUhMu/RzV3S4RJqx+48d+9FdPTLq/8rHMTcmPVrLmau9P3aIxDfa4QYfOY1sLJyRBXD9r2alRBhQN2WjwXPWUEfaWvVLX0JBGN9ZRdgppvmG/YfnP/ImS0XLZkZg64scCbMRCssWHH+gxr0TcJ8zl2wnDSzVouOClZ1PMROSJnpqEhoIt92F8vbheYYWMI/szYoKottqGYRtrDKbcg3OOLx15OslM5GliSmWvZ6WdtPjuWzwsial1pY7bPy1Xg/5WnuGFQKKdFkKWerbbGDwi4sBlpvNLcpusshynWgu3ZluxviIJ7pa+ydIH2bdX0AYQalBH+RmyfNJwRE1xh25GD/DWg2Y6Bv0NKBKK+3K64suIgNvOST5+bpIdpFF90EtyabEYYvZ4V0gn6TnQTvJF2unKVFU3GDRVqr6uk75PVMKgnmIeLcGBD78SUtNN2VMgDA4Xa66zH9g+cSkO3+T7pWHSko/61yEqILVu8J6yUSJzNWXCw7qoDKJaiHD45a+ybN/j1G9IW7jtWzY2neYGLUPFGuQVZQjZYWOMdqrao=";
+  private static final String NAME = "Whitley";
+  private static final UUID UNIQUE_ID = UUID.fromString("bc72acc3-7feb-45a0-b68c-070729c4cd25");
   private static final World WORLD = PhantomMain.getPlugin().getServer().getWorld("survival");
-  private static final double X = 606.575;
-  private static final double Y = 120.5;
-  private static final double Z = -602.099;
-  private static final float PITCH = 0.7f;
-  private static final float YAW = 0.5f;
+  private static final double X = 418.5;
+  private static final double Y = 68;
+  private static final double Z = -493.5;
+  private static final float PITCH = -180.0f;
+  private static final float YAW = 0.0f;
   private static final Location loc = new Location(WORLD, X, Y, Z, PITCH, YAW);
 
-  public QueenBear() {
+  public TurtleBankTeller() {
     super(TEXTURE, TEXTURE_SIGNATURE, NAME, UNIQUE_ID, loc);
   }
 
@@ -67,7 +67,7 @@ public class QueenBear extends PHNPC {
           .send(player);
         break;
       default:
-        // Do the dialogue here
+        player.openInventory(player.getEnderChest());
         break;
     }
   }

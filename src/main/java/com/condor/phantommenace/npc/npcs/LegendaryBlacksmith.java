@@ -27,9 +27,9 @@ public class LegendaryBlacksmith extends PHNPC {
   private static final String NAME = "Zenobius";
   private static final UUID UNIQUE_ID = UUID.fromString("bc72acc3-7feb-45a0-b78c-060729c4cc03");
   private static final World WORLD = PhantomMain.getPlugin().getServer().getWorld("survival");
-  private static final double X = 1563.983;
-  private static final double Y = 76;
-  private static final double Z = -2865;
+  private static final double X = 527.497;
+  private static final double Y = 72;
+  private static final double Z = -433.548;
   private static final Location loc = new Location(WORLD, X, Y, Z);
 
   public LegendaryBlacksmith() {

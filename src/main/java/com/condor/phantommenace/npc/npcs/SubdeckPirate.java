@@ -26,11 +26,11 @@ public class SubdeckPirate extends PHNPC {
   private static final String NAME = "Morgan";
   private static final UUID UNIQUE_ID = UUID.fromString("bc12acc3-7feb-45a0-b68c-070729c4cd51");
   private static final World WORLD = PhantomMain.getPlugin().getServer().getWorld("survival");
-  private static final double X = 1586;
+  private static final double X = 642;
   private static final double Y = 60;
-  private static final double Z = -2956.855;
-  private static final float PITCH = 1.6f;
-  private static final float YAW = 1.1f;
+  private static final double Z = -425.542;
+  private static final float PITCH = 86.5f;
+  private static final float YAW = 0.3f;
   private static final Location loc = new Location(WORLD, X, Y, Z, PITCH, YAW);
 
   public SubdeckPirate() {
@@ -60,6 +60,11 @@ public class SubdeckPirate extends PHNPC {
     switch (clickType) {
       case ATTACK:
         player.sendMessage("Hey! Ow! That hurts!");
+        // making the NPC look at the player
+        npc.rotation()
+          .queueLookAt(player.getEyeLocation())
+          // sending the change only to the player who interacted with the NPC
+          .send(player);
         break;
       default:
         // Do the dialogue here

@@ -26,9 +26,9 @@ public class FoxVendor extends PHNPC {
   private static final String NAME = "Taylor";
   private static final UUID UNIQUE_ID = UUID.fromString("bc72acc3-7feb-45a0-a37c-070729c4cd51");
   private static final World WORLD = PhantomMain.getPlugin().getServer().getWorld("survival");
-  private static final double X = 1484.5;
-  private static final double Y = 76;
-  private static final double Z = -2831.5;
+  private static final double X = 475.482;
+  private static final double Y = 64;
+  private static final double Z = -446.487;
   private static final Location loc = new Location(WORLD, X, Y, Z);
 
   public FoxVendor() {

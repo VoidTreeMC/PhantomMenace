@@ -24,9 +24,9 @@ public class PhantomVendor extends PHNPC {
   private static final String NAME = "Winter";
   private static final UUID UNIQUE_ID = UUID.fromString("bc72acc3-7feb-45a0-b68c-060729c4cc02");
   private static final World WORLD = PhantomMain.getPlugin().getServer().getWorld("survival");
-  private static final double X = 1508.571;
-  private static final double Y = 102;
-  private static final double Z = -2880.382;
+  private static final double X = 534.446;
+  private static final double Y = 85;
+  private static final double Z = -393.487;
   private static final Location loc = new Location(WORLD, X, Y, Z);
 
   public PhantomVendor() {

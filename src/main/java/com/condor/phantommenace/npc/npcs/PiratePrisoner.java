@@ -26,11 +26,11 @@ public class PiratePrisoner extends PHNPC {
   private static final String NAME = "Vesper";
   private static final UUID UNIQUE_ID = UUID.fromString("bc12bcd3-8feb-45a0-b68c-070729c4cd51");
   private static final World WORLD = PhantomMain.getPlugin().getServer().getWorld("survival");
-  private static final double X = 1586.587;
+  private static final double X = 628.897;
   private static final double Y = 60;
-  private static final double Z = -2943.716;
-  private static final float PITCH = 179.2f;
-  private static final float YAW = -0.3f;
+  private static final double Z = -424.414;
+  private static final float PITCH = -90.4f;
+  private static final float YAW = 1.0f;
   private static final Location loc = new Location(WORLD, X, Y, Z, PITCH, YAW);
 
   public PiratePrisoner() {

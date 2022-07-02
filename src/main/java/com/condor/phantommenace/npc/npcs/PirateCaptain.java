@@ -26,11 +26,11 @@ public class PirateCaptain extends PHNPC {
   private static final String NAME = "Captain Ember";
   private static final UUID UNIQUE_ID = UUID.fromString("bc72acc3-7beb-45a0-b68c-070729c4cd51");
   private static final World WORLD = PhantomMain.getPlugin().getServer().getWorld("survival");
-  private static final double X = 1589.502;
+  private static final double X = 619.196;
   private static final double Y = 64;
-  private static final double Z = -2933.729;
-  private static final float PITCH = -51.2f;
-  private static final float YAW = -1.6f;
+  private static final double Z = -421.47;
+  private static final float PITCH = 95.2f;
+  private static final float YAW = -5.7f;
   private static final Location loc = new Location(WORLD, X, Y, Z, PITCH, YAW);
 
   public PirateCaptain() {

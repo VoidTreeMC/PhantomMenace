@@ -19,21 +19,19 @@ import com.github.juliarn.npc.modifier.NPCModifier;
 import com.github.juliarn.npc.modifier.EquipmentModifier;
 import com.github.juliarn.npc.event.PlayerNPCInteractEvent;
 
-public class QueenBear extends PHNPC {
+public class PotionVendor extends PHNPC {
 
-  private static final String TEXTURE = "ewogICJ0aW1lc3RhbXAiIDogMTYxMTE4MDI5MjU4MSwKICAicHJvZmlsZUlkIiA6ICI5ZDEzZjcyMTcxM2E0N2U0OTAwZTMyZGVkNjBjNDY3MyIsCiAgInByb2ZpbGVOYW1lIiA6ICJUYWxvZGFvIiwKICAic2lnbmF0dXJlUmVxdWlyZWQiIDogdHJ1ZSwKICAidGV4dHVyZXMiIDogewogICAgIlNLSU4iIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzFlNGE5OWEyZjAyYzYzM2ExYTA3NGFjZDBlZjIzOTY2NTdkMmU5YzU2OTdhNGQ3ZDg3MjQxMDhlYmI5MDQ5YWUiCiAgICB9CiAgfQp9";
-  private static final String TEXTURE_SIGNATURE = "kWhugkZjypTu7VlftMVYvvuGus4DtAd6tpFkAZjTiGf09acaNt8Eq7fDrIzJMPCty3mW5eVea3b9FCfNjU9AZ2B42C1PuD56UMX4YDaicX/2k6OlKJ2IDVlqI71A/j4mPhpk+0onZ5R+/MXlshHAEXRRvpxNa8opc3bTMxTVH1icNoYhc21IvmCEhlN2BZk1ohVZSW67AysYNbb3NyFCUtk4hf8zGMmz6k0Br7g2JGXRX4J14F6leIKqCpGGhKMN6a+biidGWXca2fZRtHRCnBlECVBWX078KXDkvCBF5Q8dEBZOf40NXBzgenZwB8fUOEhCou7AhsTB3/ERKQYyAHfjWq6EA23Ha3USN+6FgVdWI5WFQomIvUHrqVcczD9sleHHdYP9sWkIn/mL0HAKOobbBwa2nx4qNFwSEbZ0non8PRfac+JdjhBdYgQr8Q49rliwa/tdgkyqZoxAS0Ql0G+1n42F5Y/vqQrjQY+kcS5CxNl/rOSvsqpA39VXTdDs8s5VyIuyLhZ3tU0AWL7mlFkF3lTDCOu5q6W/ynWPjG8o/Vsk+2N7cnudLyjmO+sTkyQ50vwSswWGFouaHz3fc7bNiWPGNd/B8t+bYpTQwBwF7yjHrzSzOH8X/7I3El2E81pSMIVE6bN1J2d0+KpP2KxvbVNFlcBaXKSuaQxx2/I=";
-  private static final String NAME = "Queen Ursula";
-  private static final UUID UNIQUE_ID = UUID.fromString("bc72acc3-7feb-45a0-b68c-060729c4cc91");
+  private static final String TEXTURE = "ewogICJ0aW1lc3RhbXAiIDogMTY1NTA1Mzg1OTMxNiwKICAicHJvZmlsZUlkIiA6ICJlN2IxNmI2MzM2OGM0ODIzYmUxZDcxOTg5ODE5YWI3NSIsCiAgInByb2ZpbGVOYW1lIiA6ICJTb3VyY2VXcml0ZXJzIiwKICAic2lnbmF0dXJlUmVxdWlyZWQiIDogdHJ1ZSwKICAidGV4dHVyZXMiIDogewogICAgIlNLSU4iIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlL2ZmNDFkNDM2YTg0YzMxNDA1M2Y3ZmUyMjc4Y2UyZDExNzJiODk5Y2UyNWQyMDJkYzcxMjc1ZTM0MjE1NDBmMiIKICAgIH0KICB9Cn0=";
+  private static final String TEXTURE_SIGNATURE = "IO+YOM0bIdduiZwkszckSAcD5Fb2IKj/5Q9HxwxpTb1xEAKvpEtfRsSxvOpMM2qhriifiaU53mlEH6sNEp9rjUKvZWTqqy2Ws+7GZsXExVZkhWMEKGpOe+HX+DNEnPRsW8ywtbzNmaZa/xwEWi23AgJGbQH7jH5a7kvMavavczlGPBP1QDJTvSsqxuaNneQuemDvX/OID789NNi5W697K1Q9jbwNYiu0fwTa2S3Ipqb86VJd2hRNrVADTGiKIzgRaP6Wugja0oOXDPSliZN6fRbndjL8ALUb6dC52FLmoWZGJWhGgO2rpGYp2Huo00HbwBWdBFYGn1GFvFpkxDpmLpSlJ6M/H8Q6altdQJl8SKu1P0LBDjlPUn9i+GmmCtDWBy4qQpLBwMQYrgqqrtXQHvz/gJlsTPjp1y8x1ASsM4hMj5Zia6ZAHynnUp311/8Ma0lspz6Mci5fE0KV45ATBcHr09LG/P9sqPprb2t8uyGK+/iOhCleRKj2UM5MWIk1rFUAw+6H3SJrkpG6jaQD9oJGjYs52J/eFTmq2ZoLBmNFxyQHEkKQtLKp6nmHtxYaqrr5Ek1cunLLgn9kMKbM3GKYZGE4Pg3YXb2HGiWgLSomnjOi8UKUyOuREKlVEf7yzuMzPksvJzNFggrbuKrQCA6IC+mrrMhcQ7h1J0tAZFw=";
+  private static final String NAME = "Miffle";
+  private static final UUID UNIQUE_ID = UUID.fromString("bc72acc3-7feb-45a0-b68c-070729c4cd27");
   private static final World WORLD = PhantomMain.getPlugin().getServer().getWorld("survival");
-  private static final double X = 606.575;
-  private static final double Y = 120.5;
-  private static final double Z = -602.099;
-  private static final float PITCH = 0.7f;
-  private static final float YAW = 0.5f;
-  private static final Location loc = new Location(WORLD, X, Y, Z, PITCH, YAW);
+  private static final double X = 536.47;
+  private static final double Y = 85;
+  private static final double Z = -393.48;
+  private static final Location loc = new Location(WORLD, X, Y, Z);
 
-  public QueenBear() {
+  public PotionVendor() {
     super(TEXTURE, TEXTURE_SIGNATURE, NAME, UNIQUE_ID, loc);
   }
 
@@ -67,7 +65,7 @@ public class QueenBear extends PHNPC {
           .send(player);
         break;
       default:
-        // Do the dialogue here
+        player.sendMessage("I don't do anything yet, but I've always dreamed of selling potions.");
         break;
     }
   }

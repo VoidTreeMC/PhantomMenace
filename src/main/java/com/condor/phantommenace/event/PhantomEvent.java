@@ -51,9 +51,9 @@ public class PhantomEvent extends BukkitRunnable {
   private static final World WORLD = PhantomMain.getPlugin().getServer().getWorld("survival");
   private static ArrayList<ArrayList<ItemStack>> itemAwards = new ArrayList<>();
   private static ArrayList<Double> moneyAwards = new ArrayList<>();
-  private static final double X = 1529.5;
-  private static final double Y = 115;
-  private static final double Z = -2831.5;
+  private static final double X = 485.5;
+  private static final double Y = 94;
+  private static final double Z = -352.5;
   private static final Location loc = new Location(WORLD, X, Y, Z);
 
   public static final String EVENT_METADATA_KEY = "isAnEventPhantom";
@@ -77,12 +77,12 @@ public class PhantomEvent extends BukkitRunnable {
 
   // private static long timeBeforeSetting = 0;
 
-  private final static int ARENA_MIN_Z = -2885;
-  private final static int ARENA_MAX_Z = -2784;
-  private final static int ARENA_MIN_X = 1503;
-  private final static int ARENA_MAX_X = 1555;
-  private final static int ARENA_MIN_Y = 103;
-  private final static int ARENA_MAX_Y = 137;
+  private final static int ARENA_MIN_Z = -396;
+  private final static int ARENA_MAX_Z = -312;
+  private final static int ARENA_MIN_X = 442;
+  private final static int ARENA_MAX_X = 538;
+  private final static int ARENA_MIN_Y = 84;
+  private final static int ARENA_MAX_Y = 130;
 
   // 25 minutes
   private static final long EVENT_MAX_DURATION = 20 * 60 * 30;

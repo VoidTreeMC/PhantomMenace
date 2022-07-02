@@ -48,6 +48,15 @@ public class NPCManager {
 
     FoxVendor foxVendor = new FoxVendor();
     phnpcMap.put(foxVendor.getUniqueId(), foxVendor);
+
+    PotionVendor potionVendor = new PotionVendor();
+    phnpcMap.put(potionVendor.getUniqueId(), potionVendor);
+
+    TurtleBankTeller turtleBankTeller = new TurtleBankTeller();
+    phnpcMap.put(turtleBankTeller.getUniqueId(), turtleBankTeller);
+
+    PenguinBankTeller penguinBankTeller = new PenguinBankTeller();
+    phnpcMap.put(penguinBankTeller.getUniqueId(), penguinBankTeller);
   }
 
   private static NPCPool npcPool;

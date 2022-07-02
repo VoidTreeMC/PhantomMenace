@@ -26,11 +26,11 @@ public class CrowPirate extends PHNPC {
   private static final String NAME = "Poppy";
   private static final UUID UNIQUE_ID = UUID.fromString("bc72acc3-7feb-45a0-b68c-070729c4cd51");
   private static final World WORLD = PhantomMain.getPlugin().getServer().getWorld("survival");
-  private static final double X = 1587.685;
+  private static final double X = 625.656;
   private static final double Y = 79;
-  private static final double Z = -2940.391;
-  private static final float PITCH = -44.9f;
-  private static final float YAW = 4.5f;
+  private static final double Z = -423.616;
+  private static final float PITCH = 18.1f;
+  private static final float YAW = 1.3f;
   private static final Location loc = new Location(WORLD, X, Y, Z, PITCH, YAW);
 
   public CrowPirate() {

@@ -24,15 +24,14 @@ public abstract class Wave {
   private static final long TIME_BETWEEN_PHANTOMS = 5;
 
   private static final int MAX_PHANTOMS = 200;
-  private static final int PHANTOMS_PER_PLAYER = 10;
 
-  final static int ARENA_MIN_Z = -2885;
-  final static int ARENA_MAX_Z = -2784;
-  final static int ARENA_MIN_X = 1503;
-  final static int ARENA_MAX_X = 1555;
+  final static int ARENA_MIN_Z = -396;
+  final static int ARENA_MAX_Z = -312;
+  final static int ARENA_MIN_X = 442;
+  final static int ARENA_MAX_X = 538;
 
   private static final Random rng = new Random();
-  private static final int MAX_DISTANCE = 10;
+  private static final int MAX_DISTANCE = 20;
 
   protected HashMap<PhantomType, Integer> waveMap;
 
@@ -45,14 +44,14 @@ public abstract class Wave {
     Player[] onlinePlayers = Bukkit.getOnlinePlayers().toArray(new Player[1]);
 
     for (Player player : onlinePlayers) {
-      // Bukkit.getLogger().log(Level.INFO, "Evaluating player: " + player.getName());
+      Bukkit.getLogger().log(Level.INFO, "Evaluating player: " + player.getName());
       if (player != null) {
         double x = player.getLocation().getX();
         double z = player.getLocation().getZ();
-        // Bukkit.getLogger().log(Level.INFO, "Less than max X: " + (x <= ARENA_MAX_X));
-        // Bukkit.getLogger().log(Level.INFO, "Less than max Z: " + (z <= ARENA_MAX_Z));
-        // Bukkit.getLogger().log(Level.INFO, "Greater than min X: " + (x >= ARENA_MIN_X));
-        // Bukkit.getLogger().log(Level.INFO, "Greater than min Z: " + (z >= ARENA_MIN_Z));
+        Bukkit.getLogger().log(Level.INFO, "Less than max X: " + (x <= ARENA_MAX_X));
+        Bukkit.getLogger().log(Level.INFO, "Less than max Z: " + (z <= ARENA_MAX_Z));
+        Bukkit.getLogger().log(Level.INFO, "Greater than min X: " + (x >= ARENA_MIN_X));
+        Bukkit.getLogger().log(Level.INFO, "Greater than min Z: " + (z >= ARENA_MIN_Z));
         if (isInArena(x, z)) {
           ret++;
         }

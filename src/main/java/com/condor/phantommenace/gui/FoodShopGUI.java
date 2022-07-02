@@ -41,7 +41,6 @@ public class FoodShopGUI {
     foodMap.put(Material.PUMPKIN_PIE, 1.0);
     foodMap.put(Material.DRIED_KELP, 3.38);
     foodMap.put(Material.TROPICAL_FISH, 6.0);
-
   }
 
   private static boolean canAfford(Player player, double price) {
