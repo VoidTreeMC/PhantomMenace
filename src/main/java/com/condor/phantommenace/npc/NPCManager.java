@@ -7,57 +7,15 @@ import org.bukkit.World;
 import org.bukkit.Location;
 
 import com.condor.phantommenace.main.PhantomMain;
-import com.condor.phantommenace.npc.npcs.*;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
 import com.github.juliarn.npc.NPC;
 import com.github.juliarn.npc.NPCPool;
-import com.github.juliarn.npc.profile.Profile;
-import com.github.juliarn.npc.profile.Profile.Property;
 
 public class NPCManager {
 
   private static HashMap<UUID, PHNPC> phnpcMap = new HashMap<>();
-
-  // Add new NPCs here
-  static {
-    PhantomVendor phantomVendor = new PhantomVendor();
-    phnpcMap.put(phantomVendor.getUniqueId(), phantomVendor);
-
-    LegendaryBlacksmith blacksmith = new LegendaryBlacksmith();
-    phnpcMap.put(blacksmith.getUniqueId(), blacksmith);
-
-    QueenBear queenBear = new QueenBear();
-    phnpcMap.put(queenBear.getUniqueId(), queenBear);
-
-    BartenderRaccoon bartenderRaccoon = new BartenderRaccoon();
-    phnpcMap.put(bartenderRaccoon.getUniqueId(), bartenderRaccoon);
-
-    CrowPirate crowPirate = new CrowPirate();
-    phnpcMap.put(crowPirate.getUniqueId(), crowPirate);
-
-    PirateCaptain pirateCaptain = new PirateCaptain();
-    phnpcMap.put(pirateCaptain.getUniqueId(), pirateCaptain);
-
-    PiratePrisoner piratePrisoner = new PiratePrisoner();
-    phnpcMap.put(piratePrisoner.getUniqueId(), piratePrisoner);
-
-    SubdeckPirate subdeckPirate = new SubdeckPirate();
-    phnpcMap.put(subdeckPirate.getUniqueId(), subdeckPirate);
-
-    FoxVendor foxVendor = new FoxVendor();
-    phnpcMap.put(foxVendor.getUniqueId(), foxVendor);
-
-    PotionVendor potionVendor = new PotionVendor();
-    phnpcMap.put(potionVendor.getUniqueId(), potionVendor);
-
-    TurtleBankTeller turtleBankTeller = new TurtleBankTeller();
-    phnpcMap.put(turtleBankTeller.getUniqueId(), turtleBankTeller);
-
-    PenguinBankTeller penguinBankTeller = new PenguinBankTeller();
-    phnpcMap.put(penguinBankTeller.getUniqueId(), penguinBankTeller);
-  }
 
   private static NPCPool npcPool;
 
@@ -65,40 +23,27 @@ public class NPCManager {
     return phnpcMap.get(uuid);
   }
 
-  /**
-   * Initializes all NPCs
-   */
-  public static void init() {
+  static {
     npcPool = NPCPool.builder(PhantomMain.getPlugin())
       .spawnDistance(60)
       .actionDistance(30)
       .tabListRemoveTicks(20)
       .build();
-
-    for (Entry<UUID, PHNPC> subMap : phnpcMap.entrySet()) {
-      PHNPC phnpc = subMap.getValue();
-      NPC npc = appendNPC(phnpc.getLocation(), phnpc.getProfile());
-      phnpc.setNPC(npc);
-    }
   }
 
   /**
-   * Appends a new NPC to the pool.
-   *
-   * @param location       The location the NPC will be spawned at
+   * Appends a new NPC to the pool
+   * @param newNPC The new NPC
    */
-  public static NPC appendNPC(Location location, Profile profile) {
-    PHNPC target = phnpcMap.get(profile.getUniqueId());
-    boolean isVendor = (phnpcMap.get(profile.getUniqueId()) instanceof PhantomVendor);
-    boolean lookAtPlayer = !((target instanceof SubdeckPirate) || (target instanceof PirateCaptain));
+  public static void appendNPC(PHNPC newNPC) {
     // building the NPC
     NPC npc = NPC.builder()
-      .profile(profile)
-      .location(location)
-      .lookAtPlayer(lookAtPlayer)
-      .imitatePlayer(isVendor)
+      .profile(newNPC.getProfile())
+      .location(newNPC.getLocation())
+      .lookAtPlayer(newNPC.getFaceUser())
       // appending it to the NPC pool
       .build(npcPool);
-    return npc;
+    newNPC.setNPC(npc);
+    phnpcMap.put(newNPC.getUniqueId(), newNPC);
   }
 }
