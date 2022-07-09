@@ -5,6 +5,7 @@ import java.util.Random;
 import java.util.List;
 
 import org.bukkit.event.block.BlockDropItemEvent;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Item;
@@ -112,7 +113,7 @@ public class ReplanterHoe extends CustomItem {
       PlayerInteractEvent pie = (PlayerInteractEvent) event;
       Player player = pie.getPlayer();
       Block clickedBlock = pie.getClickedBlock();
-      if (hasBonemeal(player)) {
+      if (hasBonemeal(player) && pie.getAction() == Action.RIGHT_CLICK_BLOCK) {
         boolean wasBonemealed = clickedBlock.applyBoneMeal(pie.getBlockFace());
         if (wasBonemealed) {
           removeBonemeal(player);
