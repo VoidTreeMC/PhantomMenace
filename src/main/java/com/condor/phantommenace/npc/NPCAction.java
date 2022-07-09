@@ -7,6 +7,8 @@ import com.condor.phantommenace.gui.BlacksmithGUI;
 import com.condor.phantommenace.gui.FoodShopGUI;
 import com.condor.phantommenace.gui.PhantomShopGUI;
 import com.github.juliarn.npc.event.PlayerNPCInteractEvent;
+import com.github.juliarn.npc.event.PlayerNPCInteractEvent.EntityUseAction;
+import com.github.juliarn.npc.event.PlayerNPCInteractEvent.Hand;
 
 public enum NPCAction {
     NONE,
@@ -44,7 +46,9 @@ public enum NPCAction {
                 break;
             case POTION_SHOP:
                 // TODO: Write the potion shop
-                player.sendMessage("I don't do anything yet, but I've always dreamed of selling potions.");
+                if (event.getHand() == Hand.MAIN_HAND && event.getUseAction() == EntityUseAction.INTERACT) {
+                    player.performCommand("shop Potions");
+                }
                 break;
             case NONE:
             default:

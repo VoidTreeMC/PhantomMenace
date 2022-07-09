@@ -19,11 +19,11 @@ public class RecentPlayerDeaths {
   public static final String DIED_DURING_EVENT_METADATA = "diedDuringEvent";
   public static final String ON_FIRE_EVENT_METADATA = "onFireInEvent";
   private static final World WORLD = PhantomMain.getPlugin().getServer().getWorld("survival");
-  private static final double X = 1498.5;
-  private static final double Y = 77;
-  private static final double Z = -2867.5;
-  private static final float PITCH = -88.3f;
-  private static final float YAW = -13.5f;
+  private static final double X = 521.5;
+  private static final double Y = 68;
+  private static final double Z = -404.5;
+  private static final float PITCH = 0f;
+  private static final float YAW = 0f;
   public static final Location PHANTOM_EVENT_RESPAWN_LOCATION = new Location(WORLD, X, Y, Z, PITCH, YAW);
 
   private static HashMap<UUID, Long> idMap = new HashMap<>();
